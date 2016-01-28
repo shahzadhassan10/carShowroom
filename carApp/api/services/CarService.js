@@ -4,13 +4,13 @@ module.exports = {
 		Car.create(car).exec(function createCB(err,created){
   		if(err||!created){
   			next({
-  				status:false,
+  				success:false,
   				errormsg:"Car obj Not created"
   			});
   		}
     	next({
-    		status:true,
-      		data:created.id
+    		success:true,
+      		data:created
     	});
   		});
 	},
@@ -18,19 +18,19 @@ module.exports = {
 		var objId=require('mongodb').ObjectID;
 		if(!id){
 			next({
-	  				status:false,
+	  				success:false,
 	  				errormsg:'Require Id'
 	  			});
 		}else{
 		  	Car.find({id:[objId(id)]}).exec(function findCB(err,car1){
 			if(err||!car1||car1==''){
 		  			next({
-		  				status:false,
+		  				success:false,
 		  				errormsg:'car obj not found '+err
 		  			});
 		  	}else{
 			    next({
-			    	status:true,
+			    	success:true,
 			      	data:car1[0]
 			    });
 			}  	
@@ -41,49 +41,72 @@ module.exports = {
 		Car.find({}).exec(function findCB(err,car1){
 			if(err||!car1||car1==''){
 		  			next({
-		  				status:false,
+		  				success:false,
 		  				errormsg:'No car obj not found '+err
 		  			});
 		  	}else{
 			    next({
-			    	status:true,
-			      	data:JSON.stringify(car1)
+			    	success:true,
+			      	data:car1
 			    });
 			}  	
 		  	});
 	},
 	searchCar:function(srch,next){
-		if(!srch){
-			next({
-				status:false,
-	  			errormsg:'Require search Criteria'
-			});
-		}else{
-			Car.find(srch).exec(function(err,found){
-				if(err||!found){
-					next({
-						status:false,
-		  				errormsg:'Not found'
-					});
-				}else{
-					next({
-						status:true,
-		  				data:found
-					});
-				}
-			});
+		var srchTerm={};
+		if(srch.model&&srch.make&&srch.gtPrice&&srch.ltPrice){
+			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		}else if(srch.model&&srch.make&&srch.gtPrice){
+			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'>=':parseInt(srch.gtPrice)}};
+		}else if(srch.model&&srch.make&&srch.ltPrice){
+			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'<=':parseInt(srch.ltPrice)}};
+		}else if(srch.model&&srch.make){
+			srchTerm={model:[''+srch.model],make:[''+srch.make]};
+		}else if(!srch.model&&!srch.make&&!srch.fPrice&&!srch.tPrice){
+			srchTerm={};
+		}else if(srch.model&&!srch.fPrice&&!srch.tPrice){
+			var val=srch.model+'';
+			val=val.split(',');
+			var arr=[];
+			for(i=0;i<val.length;i++){
+				arr[i]=val[i]+'';
+			}
+			srchTerm={model:arr};
+		}else if(srch.make&&!srch.fPrice&&!srch.tPrice){
+			var val=srch.make+'';
+			val=val.split(',');
+			var arr=[];
+			for(i=0;i<val.length;i++){
+				arr[i]=val[i]+'';
+			}
+			srchTerm={make:arr};
 		}
+		console.log('r '+srchTerm);
+		Car.find(srchTerm).exec(function(err,found){
+			if(err||!found||found==''){
+				next({
+					success:false,
+	  				errormsg:'No Car found'
+				});
+			}else{
+				next({
+					success:true,
+	  				data:found
+				});
+			}
+		});
+		
 
 	},
 	updateCar:function(req,next){
 		if(!req.param('id')){
 			next({
-	  				status:false,
+	  				success:false,
 	  				errormsg:'Require Id'
 	  			});
 		}else{
 			this.getCar(req.param('id'),function(resp){
-				if(resp.status){
+				if(resp.success){
 					//////////// Update Car ////////////
 					var params = req.params.all();
 					var carObj={
@@ -173,13 +196,13 @@ module.exports = {
 				  	Car.update({id:[objId(req.param('id'))]},carObj).exec(function afterwards(err, updated){
 				 	if(err||!updated||updated==''){
 				  			return next({
-				  				status:false,
+				  				success:false,
 				  				errormsg:'Car obj not updated '+err
 				  			});
 				  	}
 				    return next({
-				    	status:true,
-				      	data: 'update car obj with name ' +updated[0].model
+				    	success:true,
+				      	data:updated[0]
 				    });  
 					});
 			  	}else{
@@ -193,19 +216,19 @@ module.exports = {
     	Car.findOne({id:[objId(id)]}).exec(function(err,car){
       		if(err||!car){
         		return next({
-          			status:false,
+          			success:false,
           			errormsg:'Car obj Not Found'
         			});
       		}else{
 		  		Car.destroy({id :[car.id]}).exec(function(err){
 		  		if(err){
 		  			next({
-		  				status:false,
+		  				success:false,
 		  				errormsg:'CAR obj Not deleted'
 		  			});
 		  		}else{
 		  			next({
-		  				status:true,
+		  				success:true,
 		  				data:'Requested Car obj deleted'
 		  			})
 		  		}

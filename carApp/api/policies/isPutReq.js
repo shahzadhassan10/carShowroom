@@ -1,7 +1,7 @@
 module.exports = function isPostReq(req, res, next) {
   if(req.method!='PUT'){
     res.json({
-      status:false,
+      success:false,
       errormsg:'Require PUT Request Method'
     });
 

@@ -10,7 +10,7 @@ module.exports = function isCar (req, res, next) {
 	  	msg+=(req.param('capacity'))?'':'capacity, ';
 	  	msg+=(req.param('transmission'))?'':'transmission';
 	    res.json({
-	      status:false,
+	      success:false,
 	      errormsg:'Require fields: '+msg
 	    });
 

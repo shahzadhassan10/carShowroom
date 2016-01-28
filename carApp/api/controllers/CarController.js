@@ -107,14 +107,8 @@ module.exports = {
 	  	});
   	},
 	searchCar:function(req,res){
-  		var srchTerms=null;
   		var params=req.params.all();
-  		srchTerms={};
-  		srchTerms['model']=(params.model)?params.model:null;
-  		srchTerms['EngineDetails.engineType']=(params.engineType)?params.engineType:null;
-  		srchTerms.splice(0,1);
-  		console.log("e "+srchTerms);
-  		CarService.searchCar(srchTerms,function(resp){
+  		CarService.searchCar(params,function(resp){
   			res.json(resp);
   		});
 

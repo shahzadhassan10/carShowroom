@@ -86,27 +86,27 @@ module.exports = {
       }
       };
       CarService.addCar(carObj,function(resp){
-        if(resp.status){
+        if(resp.success){
           var carId=resp.data;
           var userId='345235252';
           Post.create({date:params.date,phoneNumber:params.phoneNumber,address:params.address,cid:carId,uid:userId}).exec(function createCB(err,created){
           if(err||!created){
               CarService.deleteCar(carId,function(resp){
-                console.log(resp.status);
+                console.log(resp.success);
               return res.json({
-              status:false,
+              success:false,
               errormsg:'Post not created '+err});
             });
               
           }else{
            return res.json({
-              status:true,
-              data:created.id
+              success:true,
+              data:created
               });}
           });
         }else{
           return res.json({
-              status:false,
+              success:false,
               errormsg:'Car obj not created'+resp.errormsg});
         }
 
@@ -126,13 +126,13 @@ module.exports = {
     Post.find({}).exec(function findCB(err,posts){
       if(err||!posts||posts==''){
             res.json({
-              status:false,
+              success:false,
               errormsg:'No Post obj not found '+err
             });
         }else{
           res.json({
-            status:true,
-              data:JSON.stringify(posts)
+            success:true,
+              data:posts
           });
       }   
       });
@@ -157,21 +157,21 @@ module.exports = {
     Post.findOne({id:[objId(req.param('id'))]}).exec(function(err,post){
       if(err||!post){
         return res.json({
-          status:false,
+          success:false,
           errormsg:'Post Not Found'
         });
       }else{
         CarService.deleteCar(post.cid,function(resp){ 
-          if(resp.status){
+          if(resp.success){
           Post.destroy({id :[post.id]}).exec(function(err){
           if(err){
             res.json({
-              status:false,
+              success:false,
               errormsg:'Post Not deleted'
             });
           }else{
              res.json({
-              status:true,
+              success:true,
               data:'Requested Post deleted'
             })
           }

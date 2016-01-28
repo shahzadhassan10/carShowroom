@@ -38,7 +38,8 @@ module.exports.routes = {
   // UserController Routes
   'Post /user/add':'UserController.addUser',
   'Get /user/getUserById':'UserController.getUserById',
-  'Get /user/getUser':'UserController.getUser',
+  'Post /user/loginUser':'UserController.loginUser',
+  'Get /user/logout':'UserController.logout',
   'Get /user/getAllUser':'UserController.getAllUser',
   'Put /user/update':'UserController.updateUser',
   'Delete /user/deleteUser':'UserController.deleteUser',

@@ -6,7 +6,7 @@ module.exports = function isUser (req, res, next) {
   	msg+=(req.param('phoneNumber'))?'':'phoneNumber, ';
   	msg+=(req.param('password'))?'':'password';
     res.json({
-      status:false,
+      success:false,
       errormsg:'Require fields: '+msg
     });
 

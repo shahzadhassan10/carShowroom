@@ -4,6 +4,10 @@ module.exports={
 			type: 'string',
 			required: true
 		},
+		// userName:{
+		// 	type: 'string',
+		// 	required: true
+		// },
 		email:{
 			type: 'email',
 			required: true
