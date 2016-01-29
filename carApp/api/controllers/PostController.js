@@ -87,9 +87,11 @@ module.exports = {
       };
       CarService.addCar(carObj,function(resp){
         if(resp.success){
-          var carId=resp.data;
-          var userId='345235252';
-          Post.create({date:params.date,phoneNumber:params.phoneNumber,address:params.address,cid:carId,uid:userId}).exec(function createCB(err,created){
+          var carId=resp.data.id;
+          var userId=req.session.user;
+          console.log('first');
+          var d = new Date();
+          Post.create({date:d,phoneNumber:params.phoneNumber,address:params.address,cid:carId,uid:userId}).exec(function createCB(err,created){
           if(err||!created){
               CarService.deleteCar(carId,function(resp){
                 console.log(resp.success);
@@ -111,16 +113,6 @@ module.exports = {
         }
 
       });
-
-  	/*Post.create({name:params.name,email:params.email,phoneNumber:params.phoneNumber,password:params.password,city:params.city,address:params.address,role:'Post'}).exec(function createCB(err,created){
-  		if(err){
-  			return res.json({notic:'not created'+err});
-  		}
-    	return res.json({
-      		notice: 'Created Post with name ' +created.name
-    	});
-  	});*/
-    
   },
   getAllPost:function(req,res){
     Post.find({}).exec(function findCB(err,posts){

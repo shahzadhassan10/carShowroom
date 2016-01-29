@@ -107,7 +107,6 @@ module.exports = {
 		}else if(srch.make&&!srch.fPrice&&!srch.tPrice){
 			srchTerm={make:make1};
 		}
-		console.log('r '+srchTerm);
 		Car.find(srchTerm).exec(function(err,found){
 			if(err||!found||found==''){
 				next({
@@ -121,8 +120,6 @@ module.exports = {
 				});
 			}
 		});
-		
-
 	},
 	updateCar:function(req,next){
 		if(!req.param('id')){

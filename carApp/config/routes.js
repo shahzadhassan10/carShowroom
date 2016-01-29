@@ -50,6 +50,8 @@ module.exports.routes = {
   'Put /car/updateCar':'CarController.updateCar',
   'Delete /car/deleteCar':'CarController.deleteCar',
   'Post /car/searchCar':'CarController.searchCar',
+  'Get /car/getAllMakes':'CarController.getAllMakes',
+  'Get /car/getModelsByMake':'CarController.getModelsByMake',
   'Post /upload':'CarController.upload',
   // PostController Routes
   'Post /post/addPost':'PostController.addPost',
