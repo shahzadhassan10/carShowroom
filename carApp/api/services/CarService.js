@@ -14,6 +14,30 @@ module.exports = {
     	});
   		});
 	},
+	uploadImages:function(req,next){
+		req.file('avatar').upload({
+  			dirname:  '../../assets/images',
+  			maxBytes: 10485760
+			},function (err, uploadedFiles) {
+  			if (err) {
+  				next({
+  					success:false,
+  					errormsg:err.message
+  				});
+  			}else{
+  				var imgArray=[];
+  				for(i=0;i<uploadedFiles.length;i++){
+  					var path=uploadedFiles[i].fd+'';
+  					path=path.split('\\');
+  					imgArray[i]=path[path.length-1]+'';
+  				}
+  				next({
+    				success:true, 
+    				data:imgArray
+  				});
+  			}
+		});
+	},
 	getCar:function(id,next){
 		var objId=require('mongodb').ObjectID;
 		if(!id){
@@ -53,33 +77,35 @@ module.exports = {
 		  	});
 	},
 	searchCar:function(srch,next){
-		var srchTerm={};
+		var srchTerm={},model1=[],make1=[];
+		if(srch.model){
+			var val=srch.model+'';
+			val=val.split(',');
+			for(i=0;i<val.length;i++){
+				model1[i]=val[i]+'';
+			}
+		}
+		if(srch.make){
+			var val=srch.make+'';
+			val=val.split(',');
+			for(i=0;i<val.length;i++){
+				make1[i]=val[i]+'';
+			}
+		}
 		if(srch.model&&srch.make&&srch.gtPrice&&srch.ltPrice){
-			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
 		}else if(srch.model&&srch.make&&srch.gtPrice){
-			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'>=':parseInt(srch.gtPrice)}};
+			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice)}};
 		}else if(srch.model&&srch.make&&srch.ltPrice){
-			srchTerm={model:[''+srch.model],make:[''+srch.make],price:{'<=':parseInt(srch.ltPrice)}};
+			srchTerm={model:model1,make:make1,price:{'<=':parseInt(srch.ltPrice)}};
 		}else if(srch.model&&srch.make){
-			srchTerm={model:[''+srch.model],make:[''+srch.make]};
+			srchTerm={model:model1,make:make1};
 		}else if(!srch.model&&!srch.make&&!srch.fPrice&&!srch.tPrice){
 			srchTerm={};
 		}else if(srch.model&&!srch.fPrice&&!srch.tPrice){
-			var val=srch.model+'';
-			val=val.split(',');
-			var arr=[];
-			for(i=0;i<val.length;i++){
-				arr[i]=val[i]+'';
-			}
-			srchTerm={model:arr};
+			srchTerm={model:model1};
 		}else if(srch.make&&!srch.fPrice&&!srch.tPrice){
-			var val=srch.make+'';
-			val=val.split(',');
-			var arr=[];
-			for(i=0;i<val.length;i++){
-				arr[i]=val[i]+'';
-			}
-			srchTerm={make:arr};
+			srchTerm={make:make1};
 		}
 		console.log('r '+srchTerm);
 		Car.find(srchTerm).exec(function(err,found){

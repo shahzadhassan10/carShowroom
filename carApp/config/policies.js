@@ -36,22 +36,24 @@ module.exports.policies = {
   ***************************************************************************/
   UserController:{
     addUser:['isPostReq','isUser'],
-    updateUser:['isId','isLogin','isUser'],
-    deleteUser:['isAdmin','isId'],
+    updateUser:['isPutReq','isLogin','isId','isUser'],
+    deleteUser:['isDeleteReq','isAdmin','isId'],
     getUserById:['isLogin'],
+    loginUser:['isPostReq'],
     logout:['isLogin']
 
   },
   CarController:{
     addCar:['isPostReq','isAdmin','isCar'],
-    updateCar:['isAdmin','isId','isCar'],
+    updateCar:['isPutReq','isAdmin','isId','isCar'],
     getCar:['isAdmin'],
-    deleteCar:['isAdmin','isId',]
+    searchCar:['isPostReq'],
+    deleteCar:['isDeleteReq','isAdmin','isId',]
 
   },
   PostController:{
     addPost:['isPostReq','isLogin','isCar'],
-    deletePost:['isLogin','isId']
+    deletePost:['isDeleteReq','isLogin','isId']
   }
 	// RabbitController: {
 

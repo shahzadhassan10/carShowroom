@@ -4,7 +4,7 @@ module.exports={
 			type: 'string'
 		},
 		date:{
-			type: 'string',
+			type: 'datetime',
 			required: true
 		},
 		address:{

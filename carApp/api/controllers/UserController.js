@@ -5,12 +5,12 @@ module.exports = {
    */
   addUser: function (req, res) {
   	var params = req.params.all();
-  	User.create({name:params.name,email:params.email,phoneNumber:params.phoneNumber,password:params.password,city:params.city,address:params.address,role:'user'}).exec(function createCB(err,created){
-  		if(err){
+  	User.create({name:params.name,email:params.email,phoneNumber:params.phoneNumber,password:params.password,city:params.city,address:params.address,role:'user',isActive:true}).exec(function createCB(err,created){
+  		if(err||!created){
   			return res.json({success:false,errormsg:err});
   		}else{
-        req.session.role=found.role;
-        req.session.user=found.id; 
+      req.session.role=created.role;
+      req.session.user=created.id; 
     	return res.json({
           success:true,
           data: 'Created user with name ' +created.name
@@ -38,7 +38,7 @@ module.exports = {
   loginUser: function (req, res) {
   	var params = req.params.all();
   	User.findOne({email:params.email,password:params.password}).exec(function createCB(err,found){
-  		if(err||!found||found==''){
+  		if(err||!found||found==''||!(found.isActive)){
   			return res.json({
           success:false,
           errormsg:'User not found'});

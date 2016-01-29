@@ -36,22 +36,23 @@ module.exports.routes = {
     view: 'homepage'
   },
   // UserController Routes
-  'Post /user/add':'UserController.addUser',
+  'Post /user/addUser':'UserController.addUser',
   'Get /user/getUserById':'UserController.getUserById',
   'Post /user/loginUser':'UserController.loginUser',
   'Get /user/logout':'UserController.logout',
   'Get /user/getAllUser':'UserController.getAllUser',
-  'Put /user/update':'UserController.updateUser',
+  'Put /user/updateUser':'UserController.updateUser',
   'Delete /user/deleteUser':'UserController.deleteUser',
   // CarController Routes
-  'Post /car/add':'CarController.addCar',
+  'Post /car/addCar':'CarController.addCar',
   'Get /car/getCar':'CarController.getCar',
   'Get /car/getAllCar':'CarController.getAllCar',
-  'Put /car/update':'CarController.updateCar',
+  'Put /car/updateCar':'CarController.updateCar',
   'Delete /car/deleteCar':'CarController.deleteCar',
   'Post /car/searchCar':'CarController.searchCar',
+  'Post /upload':'CarController.upload',
   // PostController Routes
-  'Post /post/add':'PostController.addPost',
+  'Post /post/addPost':'PostController.addPost',
   'Get /post/getPost':'PostController.getPost',
   'Get /post/getAllPost':'PostController.getAllPost',
   'Delete /post/deletePost':'PostController.deletePost',
