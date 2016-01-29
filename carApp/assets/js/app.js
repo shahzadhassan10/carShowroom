@@ -13,47 +13,82 @@ carShowroom.config(['$routeProvider',
   }]);
 
 carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
-  $scope.allMake = [{make: "All"}];
-  $scope.make = "All";
+  $scope.allMakes = ["All Makes"];
+  $scope.make = "All Makes";
   
   $scope.getAllMakes = function() {
-    showRoomService.searchCar('').then(function(response) {
-      console.log(response.data);
-      $scope.allMake.push.apply($scope.allMake, response.data);
+    showRoomService.getAllMakes().then(function(response) {
+      $scope.allMakes.push.apply($scope.allMakes, response.data);
     });
   }
   $scope.getAllMakes();
   
-  $scope.allModel = [];  
+  $scope.allModels = ['All Models'];  
+  $scope.model = $scope.allModels[0];
+
   $scope.getAllModels = function() {
-    $scope.allModel = [];
-    if($scope.make == "All"){
-      $scope.allModel.push('All');
+    showRoomService.getAllModelsByMake($scope.make).then(function(response) {
+      if(response.success){
+        $scope.allModels = response.data;
+      }else{
+        $scope.allModels = ['All Models'];
+      }
+      $scope.model = $scope.allModels[0];
+    });
+  }; 
+
+  $scope.makeChanged = function(){
+    if($scope.make == "All Makes"){
+      $scope.allModels = ['All Models'];
+      $scope.model = $scope.allModels[0];
     }
     else{
-      console.log("else");
-      for(var i=0; i<$scope.allMake.length; i++){        
-         if($scope.make == $scope.allMake[i].make){
-          $scope.allModel.push($scope.allMake[i].model);     
-         }
-      }
+      $scope.getAllModels();
     }
-    $scope.model = $scope.allModel[0];
-  }; 
-  
-  $scope.getAllModels();
-  $scope.makeChanged = function(){
-    console.log("changed.");
-    $scope.getAllModels();
   };
 
-  $scope.matchedCars = {}; 
-  $scope.searchCar = function() {
-    var queryMake = ($scope.make == "All") ? '': $scope.make;
-    var queryModel = ($scope.model == "All") ? '': $scope.model;
+  $scope.priceRange = [1,2,3,4,5,6];
+  $scope.basePrice = 100000;
+  $scope.priceFrom = "From";
+  $scope.priceTo = "To";
 
-    showRoomService.searchCar(queryMake, queryModel).then(function(response) {
-      $scope.matchedCars = response.data;
+  $scope.queriedOnce = false;
+  $scope.matchedCars = {}; 
+  $scope.searchCars = function() {
+    var queryMake = ($scope.make == "All Makes") ? '': $scope.make;
+    var queryModel = ($scope.model == "All Models") ? '': $scope.model;
+    var queryFrom = ($scope.priceFrom == "From") ? '': $scope.priceFrom;
+    var queryTo = ($scope.priceTo == "To") ? '': $scope.priceTo;
+    var qF = Number(queryFrom);
+    var qT = Number(queryTo);
+
+    if(qF > qT){
+      console.log("GREATER");
+      var temp = queryFrom;
+      queryFrom = queryTo;
+      queryTo = temp;
+    }
+
+    showRoomService.getAllCarsByMakeModel(queryMake, queryModel, queryFrom, queryTo).then(function(response) {
+      if(response.success){ 
+        $scope.matchedCars = response.data;
+      } else{
+        $scope.matchedCars = {};
+      }
+      $scope.queriedOnce = true;
     });
   }
+  
+  $scope.resultFound = function(){    
+    if($scope.queriedOnce){
+      return $scope.matchedCars.length > 0;
+    } else {
+      return true;
+    }
+  }
+
+  $scope.imageFound = function(){
+    return false;
+  }
+
 }]);

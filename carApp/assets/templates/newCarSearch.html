@@ -7,26 +7,44 @@
             <div class="form-group">
             <form>
                 <select class="form-control" ng-model="make" ng-change="makeChanged()" >
-                    <option ng-repeat="car in allMake" value="{{car.make}}">{{car.make}}</option>
+                    <option ng-repeat="curMake in allMakes" value="{{curMake}}">{{curMake}}</option>
                 </select>
                 <br>
                 <select class="form-control" ng-model="model">
-                      <option ng-repeat="curModel in allModel" value="{{curModel}}">{{curModel}}</option>
+                      <option ng-repeat="curModel in allModels" value="{{curModel}}">{{curModel}}</option>
                 </select>
                 <br>
+                <select class="form-control" ng-model="priceFrom">
+                      <option value="From" selected='true'>From</option>
+                      <option ng-repeat="price in priceRange" value="{{price*basePrice}}">{{price*basePrice | currency:"Rs":0}}</option>
+                </select>
+                <br>
+                <select class="form-control" ng-model="priceTo">
+                      <option value="To" selected='true'>To</option>
+                      <option ng-repeat="price in priceRange" value="{{price*basePrice}}">{{price*basePrice | currency:"Rs":0}}</option>
+                </select>
+
                 <br>
                 <br>
-               <button type="submit" class="btn btn-primary btn-lg" ng-click="searchCar()">Search</button>
+                <br>
+               <button type="submit" class="btn btn-primary btn-lg" ng-click="searchCars()">Search</button>
             </form>
             </div>
             </div>
         </div>
     </div>
-          
 <br>
 
- <div ng-repeat="car in matchedCars"> 
-                <label>{{ car.make + ' ' + car.model + ' ' + car.version}} </label>
-                <label>{{'   ' + car.price | currency}} </label>
+ <div ng-show="resultFound()">
+     <div ng-repeat="car in matchedCars"> 
+        <label>{{ car.make + ' ' + car.model + ' ' + car.version}} </label>
+        <label>{{'   ' + car.price | currency}} </label>
+        <div ng-show="imageFound()"> <img ng-src="/images/{{car.images[0]}}" width="80px" height="80px"></div>
+     </div>
  </div>
+
+  <div ng-show="!resultFound()">
+    <label> Sorry! We could not find any results against your search criteria. </label>
+  </div>
+
 </div>

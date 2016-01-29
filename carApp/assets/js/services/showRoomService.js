@@ -1,8 +1,28 @@
 carShowroom.service('showRoomService', function($http, $q) {
   return {
-    'searchCar': function(make, model) {
+    'getAllMakes': function() {
     var defer = $q.defer();
-    $http.post('/car/searchCar', {'make':make, 'model': model}).success(function(resp){
+    $http.get('/car/getAllMakes').success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
+
+    'getAllModelsByMake': function(make) {
+    var defer = $q.defer();
+    $http.post('/car/getModelsByMake' , {'make' : make}).success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
+
+    'getAllCarsByMakeModel': function(make, model, pFrom, pTo) {
+    var defer = $q.defer();
+    $http.post('/car/searchCar' , {'make':make, 'model':model, 'gtPrice':pFrom, 'ltPrice':pTo}).success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {
       defer.reject(err);
