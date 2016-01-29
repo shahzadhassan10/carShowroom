@@ -120,6 +120,41 @@ module.exports = {
   		});
 
   	},
+  	getAllMakes:function(req,res){
+  		Car.native(function(err,car){
+  			car.distinct('make', function(err,makes){
+  			if(err||!makes){
+  				res.json({
+     			success:false,
+     			errormsg:"No makes found"
+  				});
+  			}else{
+     		res.json({
+     			success:true,
+     			data:makes
+  			});
+  			}
+		});
+  		});
+  	},
+  	getModelsByMake:function(req,res){
+  		Car.native(function(err,car){
+  			car.distinct('model',{ make:req.get('make') }, function(err,models){
+  			if(err||!models){
+  				res.json({
+     			success:false,
+     			errormsg:"No models found"
+  				});
+  			}else{
+     			res.json({
+     				success:true,
+     				data:models
+  					});
+  			}
+  			});
+		});
+  		
+  	},
  	updateCar: function (req, res) {
 	  	CarService.updateCar(req,function(resp){
 	  		res.json(resp);
