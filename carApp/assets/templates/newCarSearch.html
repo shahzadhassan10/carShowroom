@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1 align="center">Showroom Application</h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+            <div class="form-group">
+            <form>
+                <select class="form-control" ng-model="make" ng-change="makeChanged()" >
+                    <option ng-repeat="car in allMake" value="{{car.make}}">{{car.make}}</option>
+                </select>
+                <br>
+                <select class="form-control" ng-model="model">
+                      <option ng-repeat="curModel in allModel" value="{{curModel}}">{{curModel}}</option>
+                </select>
+                <br>
+                <br>
+                <br>
+               <button type="submit" class="btn btn-primary btn-lg" ng-click="searchCar()">Search</button>
+            </form>
+            </div>
+            </div>
+        </div>
+    </div>
+          
+<br>
+
+ <div ng-repeat="car in matchedCars"> 
+                <label>{{ car.make + ' ' + car.model + ' ' + car.version}} </label>
+                <label>{{'   ' + car.price | currency}} </label>
+ </div>
+</div>
