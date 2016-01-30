@@ -139,7 +139,8 @@ module.exports = {
   	},
   	getModelsByMake:function(req,res){
   		Car.native(function(err,car){
-  			car.distinct('model',{ make:req.param('make') }, function(err,models){
+  			var params=req.params.all();
+  			car.distinct('model',{ make:params.make+''}, function(err,models){
   			if(err||!models){
   				res.json({
      			success:false,
