@@ -195,7 +195,7 @@ module.exports = {
   				version:'Alti'
   			}
   		};
-  		//params.info=info;
+  		console.log("info"+params.info);
   		if(params.info[0]&&params.info[1]&&params.info[2]){
   			srchTerm={model:[params.info[0].model+'',params.info[1].model+'',params.info[2].model+''],
   			make:[params.info[0].make+'',params.info[1].make+'',params.info[2].make+''],
