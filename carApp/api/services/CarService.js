@@ -134,17 +134,55 @@ module.exports = {
 		for(i=0;i<posts.length;i++){
 			ids[i]=objId(posts[i].cid);
 		}
-		console.log('ids '+ids.toString());
-		if(params.name&&params.gtPrice&&params.ltPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
-		}else if(params.name&&params.gtPrice&&!params.ltPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(srch.gtPrice)}};
-		}else if(params.name&&params.ltPrice&&!params.gtPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'<=':parseInt(srch.ltPrice)}};
-		}else if(!params.name&&params.gtPrice&&params.ltPrice){
-			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		//console.log('ids '+ids.toString());
+		if(params.gtPrice&&params.ltPrice){
+			srchTerm.price={'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)};
+		}else if(params.gtPrice){
+			srchTerm.price={'>=':parseInt(params.gtPrice)};
+		}else if(params.ltPrice){
+			srchTerm.price={'<=':parseInt(params.ltPrice)};
 		}
-		console.log('ids '+JSON.stringify(srchTerm));
+		if(params.name){
+			srchTerm.name=params.name+'';
+		}
+		if(params.engineType){
+			srchTerm.EngineDetails={};
+			srchTerm.EngineDetails.engineType=params.engineType+'';
+		}
+		if(params.capacityFrom&&params.capacityTo){
+			srchTerm.EngineDetails.capacity={'>=':parseInt(params.capacityFrom),'<=':parseInt(params.capacityTo)};
+		}else if(params.capacityFrom){
+			srchTerm.EngineDetails.capacity={'>=':parseInt(params.capacityFrom)};
+		}else if(params.capacityTo){
+			srchTerm.EngineDetails.capacity={'<=':parseInt(params.capacityTo)};
+		}
+		if(params.yearFrom&&params.yearTo){
+			srchTerm.modelYear={'>=':parseInt(params.yearFrom),'<=':parseInt(params.yearTo)};
+		}else if(params.yearFrom){
+			srchTerm.modelYear={'>=':parseInt(params.yearFrom)};
+		}else if(params.yearTo){
+			srchTerm.modelYear={'<=':parseInt(params.yearTo)};
+		}
+		/*if(params.name&&params.gtPrice&&params.ltPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)}};
+		}else if(params.name&&params.gtPrice&&!params.ltPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(params.gtPrice)}};
+		}else if(params.name&&params.ltPrice&&!params.gtPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'<=':parseInt(params.ltPrice)}};
+		}else if(!params.name&&params.gtPrice&&params.ltPrice){
+			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)}};
+		}else if(params.name&&!params.gtPrice&&!params.ltPrice){
+			srchTerm={id:ids,isNew:false,name:params.name};
+		}else if(!params.name&&params.gtPrice&&!params.ltPrice){
+			srchTerm={id:ids,isNew:false,price:{'<=':parseInt(params.ltPrice)}};
+		}else if(!params.name&&!params.gtPrice&&params.ltPrice){
+			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(params.gtPrice)}};
+		}else{
+			srchTerm={id:ids,isNew:false};
+		}*/
+		//console.log('ids '+JSON.stringify(srchTerm));
+		srchTerm.id=ids;
+		srchTerm.isNew=false;
 		Car.find(srchTerm).exec(function(err,found){
 			if(err||!found||found==''){
 				next({

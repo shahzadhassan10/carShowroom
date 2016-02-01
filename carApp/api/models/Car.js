@@ -20,7 +20,7 @@ module.exports={
 			required: true
 		},
 		modelYear:{
-			type: 'string',
+			type: 'integer',
 			required: true
 		},
 		registrationCopy:{
