@@ -7,28 +7,66 @@
             <div class="form-group">
             <form>
                 <table>
-                    <tr>
-                    <td><select class="form-control" ng-model="make1" ng-change="makeChanged1()">
+                <tr>
+                    <td><select class="form-control" ng-model="query1.make" ng-change="makeChanged1()">
                         <option ng-repeat="curMake in allMakes1" value="{{curMake}}">{{curMake}}</option>
                     </select>
                     </td>
-                    <td><select class="form-control" ng-model="model1" ng-change="modelChanged1()">
+                    <td><select class="form-control" ng-model="query1.model" ng-change="modelChanged1()">
                           <option ng-repeat="curModel in allModels1" value="{{curModel}}">{{curModel}}</option>
                     </select>
                     </td>
-                    <td><select class="form-control" ng-model="varsion1">
-                          <option ng-repeat="curVarsion in allVarsions1" value="{{curVarsion}}">{{curVarsion}}</option>
+                    <td><select class="form-control" ng-model="query1.version">
+                          <option ng-repeat="curVersion in allVersions1" value="{{curVersion}}">{{curVersion}}</option>
                     </select>
                     </td>
-
-                   </tr>
+                </tr>
+                <tr>
+                    <td><select class="form-control" ng-model="query2.make" ng-change="makeChanged2()">
+                        <option ng-repeat="curMake in allMakes2" value="{{curMake}}">{{curMake}}</option>
+                    </select>
+                    </td>
+                    <td><select class="form-control" ng-model="query2.model" ng-change="modelChanged2()">
+                          <option ng-repeat="curModel in allModels2" value="{{curModel}}">{{curModel}}</option>
+                    </select>
+                    </td>
+                    <td><select class="form-control" ng-model="query2.version">
+                          <option ng-repeat="curVersion in allVersions2" value="{{curVersion}}">{{curVersion}}</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><select class="form-control" ng-model="query3.make" ng-change="makeChanged3()">
+                        <option ng-repeat="curMake in allMakes3" value="{{curMake}}">{{curMake}}</option>
+                    </select>
+                    </td>
+                    <td><select class="form-control" ng-model="query3.model" ng-change="modelChanged3()">
+                          <option ng-repeat="curModel in allModels3" value="{{curModel}}">{{curModel}}</option>
+                    </select>
+                    </td>
+                    <td><select class="form-control" ng-model="query3.version">
+                          <option ng-repeat="curVersion in allVersions3" value="{{curVersion}}">{{curVersion}}</option>
+                    </select>
+                    </td>
+                </tr>
                </table>
                <br>
-               <button type="submit" class="btn btn-primary btn-lg" ng-click="searchCars()">Compare</button>
+               <button type="submit" class="btn btn-primary btn-lg" ng-click="compareCars()">Compare</button>
             </form>
             </div>
             </div>
         </div>
     </div>
 <br>
+</div>
+
+<div class="container" style="background-color:lavenderblush;">
+    <table>
+        <th> Price </th>
+        <th> Model </th>
+    <tr ng-repeat="car in newCompCars">
+        <td> {{car.price}} </td>
+        <td> {{car.modelYear}} </td>
+    </tr>
+    </table>
 </div>

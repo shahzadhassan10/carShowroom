@@ -22,6 +22,7 @@ carShowroom.service('showRoomService', function($http, $q) {
     
     'getVersionsByMakeAndModels': function(make, model) {
     var defer = $q.defer();
+
     $http.post('/car/getVersionsByMakeAndModels' , {'make' : make, 'model' : model}).success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {
@@ -40,4 +41,17 @@ carShowroom.service('showRoomService', function($http, $q) {
     return defer.promise;
     },
 
+    'getCarsByJson': function(carObj1, carObj2, carObj3) {
+      console.log("carObj1" + carObj1);
+      console.log("carObj2" + carObj2);
+      console.log("carObj3" + carObj3);
+
+    var defer = $q.defer();  
+    $http.post('/car/getCarsByJson' , {'info' : {carObj1, carObj2, carObj3}}).success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
 }});
