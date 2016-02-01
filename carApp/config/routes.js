@@ -54,11 +54,13 @@ module.exports.routes = {
   'Post /car/getModelsByMake':'CarController.getModelsByMake',
   'Post /car/getVersionsByMakeAndModels':'CarController.getVersionsByMakeAndModels',
   'Post /car/getCarByMakeModelAndVersion':'CarController.getCarByMakeModelAndVersion',
+  'Post /car/getCarsByJson':'CarController.getCarsByJson',
   'Post /upload':'CarController.upload',
   // PostController Routes
   'Post /post/addPost':'PostController.addPost',
   'Get /post/getPost':'PostController.getPost',
   'Get /post/getAllPost':'PostController.getAllPost',
+  'Post /post/getPostByCity':'PostController.getPostByCity',
   'Delete /post/deletePost':'PostController.deletePost',
 
 

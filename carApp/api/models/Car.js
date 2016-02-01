@@ -1,5 +1,12 @@
 module.exports={
 	attributes:{
+		name:{
+			type: 'string',
+			required: true
+		},
+		isNew:{
+			type:'boolean'
+		},
 		model:{
 			type: 'string',
 			required: true

@@ -8,8 +8,9 @@ module.exports={
 			type: 'datetime',
 			required: true
 		},
-		address:{
-			type: 'string'
+		city:{
+			type: 'string',
+			required: true
 		},
 		cid:{
 			type:'string',

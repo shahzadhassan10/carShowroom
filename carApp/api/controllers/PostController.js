@@ -5,6 +5,8 @@ module.exports = {
   addPost: function (req, res) {
   	var params = req.params.all();
     var carObj={
+      name:params.make+' '+params.model+' '+params.version,
+      isNew:false,
       model:params.model,
       version:params.version,
       make:params.make,
@@ -89,9 +91,8 @@ module.exports = {
         if(resp.success){
           var carId=resp.data.id;
           var userId=req.session.user;
-          console.log('first');
           var d = new Date();
-          Post.create({date:d,phoneNumber:params.phoneNumber,address:params.address,cid:carId,uid:userId}).exec(function createCB(err,created){
+          Post.create({date:d,phoneNumber:params.phoneNumber,city:params.city,cid:carId,uid:userId}).exec(function createCB(err,created){
           if(err||!created){
               CarService.deleteCar(carId,function(resp){
                 console.log(resp.success);
@@ -131,7 +132,7 @@ module.exports = {
 
   },
    getPost: function (req, res) {
-  	var params = req.params.all();
+    var params = req.params.all();
 
     res.send('ok');
   	/*Post.findOne({email:params.email,password:params.password}).exec(function createCB(err,created){
@@ -143,6 +144,43 @@ module.exports = {
     	});
   	});*/
     
+  },
+  getPostByCity:function(req,res){
+    var params=req.params.all();
+    Post.find({city:params.city}).exec(function findCB(err,posts){
+      if(err||!posts||posts==''){
+            res.json({
+              success:false,
+              errormsg:'No Post obj found '+err
+            });
+        }else{
+          CarService.searchUsedCars(posts,params,function(resp){
+            if(resp.success){
+                var selectedPost=[];
+                for(i=0;i<resp.data.length;i++){
+                    for(j=0;j<posts.length;j++){
+                      if(posts[j].cid==resp.data[i].id)
+                        selectedPost[i]=posts[j];
+                    }
+                }
+                res.json({
+                success:true,
+                data:selectedPost
+              });
+
+            }else{
+               res.json({
+                success:false,
+                errormsg:'No Post obj found '+err
+                });
+            }
+          });
+          res.json({
+            success:true,
+            data:posts
+          });
+      }   
+      });
   },
   deletePost: function (req, res) {
     var objId=require('mongodb').ObjectID;

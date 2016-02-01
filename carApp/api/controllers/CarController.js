@@ -15,6 +15,8 @@ module.exports = {
 			console.log(resp.data+'');
 		  	var params = req.params.all();
 		  	var carObj={
+		  		name:params.make+' '+params.model+' '+params.version,
+		  		isNew:true,
 		  		model:params.model,
 				version:params.version,
 				make:params.make,
@@ -169,6 +171,52 @@ module.exports = {
 			    res.json({
 			    	success:true,
 			      	data:car1[0]
+			    });
+			}  	
+		  	});
+  	},
+  	getCarsByJson:function(req,res){
+  		var params=req.params.all();
+  		var srchTerm={};
+  		var info={
+  			0:{
+  				make:'Honda',
+  				model:'City',
+  				version:'i-VTEC'
+  			},
+  			1:{
+  				make:'Toyota',
+  				model:'Corolla',
+  				version:'Altis'
+  			},
+  			2:{
+  				make:'Toyot',
+  				model:'Coroll',
+  				version:'Alti'
+  			}
+  		};
+  		//params.info=info;
+  		if(params.info[0]&&params.info[1]&&params.info[2]){
+  			srchTerm={model:[params.info[0].model+'',params.info[1].model+'',params.info[2].model+''],
+  			make:[params.info[0].make+'',params.info[1].make+'',params.info[2].make+''],
+  			version:[params.info[0].version+'',params.info[1].version+'',params.info[2].version+'']
+  		};
+  		}else if(params.info[0]&&params.info[1]&&!params.info[2]){
+  			srchTerm={model:[params.info[0].model+'',params.info[1].model+''],
+  			make:[params.info[0].make+'',params.info[1].make+''],
+  			version:[params.info[0].version+'',params.info[1].version+'']
+  		};
+  		}
+  		Car.find(srchTerm).exec(function findCB(err,car1){
+			if(err||!car1||car1==''){
+		  			res.json({
+		  				success:false,
+		  				errormsg:'car obj not found '+err
+		  			});
+		  	}else{
+			    res.json({
+			    	success:true,
+			      	data:car1
 			    });
 			}  	
 		  	});

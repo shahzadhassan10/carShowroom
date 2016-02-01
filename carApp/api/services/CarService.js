@@ -127,6 +127,38 @@ module.exports = {
 			}
 		});
 	},
+	searchUsedCars:function(posts,params,next){
+		var srchTerm={};
+		var ids=[];
+		var objId=require('mongodb').ObjectID;
+		for(i=0;i<posts.length;i++){
+			ids[i]=objId(posts[i].cid);
+		}
+		console.log('ids '+ids.toString());
+		if(params.name&&params.gtPrice&&params.ltPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		}else if(params.name&&params.gtPrice&&!params.ltPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(srch.gtPrice)}};
+		}else if(params.name&&params.ltPrice&&!params.gtPrice){
+			srchTerm={id:ids,isNew:false,name:params.name,price:{'<=':parseInt(srch.ltPrice)}};
+		}else if(!params.name&&params.gtPrice&&params.ltPrice){
+			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		}
+		console.log('ids '+JSON.stringify(srchTerm));
+		Car.find(srchTerm).exec(function(err,found){
+			if(err||!found||found==''){
+				next({
+					success:false,
+	  				errormsg:'No Car found'
+				});
+			}else{
+				next({
+					success:true,
+	  				data:found
+				});
+			}
+		});
+	},
 	updateCar:function(req,next){
 		if(!req.param('id')){
 			next({
@@ -139,6 +171,8 @@ module.exports = {
 					//////////// Update Car ////////////
 					var params = req.params.all();
 					var carObj={
+						name:((params.make)?params.make:resp.data.make)+' '+((params.model)?params.model:resp.data.model)+' '+((params.version)?params.version:resp.data.version),
+						isNew:resp.data.isNew,
 				  		model:(params.model)?params.model:resp.data.model,
 						version:(params.version)?params.version:resp.data.version,
 						make:(params.make)?params.make:resp.data.make,
