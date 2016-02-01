@@ -21,7 +21,7 @@ module.exports = {
           transmission:params.transmission,
           displacement:(params.displacement)?parseInt(params.displacement):0,
           power:(params.power)?parseInt(params.power):0,
-          torque:(params.torque)??parseInt(params.torque):0,
+          torque:(params.torque)?parseInt(params.torque):0,
           gear:(params.gear)?parseInt(params.gear):0,
           valveMechanism:params.valveMechanism,
           comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):0,
@@ -45,7 +45,7 @@ module.exports = {
       Specification:{
         mileage:(params.mileage)?parseInt(params.mileage):0,
         assembly:params.assembly,
-        minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.,minimumTurningRadius):0,
+        minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):0,
         fuelType:params.fuelType,
         frontSuspension:params.frontSuspension,
         rearSuspension:params.rearSuspension,
