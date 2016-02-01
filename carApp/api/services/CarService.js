@@ -100,12 +100,18 @@ module.exports = {
 			srchTerm={model:model1,make:make1,price:{'<=':parseInt(srch.ltPrice)}};
 		}else if(srch.model&&srch.make){
 			srchTerm={model:model1,make:make1};
-		}else if(!srch.model&&!srch.make&&!srch.fPrice&&!srch.tPrice){
+		}else if(!srch.model&&!srch.make&&!srch.gtPrice&&!srch.ltPrice){
 			srchTerm={};
-		}else if(srch.model&&!srch.fPrice&&!srch.tPrice){
+		}else if(srch.model&&!srch.gtPrice&&!srch.ltPrice){
 			srchTerm={model:model1};
-		}else if(srch.make&&!srch.fPrice&&!srch.tPrice){
+		}else if(srch.make&&!srch.gtPrice&&!srch.ltPrice){
 			srchTerm={make:make1};
+		}else if(srch.gtPrice&&srch.ltPrice){
+			srchTerm={price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		}else if(srch.gtPrice){
+			srchTerm={price:{'>=':parseInt(srch.gtPrice)}};
+		}else if(srch.ltPrice){
+			srchTerm={price:{'<=':parseInt(srch.ltPrice)}};
 		}
 		Car.find(srchTerm).exec(function(err,found){
 			if(err||!found||found==''){
