@@ -1,6 +1,7 @@
 <div class="container">
     <div class="jumbotron">
-        <h1 align="center">Showroom Application</h1>
+      <a href="/#/compare"> Compare </a>
+        <h1 align="center">Showroom Application Search</h1>
         <br>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
@@ -34,17 +35,19 @@
         </div>
     </div>
 <br>
+</div>
 
- <div ng-show="resultFound()">
+<div class="container" >
+ <div ng-show="resultFound()" style="background-color:lavenderblush;">
      <div ng-repeat="car in matchedCars"> 
         <label>{{ car.make + ' ' + car.model + ' ' + car.version}} </label>
-        <label>{{'   ' + car.price | currency}} </label>
-        <div ng-show="imageFound()"> <img ng-src="/images/{{car.images[0]}}" width="80px" height="80px"></div>
+        <label><mark>{{'   ' + car.price | currency}} </mark></label>
+      <!--  <img ng-src="/images/{{car.images[0]}}" width="80px" height="80px"> -->
+
      </div>
  </div>
 
-  <div ng-show="!resultFound()">
+  <div ng-show="!resultFound()" style="background-color:lavender;">
     <label> Sorry! We could not find any results against your search criteria. </label>
   </div>
-
 </div>

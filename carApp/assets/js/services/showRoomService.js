@@ -19,9 +19,19 @@ carShowroom.service('showRoomService', function($http, $q) {
     });
     return defer.promise;
     },
+    
+    'getVersionsByMakeAndModels': function(make, model) {
+    var defer = $q.defer();
+    $http.post('/car/getVersionsByMakeAndModels' , {'make' : make, 'model' : model}).success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
 
     'getAllCarsByMakeModel': function(make, model, pFrom, pTo) {
-    var defer = $q.defer();
+    var defer = $q.defer();  
     $http.post('/car/searchCar' , {'make':make, 'model':model, 'gtPrice':pFrom, 'ltPrice':pTo}).success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {

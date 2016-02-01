@@ -1,12 +1,18 @@
 'use strict';
 
-var carShowroom = angular.module('carShowroom', ['ngRoute', 'ui.bootstrap']);
+var carShowroom = angular.module('carShowroom', ['NewCarCompare', 'ngRoute', 'ui.bootstrap']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
-    $routeProvider.when('/', {
+    $routeProvider
+    .when('/', {
       templateUrl: '/templates/newCarSearch.html',
       controller: 'NewCarCtrl'
-    }).otherwise({
+    })
+    .when('/compare', {
+      templateUrl: '/templates/newCarCompare.html',
+      controller: 'NewCarCompareCtrl'
+    })
+    .otherwise({
       redirectTo: '/',
       caseInsensitiveMatch: true
     })
@@ -47,7 +53,7 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
     }
   };
 
-  $scope.priceRange = [1,2,3,4,5,6];
+  $scope.priceRange = [1,2,3,4,5,6, 10, 15, 20, 30, 50, 80, 100, 150, 200];
   $scope.basePrice = 100000;
   $scope.priceFrom = "From";
   $scope.priceTo = "To";
@@ -62,7 +68,7 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
     var qF = Number(queryFrom);
     var qT = Number(queryTo);
 
-    if(qF > qT){
+    if(qF>0 && qT>0 && (qF > qT) ){
       console.log("GREATER");
       var temp = queryFrom;
       queryFrom = queryTo;
@@ -72,6 +78,7 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
     showRoomService.getAllCarsByMakeModel(queryMake, queryModel, queryFrom, queryTo).then(function(response) {
       if(response.success){ 
         $scope.matchedCars = response.data;
+        console.log('cars found :' + $scope.matchedCars.length);
       } else{
         $scope.matchedCars = {};
       }
