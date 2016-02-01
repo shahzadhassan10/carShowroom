@@ -156,6 +156,41 @@ module.exports = {
 		});
   		
   	},
+  	getCarByMakeModelAndVersion:function(req,res){
+  		var objId=require('mongodb').ObjectID;
+  		var params=req.params.all();
+  		Car.find({make:params.make+'',model:params.model+'',version:params.version+''}).exec(function findCB(err,car1){
+			if(err||!car1||car1==''){
+		  			res.json({
+		  				success:false,
+		  				errormsg:'car obj not found '+err
+		  			});
+		  	}else{
+			    res.json({
+			    	success:true,
+			      	data:car1[0]
+			    });
+			}  	
+		  	});
+  	},
+  	getVersionsByMakeAndModels:function(req,res){
+  		Car.native(function(err,car){
+  			var params=req.params.all();
+  			car.distinct('version',{ make:params.make+'',model:params.model+''}, function(err,versions){
+  			if(err||!versions){
+  				res.json({
+     			success:false,
+     			errormsg:"No Such Versions found"
+  				});
+  			}else{
+     			res.json({
+     				success:true,
+     				data:versions
+  					});
+  			}
+  			});
+		});
+  	},
  	updateCar: function (req, res) {
 	  	CarService.updateCar(req,function(resp){
 	  		res.json(resp);
