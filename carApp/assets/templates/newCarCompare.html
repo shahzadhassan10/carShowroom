@@ -60,13 +60,24 @@
 <br>
 </div>
 
-<div class="container" style="background-color:lavenderblush;">
-    <table>
-        <th> Price </th>
-        <th> Model </th>
-    <tr ng-repeat="car in newCompCars">
-        <td> {{car.price}} </td>
-        <td> {{car.modelYear}} </td>
-    </tr>
-    </table>
+<div class="container">
+  <h2>Comparison</h2>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Spec</th>
+        <th>{{query1.make}}</th>
+        <th>{{query2.make}}</th>
+        <th>{{query3.make}}</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="car in newCompCars">
+        <td>{{car.key}}</td>
+        <td>{{car.val1}}</td>
+        <td>{{car.val2}}</td>
+        <td>{{car.val3}}</td>
+        </tr>
+    </tbody>
+  </table>
 </div>

@@ -183,14 +183,19 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
       $scope.getAllVersions3();
     }
   };
-  $scope.newCompCars = {};
+  $scope.newCompCars = [];
+
   $scope.compareCars = function() {
      showRoomService.getCarsByJson($scope.query1, $scope.query2, $scope.query3).then(function(response) {
+      $scope.newCompCars = [];
       if(response.success){ 
-        $scope.newCompCars = response.data;
-        console.log('cars found :' + $scope.newCompCars.length);
+        $scope.newCompCars.push({'key':'Model Year', 'val1':response.data[0].modelYear, 'val2':response.data[1].modelYear, 'val3':response.data[2].modelYear});
+        $scope.newCompCars.push({'key':'Price', 'val1':response.data[0].price, 'val2':response.data[1].price, 'val3':response.data[2].price});
+        $scope.newCompCars.push({'key':'Engine Type', 'val1':response.data[0].EngineDetails.engineType, 'val2':response.data[1].EngineDetails.engineType, 'val3':response.data[2].EngineDetails.engineType});
+        
+        console.log('cars are :' + $scope.newCompCars.length);
       } else{
-        $scope.newCompCars = {};
+        console.log('Some error occurred.');
       }
     });
   };
