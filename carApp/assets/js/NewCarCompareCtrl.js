@@ -5,6 +5,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
   var _ALL_MODELS = "All Models";
   var _ALL_VERSIONS = "All Versions";
   var _TOTAL_SLOTS = 3;
+  var _NA_STRING = "--";
 
   var valuesChanged = false;
 
@@ -33,7 +34,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
 
   $scope.getAllModels = function(index) {
     showRoomService.getAllModelsByMake($scope.querries[index].make).then(function(response) {
-      if(response.success){
+      if(response.success && response.data != null && response.data.length > 0){
         $scope.listData[index].models = response.data;
       }else{
         $scope.listData[index].models = [_ALL_MODELS];
@@ -69,7 +70,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
 
   $scope.getAllVersions = function(index) {
     showRoomService.getVersionsByMakeAndModels($scope.querries[index].make, $scope.querries[index].model).then(function(response) {
-      if(response.success){
+      if(response.success && response.data != null && response.data.length > 0){
         $scope.listData[index].versions = response.data;
       }else{
         $scope.listData[index].versions = [_ALL_VERSIONS];
@@ -115,10 +116,10 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
       $scope.tableHeadings = [];
       $scope.queriedOnce = true;
 
-      if(response.success && response.data != null && response.data.length >= 1){ 
+      if(response.success && response.data != null && response.data.length > 0){ 
         $scope.showDetails = true;
-        var isSecPresent = (response.data.length > 1 && response.data[1] != null);
-        var isThirdPresent = (isSecPresent && response.data.length >2 && response.data[2] != null);
+        var isSecPresent = hasValueAt(response.data, 1);
+        var isThirdPresent = hasValueAt(response.data, 2);
         parseHeadings(response.data, isSecPresent, isThirdPresent);
         parseDisplayData(response.data, isSecPresent, isThirdPresent);
       } else{
@@ -127,28 +128,38 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
       }
      });
     }
-
   };
+  var hasValueAt = function(data, index){
+    return (data.length > index && data[index] != null);
+  }
   var parseHeadings = function(cars, isSec, isThird){
-    var c1m = cars[0].make + ' ' + cars[0].model + ' ' + cars[0].version;
-    var c2m = isSec?cars[1].make + ' ' +  cars[1].model + ' ' + cars[1].version: '--';
-    var c3m = isThird?cars[2].make + ' ' +  cars[2].model + ' ' + cars[2].version: '--';
+    var c1m = cars[0].name;
+    var c2m = isSec?cars[1].name: _NA_STRING;
+    var c3m = isThird?cars[2].name: _NA_STRING;
     $scope.tableHeadings.push('Specs', c1m, c2m, c3m)
   };
 
   var parseDisplayData = function(cars, isSec, isThird){
-    var val2 = isSec?cars[1].modelYear:'--';
-    var val3 = isThird?cars[2].modelYear:'--';
-    $scope.newCompCars.push({'key':'Model Year', 'val1':cars[0].modelYear, 'val2':val2, 'val3':val3});
+    var kies = [['modelYear', 'Model Year'], 
+                ['price', 'Price'], 
+                ['registrationCopy', 'Registration Copy'],
+                ['description', 'Description'],
+                ['make', 'Make']];
 
-    var val2 = isSec?cars[1].price:'--';    
-    val3 = isThird?cars[2].price:'--';
-    $scope.newCompCars.push({'key':'Price', 'val1':cars[0].price, 'val2':val2, 'val3':val3});
-
-    var val2 = isSec?cars[1].EngineDetails.engineType:'--';    
-    val3 = isThird?cars[2].EngineDetails.engineType:'--';
-    $scope.newCompCars.push({'key':'Engine Type', 'val1':cars[0].EngineDetails.engineType, 'val2':val2, 'val3':val3});
+    var total = kies.length;
+    for (var i = 0; i < total; i++) {
+      var specName = kies[i][1];
+      var key = kies[i][0];
+      var val1 = getNormValue(cars[0], key);
+      var val2 = isSec?getNormValue(cars[1], key): _NA_STRING;
+      var val3 = isThird?getNormValue(cars[2], key): _NA_STRING;
+      $scope.newCompCars.push({'spec':specName, 'val1':val1, 'val2':val2, 'val3':val3});
+    }
   };
+  var getNormValue = function(car, key){
+     var normVal = car[key]!= null?car[key]: _NA_STRING;
+     return normVal;
+  }
 
   $scope.isQueryValid = function() {
     var sel = 0;
