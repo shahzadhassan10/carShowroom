@@ -98,6 +98,8 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
   $scope.showDetails = false;
   $scope.queriedOnce = false;
 
+  $scope.showInsufData = false;
+
   $scope.compareCars = function() {
     if(!valuesChanged){
       return;
@@ -105,6 +107,8 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
     valuesChanged = false;
     
     var isValid = $scope.isQueryValid();
+    $scope.showInsufData = !isValid;
+    
     if(isValid){
      showRoomService.getCarsByJson($scope.querries[0], $scope.querries[1], $scope.querries[2]).then(function(response) {
       $scope.newCompCars = [];
@@ -122,9 +126,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
         console.log('Some error occurred.' + response.data.errormsg);
       }
      });
-    } else {
-      $scope.showDetails = false;
-   }
+    }
 
   };
   var parseHeadings = function(cars, isSec, isThird){
