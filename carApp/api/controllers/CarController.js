@@ -124,7 +124,7 @@ module.exports = {
   	},
   	getAllMakes:function(req,res){
   		Car.native(function(err,car){
-  			car.distinct('make', function(err,makes){
+  			car.distinct('make',{isNew:true}, function(err,makes){
   			if(err||!makes){
   				res.json({
      			success:false,
@@ -142,7 +142,7 @@ module.exports = {
   	getModelsByMake:function(req,res){
   		Car.native(function(err,car){
   			var params=req.params.all();
-  			car.distinct('model',{ make:params.make+''}, function(err,models){
+  			car.distinct('model',{ make:params.make+'',isNew:true}, function(err,models){
   			if(err||!models){
   				res.json({
      			success:false,
@@ -161,7 +161,7 @@ module.exports = {
   	getCarByMakeModelAndVersion:function(req,res){
   		var objId=require('mongodb').ObjectID;
   		var params=req.params.all();
-  		Car.find({make:params.make+'',model:params.model+'',version:params.version+''}).exec(function findCB(err,car1){
+  		Car.find({make:params.make+'',model:params.model+'',version:params.version+'',isNew:true}).exec(function findCB(err,car1){
 			if(err||!car1||car1==''){
 		  			res.json({
 		  				success:false,
@@ -181,12 +181,13 @@ module.exports = {
   		if(params.info.carObj1&&params.info.carObj2&&params.info.carObj3){
   			srchTerm={model:[params.info.carObj1.model+'',params.info.carObj2.model+'',params.info.carObj3.model+''],
   			make:[params.info.carObj1.make+'',params.info.carObj2.make+'',params.info.carObj3.make+''],
-  			version:[params.info.carObj1.version+'',params.info.carObj2.version+'',params.info.carObj3.version+'']
+  			version:[params.info.carObj1.version+'',params.info.carObj2.version+'',params.info.carObj3.version+''],
+  			isNew:true
   		};
   		}else if(params.info.carObj1&&params.info.carObj2&&!params.info.carObj3){
   			srchTerm={model:[params.info.carObj1.model+'',params.info.carObj2.model+''],
   			make:[params.info.carObj1.make+'',params.info.carObj2.make+''],
-  			version:[params.info.carObj1.version+'',params.info.carObj2.version+'']
+  			version:[params.info.carObj1.version+'',params.info.carObj2.version+''],isNew:true
   		};
   		}
   		if(srchTerm){
@@ -213,7 +214,7 @@ module.exports = {
   	getVersionsByMakeAndModels:function(req,res){
   		Car.native(function(err,car){
   			var params=req.params.all();
-  			car.distinct('version',{ make:params.make+'',model:params.model+''}, function(err,versions){
+  			car.distinct('version',{ make:params.make+'',model:params.model+'',isNew:true}, function(err,versions){
   			if(err||!versions){
   				res.json({
      			success:false,

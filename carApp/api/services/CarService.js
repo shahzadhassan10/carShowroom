@@ -84,6 +84,7 @@ module.exports = {
 			for(i=0;i<val.length;i++){
 				model1[i]=val[i]+'';
 			}
+			srchTerm.model=model1;
 		}
 		if(srch.make){
 			var val=srch.make+'';
@@ -91,8 +92,9 @@ module.exports = {
 			for(i=0;i<val.length;i++){
 				make1[i]=val[i]+'';
 			}
+			srchTerm.make=make1;
 		}
-		if(srch.model&&srch.make&&srch.gtPrice&&srch.ltPrice){
+		/*if(srch.model&&srch.make&&srch.gtPrice&&srch.ltPrice){
 			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
 		}else if(srch.model&&srch.make&&srch.gtPrice){
 			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice)}};
@@ -106,13 +108,14 @@ module.exports = {
 			srchTerm={model:model1};
 		}else if(srch.make&&!srch.gtPrice&&!srch.ltPrice){
 			srchTerm={make:make1};
-		}else if(srch.gtPrice&&srch.ltPrice){
-			srchTerm={price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
+		}else*/ if(srch.gtPrice&&srch.ltPrice){
+			srchTerm.price={'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)};
 		}else if(srch.gtPrice){
-			srchTerm={price:{'>=':parseInt(srch.gtPrice)}};
+			srchTerm.price={'>=':parseInt(srch.gtPrice)};
 		}else if(srch.ltPrice){
-			srchTerm={price:{'<=':parseInt(srch.ltPrice)}};
+			srchTerm.price={'<=':parseInt(srch.ltPrice)};
 		}
+		srchTerm.isNew=true;
 		Car.find(srchTerm).exec(function(err,found){
 			if(err||!found||found==''){
 				next({
@@ -220,9 +223,9 @@ module.exports = {
 						description:(params.description)?params.description:resp.data.description,
 						images:null,
 						EngineDetails:{
-							engineType:params.engineType,
-							capacity:(params.capacity)?parseInt(params.capacity):parseInt(params.capacity),
-							transmission:params.transmission,
+							engineType:(params.engineType)?params.engineType:resp.data.EngineDetails.engineType,
+							capacity:(params.capacity)?parseInt(params.capacity):parseInt(resp.data.EngineDetails.capacity),
+							transmission:(params.transmission)?params.transmission:resp.data.EngineDetails.transmission,
 							displacement:(params.displacement)?parseInt(params.displacement):0,
 							power:(params.power)?parseInt(params.power):0,
 							torque:(params.torque)?parseInt(params.torque):0,
@@ -247,7 +250,7 @@ module.exports = {
 							tyres:(params.tyres)?parseInt(params.tyres):0
 						},
 						Specification:{
-							mileage:(params.mileage)?parseInt(params.mileage):0,
+							mileage:(params.mileage)?parseInt(params.mileage):parseInt(resp.data.Specification.mileage),
 							assembly:params.assembly,
 							minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):0,
 							fuelType:(params.fuelType)?params.fuelType:resp.data.fuelType,
