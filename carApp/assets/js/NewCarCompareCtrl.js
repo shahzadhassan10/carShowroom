@@ -4,193 +4,95 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
   var _ALL_MAKES = "All Makes";
   var _ALL_MODELS = "All Models";
   var _ALL_VERSIONS = "All Versions";
+  var _TOTAL_SLOTS = 3;
+
   var valuesChanged = false;
 
-  $scope.query1 = {make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS};
+  $scope.querries = [{make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS},
+                      {make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS},
+                      {make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS}];
+
+  $scope.listData = [{makes:[_ALL_MAKES], models:[_ALL_MODELS], versions:[_ALL_VERSIONS]},
+                      {makes:[_ALL_MAKES], models:[_ALL_MODELS], versions:[_ALL_VERSIONS]},
+                      {makes:[_ALL_MAKES], models:[_ALL_MODELS], versions:[_ALL_VERSIONS]}];
   
-  $scope.allMakes1 = [_ALL_MAKES];
-  
-  $scope.getAllMakes1 = function() {
+  $scope.getAllMakes = function(index) {
     showRoomService.getAllMakes().then(function(response) {
-      $scope.allMakes1.push.apply($scope.allMakes1, response.data);
+      $scope.listData[index].makes.push.apply($scope.listData[index].makes, response.data);
+      $scope.querries[index].make = $scope.listData[index].makes[0];
     });
   }
-  $scope.getAllMakes1();
-  
-  $scope.allModels1 = [_ALL_MODELS];  
-  $scope.query1.model = $scope.allModels1[0];
-
-  $scope.getAllModels1 = function() {
-    showRoomService.getAllModelsByMake($scope.query1.make).then(function(response) {
-      if(response.success){
-        $scope.allModels1 = response.data;
-      }else{
-        $scope.allModels1 = [_ALL_MODELS];
-      }
-      $scope.query1.model = $scope.allModels1[0];
-      $scope.modelChanged1();
-    });
-  };
-
-  $scope.makeChanged1 = function(){
-    if($scope.query1.make == _ALL_MAKES){
-      $scope.allModels1 = [_ALL_MODELS];
-      $scope.query1.model = $scope.allModels1[0];
- 	  $scope.modelChanged1();
+  var initialize = function(){
+    for(var i=0; i<_TOTAL_SLOTS; i++){
+      $scope.getAllMakes(i);
+      $scope.querries[i].model = $scope.listData[i].models[0];    
+      $scope.querries[i].version = $scope.listData[i].versions[0];
     }
-    else{
-      $scope.getAllModels1();
-    }
-    valuesChanged = true;
-  };
-
-  $scope.allVersions1 = [_ALL_VERSIONS];
-  $scope.query1.version = $scope.allVersions1[0];
-
-  $scope.getAllVersions1 = function() {
-    showRoomService.getVersionsByMakeAndModels($scope.query1.make, $scope.query1.model).then(function(response) {
-      if(response.success){
-        $scope.allVersions1 = response.data;
-      }else{
-        $scope.allVersions1 = [_ALL_VERSIONS];
-      }
-      $scope.query1.version = $scope.allVersions1[0];
-    });
-  }; 
-
-  $scope.modelChanged1 = function(){
-    if($scope.query1.model == _ALL_MODELS){
-      $scope.allVersions1 = [_ALL_VERSIONS];
-      $scope.query1.version = $scope.allVersions1[0];
-    }
-    else{
-      $scope.getAllVersions1();
-    }
-    valuesChanged = true;
-  };
-//--------------------------------------------------------------- 2
-  $scope.query2 = {make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS};
-
-  $scope.allMakes2 = [_ALL_MAKES];  
-  $scope.getAllMakes2 = function() {
-    showRoomService.getAllMakes().then(function(response) {
-      $scope.allMakes2.push.apply($scope.allMakes2, response.data);
-    });
   }
-  $scope.getAllMakes2();
+  initialize();
+
+  $scope.getAllModels = function(index) {
+    showRoomService.getAllModelsByMake($scope.querries[index].make).then(function(response) {
+      if(response.success){
+        $scope.listData[index].models = response.data;
+      }else{
+        $scope.listData[index].models = [_ALL_MODELS];
+      }
+      $scope.querries[index].model = $scope.listData[index].models[0];
+      $scope.modelChanged(index);
+    });
+  };
+
+  $scope.makeChanged = function(index){
+    if($scope.querries[index].make == _ALL_MAKES){
+      $scope.listData[index].models = [_ALL_MODELS];
+      $scope.querries[index].model = $scope.listData[index].models[0];
+      $scope.modelChanged(index);
+    }
+    else{
+      $scope.getAllModels(index);
+    }
+    valuesChanged = true;
+  };
+
+  $scope.makeChanged = function(index){
+    if($scope.querries[index].make == _ALL_MAKES){
+      $scope.listData[index].models = [_ALL_MODELS];
+      $scope.querries[index].model = $scope.listData[index].models[0];
+ 	    $scope.modelChanged(index);
+    }
+    else{
+      $scope.getAllModels(index);
+    }
+    valuesChanged = true;
+  };
+
+  $scope.getAllVersions = function(index) {
+    showRoomService.getVersionsByMakeAndModels($scope.querries[index].make, $scope.querries[index].model).then(function(response) {
+      if(response.success){
+        $scope.listData[index].versions = response.data;
+      }else{
+        $scope.listData[index].versions = [_ALL_VERSIONS];
+      }
+      $scope.querries[index].version = $scope.listData[index].versions[0];
+    });
+  }; 
+
+  $scope.modelChanged = function(index){
+    if($scope.querries[index].model == _ALL_MODELS){
+      $scope.listData[index].versions = [_ALL_VERSIONS];
+      $scope.querries[index].version = $scope.listData[index].versions[0];
+    }
+    else{
+      $scope.getAllVersions(index);
+    }
+    valuesChanged = true;
+  };
   
-  $scope.allModels2 = [_ALL_MODELS];  
-  $scope.query2.model = $scope.allModels2[0];
-  $scope.getAllModels2 = function() {
-    showRoomService.getAllModelsByMake($scope.query2.make).then(function(response) {
-      if(response.success){
-        $scope.allModels2 = response.data;
-      }else{
-        $scope.allModels2 = [_ALL_MODELS];
-      }
-      $scope.query2.model = $scope.allModels2[0];
-      $scope.modelChanged2();
-    });
-  }; 
-
-  $scope.makeChanged2 = function(){
-    if($scope.query2.make == _ALL_MAKES){
-      $scope.allModels2 = [_ALL_MODELS];
-      $scope.query2.model = $scope.allModels2[0];
-      $scope.modelChanged2();
-    }
-    else{
-      $scope.getAllModels2();
-    }
+  $scope.varsionChanged = function(index){
     valuesChanged = true;
-  };
-
-  $scope.allVersions2 = [_ALL_VERSIONS];
-  $scope.query2.version = $scope.allVersions2[0];
-
-  $scope.getAllVersions2 = function() {
-    showRoomService.getVersionsByMakeAndModels($scope.query2.make, $scope.query2.model).then(function(response) {
-      if(response.success){
-        $scope.allVersions2 = response.data;
-      }else{
-        $scope.allVersions2 = [_ALL_VERSIONS];
-      }
-      $scope.query2.version = $scope.allVersions2[0];
-    });
-  }; 
-
-  $scope.modelChanged2 = function(){
-    if($scope.query2.model == _ALL_MODELS){
-      $scope.allVersions2 = [_ALL_VERSIONS];
-      $scope.query2.version = $scope.allVersions2[0];
-    }
-    else{
-      $scope.getAllVersions2();
-    }
-    valuesChanged = true;
-  };
-//----------------------------------------------------- 3
-  $scope.query3 = {make:_ALL_MAKES, model:_ALL_MODELS, version:_ALL_VERSIONS};
-
-  $scope.allMakes3 = [_ALL_MAKES];  
-  $scope.getAllMakes3 = function() {
-    showRoomService.getAllMakes().then(function(response) {
-      $scope.allMakes3.push.apply($scope.allMakes3, response.data);
-    });
   }
-  $scope.getAllMakes3();
-  
-  $scope.allModels3 = [_ALL_MODELS];  
-  $scope.query3.model = $scope.allModels3[0];
 
-  $scope.getAllModels3 = function() {
-    showRoomService.getAllModelsByMake($scope.query3.make).then(function(response) {
-      if(response.success){
-        $scope.allModels3 = response.data;
-      }else{
-        $scope.allModels3 = [_ALL_MODELS];
-      }
-      $scope.query3.model = $scope.allModels3[0];
-      $scope.modelChanged3();
-    });
-  }; 
-
-  $scope.makeChanged3 = function(){
-    if($scope.query3.make == _ALL_MAKES){
-      $scope.allModels3 = [_ALL_MODELS];
-      $scope.query3.model = $scope.allModels3[0];
-    $scope.modelChanged3();
-    }
-    else{
-      $scope.getAllModels3();
-    }
-    valuesChanged = true;
-  };
-
-  $scope.allVersions3 = [_ALL_VERSIONS];
-  $scope.query3.version = $scope.allVersions3[0];
-
-  $scope.getAllVersions3 = function() {
-    showRoomService.getVersionsByMakeAndModels($scope.query3.make, $scope.query3.model).then(function(response) {
-      if(response.success){
-        $scope.allVersions3 = response.data;
-      }else{
-        $scope.allVersions3 = [_ALL_VERSIONS];
-      }
-      $scope.query3.version = $scope.allVersions3[0];
-    });
-  }; 
-
-  $scope.modelChanged3 = function(){
-    if($scope.query3.model == _ALL_MODELS){
-      $scope.allVersions3 = [_ALL_VERSIONS];
-      $scope.query3.version = $scope.allVersions3[0];
-    }
-    else{
-      $scope.getAllVersions3();
-    }
-    valuesChanged = true;
-  };
   $scope.newCompCars = [];
   $scope.tableHeadings = [];
   $scope.showDetails = false;
@@ -203,9 +105,8 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
     valuesChanged = false;
     
     var isValid = $scope.isQueryValid();
-
     if(isValid){
-     showRoomService.getCarsByJson($scope.query1, $scope.query2, $scope.query3).then(function(response) {
+     showRoomService.getCarsByJson($scope.querries[0], $scope.querries[1], $scope.querries[2]).then(function(response) {
       $scope.newCompCars = [];
       $scope.tableHeadings = [];
       $scope.queriedOnce = true;
@@ -213,15 +114,15 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
       if(response.success && response.data != null && response.data.length >= 1){ 
         $scope.showDetails = true;
         var isSecPresent = (response.data.length > 1 && response.data[1] != null);
-        var isThirdPresent = (response.data.length >2 && response.data[2] != null);
+        var isThirdPresent = (isSecPresent && response.data.length >2 && response.data[2] != null);
         parseHeadings(response.data, isSecPresent, isThirdPresent);
         parseDisplayData(response.data, isSecPresent, isThirdPresent);
       } else{
         $scope.showDetails = false;
         console.log('Some error occurred.' + response.data.errormsg);
       }
-    });
-   } else {
+     });
+    } else {
       $scope.showDetails = false;
    }
 
@@ -231,7 +132,8 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
     var c2m = isSec?cars[1].make + ' ' +  cars[1].model + ' ' + cars[1].version: '--';
     var c3m = isThird?cars[2].make + ' ' +  cars[2].model + ' ' + cars[2].version: '--';
     $scope.tableHeadings.push('Specs', c1m, c2m, c3m)
-  }
+  };
+
   var parseDisplayData = function(cars, isSec, isThird){
     var val2 = isSec?cars[1].modelYear:'--';
     var val3 = isThird?cars[2].modelYear:'--';
@@ -244,27 +146,14 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoom
     var val2 = isSec?cars[1].EngineDetails.engineType:'--';    
     val3 = isThird?cars[2].EngineDetails.engineType:'--';
     $scope.newCompCars.push({'key':'Engine Type', 'val1':cars[0].EngineDetails.engineType, 'val2':val2, 'val3':val3});
-  }
+  };
 
   $scope.isQueryValid = function() {
     var sel = 0;
-    sel += ($scope.query1.make != _ALL_MAKES)? 1 : 0;
-    sel += ($scope.query2.make != _ALL_MAKES)? 1 : 0;
-    sel += ($scope.query3.make != _ALL_MAKES)? 1 : 0;
-    if(sel >= 2){
-      sel = 0;
-      sel += ($scope.query1.model != _ALL_MODELS)? 1 : 0;
-      sel += ($scope.query2.model != _ALL_MODELS)? 1 : 0;
-      sel += ($scope.query3.model != _ALL_MODELS)? 1 : 0;
-      if(sel >= 2){
-        sel = 0;
-        sel += ($scope.query1.version != _ALL_VERSIONS)? 1 : 0;
-        sel += ($scope.query2.version != _ALL_VERSIONS)? 1 : 0;
-        sel += ($scope.query3.version != _ALL_VERSIONS)? 1 : 0;
-        return (sel >= 2);     
-      }
-    }
-    return false;
+    sel += ($scope.querries[0].version != _ALL_VERSIONS)? 1 : 0;
+    sel += ($scope.querries[1].version != _ALL_VERSIONS)? 1 : 0;
+    sel += ($scope.querries[2].version != _ALL_VERSIONS)? 1 : 0;
+    return (sel >= 2);     
   };
 
   $scope.showNotFound = function() {
