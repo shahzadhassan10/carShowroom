@@ -115,6 +115,11 @@ module.exports = {
 	  		res.json(resp);
 	  	});
   	},
+  	getAllUsedCar:function (req, res) {
+	  	CarService.getAllUsedCar(req,function(resp){
+	  		res.json(resp);
+	  	});
+  	},
 	searchCar:function(req,res){
   		var params=req.params.all();
   		CarService.searchCar(params,function(resp){
@@ -136,7 +141,7 @@ module.exports = {
      			data:makes
   			});
   			}
-		});
+			});
   		});
   	},
   	getModelsByMake:function(req,res){

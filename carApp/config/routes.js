@@ -47,6 +47,7 @@ module.exports.routes = {
   'Post /car/addCar':'CarController.addCar',
   'Get /car/getCar':'CarController.getCar',
   'Get /car/getAllCar':'CarController.getAllCar',
+  'Get /car/getAllUsedCar':'CarController.getAllUsedCar',
   'Put /car/updateCar':'CarController.updateCar',
   'Delete /car/deleteCar':'CarController.deleteCar',
   'Post /car/searchCar':'CarController.searchCar',

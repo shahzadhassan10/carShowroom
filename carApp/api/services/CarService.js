@@ -62,7 +62,7 @@ module.exports = {
 	  }
 	},
 	getAllCar:function(req,next){
-		Car.find({}).exec(function findCB(err,car1){
+		Car.find({isNew:true}).exec(function findCB(err,car1){
 			if(err||!car1||car1==''){
 		  			next({
 		  				success:false,
@@ -75,6 +75,36 @@ module.exports = {
 			    });
 			}  	
 		  	});
+	},
+	getAllUsedCar:function(req,next){
+		/*Car.native(function(err,car){
+  			car.find({isNew:false},{name: true}).toArray(function(err,makes){
+  			if(err||!makes){
+  				next({
+     			success:false,
+     			errormsg:"No makes found"
+  				});
+  			}else{
+     			next({
+     				success:true,
+     				data:makes
+  				});
+  			}
+			});
+  		});*/
+		Car.find({isNew:false}).exec(function findCB(err,car1){
+			if(err||!car1||car1==''){
+		  			next({
+		  				success:false,
+		  				errormsg:'No car obj not found '+err
+		  			});
+		  	}else{
+			    next({
+			    	success:true,
+			      	data:car1
+			    });
+			}  	
+		 });
 	},
 	searchCar:function(srch,next){
 		var srchTerm={},model1=[],make1=[];
@@ -149,15 +179,27 @@ module.exports = {
 			srchTerm.name=params.name+'';
 		}
 		if(params.engineType){
-			srchTerm.EngineDetails={};
-			srchTerm.EngineDetails.engineType=params.engineType+'';
+			srchTerm['EngineDetails.engineType']=params.engineType+'';
+		}
+		if(params.transmission){
+			srchTerm['EngineDetails.transmission']=params.transmission+'';
 		}
 		if(params.capacityFrom&&params.capacityTo){
-			srchTerm.EngineDetails.capacity={'>=':parseInt(params.capacityFrom),'<=':parseInt(params.capacityTo)};
+			srchTerm['EngineDetails.capacity']={'>=':parseInt(params.capacityFrom),'<=':parseInt(params.capacityTo)};
 		}else if(params.capacityFrom){
-			srchTerm.EngineDetails.capacity={'>=':parseInt(params.capacityFrom)};
+			srchTerm['EngineDetails.capacity']={'>=':parseInt(params.capacityFrom)};
 		}else if(params.capacityTo){
-			srchTerm.EngineDetails.capacity={'<=':parseInt(params.capacityTo)};
+			srchTerm['EngineDetails.capacity']={'<=':parseInt(params.capacityTo)};
+		}
+		if(params.assembly){
+			srchTerm['Specification.assembly']=params.assembly+'';
+		}
+		if(params.mileageFrom&&params.mileageTo){
+			srchTerm['Specification.mileage']={'>=':parseInt(params.mileageFrom),'<=':parseInt(params.mileageTo)};
+		}else if(params.mileageFrom){
+			srchTerm['Specification.mileage']={'>=':parseInt(params.mileageFrom)};
+		}else if(params.mileageTo){
+			srchTerm['Specification.mileage']={'<=':parseInt(params.mileageTo)};
 		}
 		if(params.yearFrom&&params.yearTo){
 			srchTerm.modelYear={'>=':parseInt(params.yearFrom),'<=':parseInt(params.yearTo)};
@@ -165,6 +207,12 @@ module.exports = {
 			srchTerm.modelYear={'>=':parseInt(params.yearFrom)};
 		}else if(params.yearTo){
 			srchTerm.modelYear={'<=':parseInt(params.yearTo)};
+		}
+		if(params.bodyType){
+			srchTerm['Body.bodyType']=params.bodyType+'';
+		}
+		if(params.bodyColor){
+			srchTerm['Body.exteriorColor']=params.bodyColor+'';
 		}
 		/*if(params.name&&params.gtPrice&&params.ltPrice){
 			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)}};

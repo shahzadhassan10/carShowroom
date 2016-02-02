@@ -160,7 +160,6 @@ module.exports = {
         }else{
           CarService.searchUsedCars(posts,params,function(resp){
             if(resp.success){
-                console.log("data "+resp.data.toString());
                 var selectedPost=[];
                 for(i=0;i<resp.data.length;i++){
                     for(j=0;j<posts.length;j++){
