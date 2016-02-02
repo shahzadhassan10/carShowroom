@@ -4,9 +4,8 @@
         <br>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
-            <div class="form-group">
-            <form>
-                <table>
+            <form novalidate>
+                <table class="table table-striped table-hover">
                 <tr>
                     <td><select class="form-control" ng-model="query1.make" ng-change="makeChanged1()">
                         <option ng-repeat="curMake in allMakes1" value="{{curMake}}">{{curMake}}</option>
@@ -51,28 +50,26 @@
                 </tr>
                </table>
                <br>
+               <br>
                <button type="submit" class="btn btn-primary btn-lg" ng-click="compareCars()">Compare</button>
             </form>
-            </div>
             </div>
         </div>
     </div>
 <br>
 </div>
 
-<div class="container">
+<div class="container" >
+ <div id="resultFound" ng-show='showDetails'>
   <h2>Comparison</h2>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>Spec</th>
-        <th>{{query1.make}}</th>
-        <th>{{query2.make}}</th>
-        <th>{{query3.make}}</th>
+        <th ng-repeat="thdg in tableHeadings track by $index">{{thdg}}</th>
       </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="car in newCompCars">
+        <tr ng-repeat="car in newCompCars track by $index">
         <td>{{car.key}}</td>
         <td>{{car.val1}}</td>
         <td>{{car.val2}}</td>
@@ -80,4 +77,10 @@
         </tr>
     </tbody>
   </table>
+ </div>
+ <div ng-show="showNotFound()" style="background-color:lavender;">
+    <h3> No result found! </h3>
+    <label> We could not find any results against your search criteria. Try with different values. </label>
+ </div>
+
 </div>

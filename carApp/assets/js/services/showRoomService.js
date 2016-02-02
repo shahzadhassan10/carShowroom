@@ -42,10 +42,6 @@ carShowroom.service('showRoomService', function($http, $q) {
     },
 
     'getCarsByJson': function(carObj1, carObj2, carObj3) {
-      console.log("carObj1" + carObj1);
-      console.log("carObj2" + carObj2);
-      console.log("carObj3" + carObj3);
-
     var defer = $q.defer();  
     $http.post('/car/getCarsByJson' , {'info' : {carObj1, carObj2, carObj3}}).success(function(resp){
       defer.resolve(resp);
