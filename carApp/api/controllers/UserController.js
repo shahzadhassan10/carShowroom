@@ -21,7 +21,22 @@ module.exports = {
   },
   getUserById:function (req, res){
     var objId=require('mongodb').ObjectID;
-    User.find({id:[objId(req.get('id'))]}).exec(function(err,user){
+    User.native(function(err,user){
+        user.find({_id:new objId(req.get('id'))},{password: false}).toArray(function(err,user1){
+        if(err||!user1){
+          res.json({
+          success:false,
+          errormsg:"No User found "+user1.length
+          });
+        }else{
+          res.json({
+            success:true,
+            data:user1[0]
+          });
+        }
+      });
+    });
+    /*User.find({id:[objId(req.get('id'))]}).exec(function(err,user){
       if(err||!user||user==''){
             res.json({
               success:false,
@@ -33,7 +48,7 @@ module.exports = {
             data:user[0]
           });
         }   
-    });
+    });*/
   },
   loginUser: function (req, res) {
   	var params = req.params.all();
@@ -47,7 +62,7 @@ module.exports = {
         req.session.user=found.id;
     	return res.json({
           success:true,
-      		data: 'find user with name ' +found.name
+      		data: 'loginUser with name ' +found.name
     	});
     }
   	});
@@ -69,20 +84,21 @@ module.exports = {
       });
   },
    getAllUser:function(req,res){
-    User.find({}).exec(function findCB(err,users){
-      if(err||!users||users==''){
-            res.json({
-              success:false,
-              errormsg:'No User obj not found '+err
-            });
+     User.native(function(err,user){
+        user.find({},{password: false}).toArray(function(err,user1){
+        if(err||!user1){
+          res.json({
+          success:false,
+          errormsg:"No User found "+err
+          });
         }else{
-          console.log(req.session.role);
           res.json({
             success:true,
-              data:users
+            data:user1
           });
-      }   
+        }
       });
+    });
   },
   updateUser: function (req, res) {
     var params=req.params.all();
@@ -92,6 +108,7 @@ module.exports = {
       phoneNumber:params.phoneNumber,
       password:params.password,
       city:params.city,
+      isActive:true,
       address:params.address,role:'user'
     };
     var objId=require('mongodb').ObjectID;

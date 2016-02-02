@@ -125,7 +125,7 @@ module.exports = {
         }else{
           res.json({
             success:true,
-              data:posts
+            data:posts
           });
       }   
       });

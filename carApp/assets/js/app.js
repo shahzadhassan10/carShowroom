@@ -11,8 +11,10 @@ carShowroom.config(['$routeProvider',
     .when('/compare', {
       templateUrl: '/templates/newCarCompare.html',
       controller: 'NewCarCompareCtrl'
-    })
-    .otherwise({
+    }).when('/postForSellCar', {
+      templateUrl: '/templates/postForSellCar.html',
+      controller: 'PostCtrl'
+    }).otherwise({
       redirectTo: '/',
       caseInsensitiveMatch: true
     })

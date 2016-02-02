@@ -124,21 +124,7 @@ module.exports = {
 			}
 			srchTerm.make=make1;
 		}
-		/*if(srch.model&&srch.make&&srch.gtPrice&&srch.ltPrice){
-			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)}};
-		}else if(srch.model&&srch.make&&srch.gtPrice){
-			srchTerm={model:model1,make:make1,price:{'>=':parseInt(srch.gtPrice)}};
-		}else if(srch.model&&srch.make&&srch.ltPrice){
-			srchTerm={model:model1,make:make1,price:{'<=':parseInt(srch.ltPrice)}};
-		}else if(srch.model&&srch.make){
-			srchTerm={model:model1,make:make1};
-		}else if(!srch.model&&!srch.make&&!srch.gtPrice&&!srch.ltPrice){
-			srchTerm={};
-		}else if(srch.model&&!srch.gtPrice&&!srch.ltPrice){
-			srchTerm={model:model1};
-		}else if(srch.make&&!srch.gtPrice&&!srch.ltPrice){
-			srchTerm={make:make1};
-		}else*/ if(srch.gtPrice&&srch.ltPrice){
+		if(srch.gtPrice&&srch.ltPrice){
 			srchTerm.price={'>=':parseInt(srch.gtPrice),'<=':parseInt(srch.ltPrice)};
 		}else if(srch.gtPrice){
 			srchTerm.price={'>=':parseInt(srch.gtPrice)};

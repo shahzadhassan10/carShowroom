@@ -36,9 +36,9 @@ module.exports.policies = {
   ***************************************************************************/
   UserController:{
     addUser:['isPostReq','isUser'],
-    updateUser:['isPutReq','isLogin','isId','isUser'],
+    updateUser:['isPutReq','isLogin','isId','isUserItSelf','isUser'],
     deleteUser:['isDeleteReq','isAdmin','isId'],
-    getUserById:['isLogin'],
+    getUserById:['isLogin','isUserItSelf'],
     loginUser:['isPostReq'],
     logout:['isLogin']
 
