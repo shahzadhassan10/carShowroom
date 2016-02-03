@@ -92,7 +92,7 @@ module.exports = {
           var carId=resp.data.id;
           var userId=req.session.user;
           var d = new Date();
-          Post.create({date:d,phoneNumber:params.phoneNumber,city:params.city,cid:carId,uid:userId}).exec(function createCB(err,created){
+          Post.create({date:d,phoneNumber:params.phoneNumber,city:params.city,cityArea:params.cityArea,cid:carId,uid:userId}).exec(function createCB(err,created){
           if(err||!created){
               CarService.deleteCar(carId,function(resp){
                 console.log(resp.success);

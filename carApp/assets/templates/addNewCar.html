@@ -42,7 +42,8 @@
                 <option value="">Version</option>
                
             </select>
-        </div></div>
+        </div>
+      </div>
        <div class="form-group col-xs-12" >
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
@@ -57,7 +58,7 @@
       <label>Price(RS)*</label></div>
       <div class="col-xs-3">
       <div class="input-group">
-                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
             </div>
       </div></div>
     <div class="form-group col-xs-12">
@@ -82,28 +83,29 @@
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label>Engine Type*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3">
             <select  class="form-control" name="engineType">
-                <option value="">Year</option>
-                <option value="SAMSUNG">SAMSUNG</option>
-                <option value="Apple">Apple</option>
-                <option value="LG">LG</option>
-                <option value="Sony">Sony</option>
+                <option value="">Engine Type</option>
+                <option value="CNG">CNG</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Petrol">Petrol</option>
+                <option value="LPG">LPG</option>
             </select>
         </div>
       <div class="col-xs-2">
       <label>Engine Capacity(cc)*</label></div>
       <div class="col-xs-3">
       <div class="input-group">
-                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
             </div>
       </div>
     </div>
-      <div class="form-group col-xs-12" > 
+    <div class="form-group col-xs-12" > 
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label>Transmission*</label></div>
-      <div class="col-xs-8">
+      <div class="col-xs-3">
       <div class="radio ">
             <label>
               <input type="radio" name="transmission" value="Manual" checked>
@@ -118,11 +120,333 @@
       </div>
 
       </div>
-    </div>
+       <div class="col-xs-2">
+      <label>Displacement(cc)</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Displacement" name="displacement" /><span style="color:red;" ></span>
+            </div>
+      </div>
+
+      </div>
+
+      <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Power(hp@rpm)</label></div>
+      <div class="col-xs-3 ">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Power" name="power" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label >Torque</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Torque" name="torque" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Gear</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Gear" name="gear" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label>Valve Machanism</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Valve Machanism" name="valveMachanism" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+      <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Comparation Ratio</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="model">
+                <option value="">Model</option>
+              
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label >No Of Cylinder</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Cylinder Configuration</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="RegistrationCopy">
+                <option value="">City</option>
+               
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Valves Per Cylinder</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
     <!-- Body Details -->
     <div class="form-group col-xs-12" > 
       <hr noshade>
       <label class="col-xs-12">Body</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Body Type</label></div>
+      <div class="col-xs-3">
+       <select  class="form-control" name="bodyType">
+                <option value="">Body Type</option>
+                <option value="4x4">4x4</option>
+                <option value="Compact crossover">Compact crossover</option>
+                <option value="Compact hatchback">Compact hatchback</option>
+                <option value="Compact sedan">Compact sedan</option>
+                <option value="Convertible">Convertible</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Micro Van">Micro Van</option>
+                <option value="Mini Vehicles">Mini Vehicles</option>
+                <option value="MPV">MPV</option>
+                <option value="Off-Road Vehicles">Off-Road Vehicles</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Subcompact hatchback">Subcompact hatchback</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Van">Van</option>
+                <option value="Wagon">Wagon</option>
+               
+        </select>
+      </div>
+      <div class="col-xs-2">
+      <label>Exterior color</label></div>
+      <div class="col-xs-3">
+       <select  class="form-control" name="exteriorColor">
+                  <option value="">Exterior color</option>
+                  <option value="Beige">Beige</option>
+                  <option value="Black">Black</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Bronze">Bronze</option>
+                  <option value="Brown">Brown</option>
+                  <option value="Burgundy">Burgundy</option>
+                  <option value="Gold">Gold</option>
+                  <option value="Green">Green</option>
+                  <option value="Grey">Grey</option>
+                  <option value="Indigo">Indigo</option>
+                  <option value="Magenta">Magenta</option>
+                  <option value="Maroon">Maroon</option>
+                  <option value="Orange">Orange</option>
+                  <option value="Pink">Pink</option>
+                  <option value="Purple">Purple</option>
+                  <option value="Red">Red</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Turquoise">Turquoise</option>
+                  <option value="White">White</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Unlisted">Unlisted</option>
+               
+        </select>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Length(mm)</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label >Width(mm)</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Height(mm)</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label>Kerb Weight(kg)</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+      <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Seating Capacity</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label >No Of Doors</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Wheel Type</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="RegistrationCopy">
+                <option value="">City</option>
+               
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Wheel Size(inch)</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+      <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Tyres</label></div>
+      <div class="col-xs-8 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      </div>
+      <!-- Specification -->
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Specifications</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Assembly</label></div>
+      <div class="col-xs-3">
+            <select  class="form-control" name="engineType">
+                <option value="">Assembly Type</option>
+                <option value="Local">Local</option>
+                <option value="Imported">Imported</option>
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Mileage(km)</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
+            </div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Minimum Turning Radius</label></div>
+      <div class="col-xs-3 selectContainer">
+            <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+        </div>
+      <div class="col-xs-2">
+      <label >Fuel Type</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="version">
+                <option value="">Version</option>
+               
+            </select>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Fuel System</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="RegistrationCopy">
+                <option value="">City</option>
+               
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Front Suspension</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+      <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Rare Suspension</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="model">
+                <option value="">Model</option>
+              
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label >Steering Type</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="version">
+                <option value="">Version</option>
+               
+            </select>
+        </div>
+      </div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Power Assited</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="RegistrationCopy">
+                <option value="">City</option>
+               
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Front Brakes</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+      <div class="form-group col-xs-12" > 
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Rare Brakes</label></div>
+      <div class="col-xs-8">
+     <select  class="form-control" name="engineType">
+                <option value="">Year</option>
+                <option value="SAMSUNG">SAMSUNG</option>
+                <option value="Apple">Apple</option>
+                <option value="LG">LG</option>
+                <option value="Sony">Sony</option>
+            </select>
+
+      </div>
+    </div>
+    <!-- Features -->
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Features</label>
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label>AD Description*</label></div>
@@ -130,52 +454,6 @@
        <textarea class="form-control" rows="5" name="description"></textarea>
       </div>
     </div>
-      <!-- Specification -->
-    <div class="form-group col-xs-12" > 
-      <hr noshade>
-      <label class="col-xs-12">More Details</label>
-      <div class="col-xs-2"></div>
-      <div class="col-xs-2">
-      <label>Engine Type*</label></div>
-      <div class="col-xs-3 selectContainer">
-            <select  class="form-control" name="engineType">
-                <option value="">Year</option>
-                <option value="SAMSUNG">SAMSUNG</option>
-                <option value="Apple">Apple</option>
-                <option value="LG">LG</option>
-                <option value="Sony">Sony</option>
-            </select>
-        </div>
-      <div class="col-xs-2">
-      <label>Engine Capacity(cc)*</label></div>
-      <div class="col-xs-3">
-      <div class="input-group">
-                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
-            </div>
-      </div>
-    </div>
-      <div class="form-group col-xs-12" > 
-      <div class="col-xs-2"></div>
-      <div class="col-xs-2">
-      <label>Transmission*</label></div>
-      <div class="col-xs-8">
-      <div class="radio ">
-            <label>
-              <input type="radio" name="transmission" value="Manual" checked>
-                Manual
-            </label>
-      </div>
-      <div class="radio">
-            <label>
-              <input type="radio" name="transmission"  value="Automatic">
-                Automatic
-            </label>
-      </div>
-
-      </div>
-    </div>
-    <!-- Features -->
-
 
 
      <!-- End of panels-->

@@ -18,6 +18,9 @@ carShowroom.config(['$routeProvider',
     }).when('/postForSellCar', {
       templateUrl: '/templates/postForSellCar.html',
       controller: 'PostCtrl'
+    }).when('/addNewCar', {
+      templateUrl: '/templates/addNewCar.html',
+      controller: 'addNewCarCtrl'
     }).otherwise({
       redirectTo: '/',
       caseInsensitiveMatch: true

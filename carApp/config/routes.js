@@ -63,7 +63,17 @@ module.exports.routes = {
   'Get /post/getAllPost':'PostController.getAllPost',
   'Post /post/getPostByCity':'PostController.getPostByCity',
   'Delete /post/deletePost':'PostController.deletePost',
-
+  // MakesController
+  'Get /make/getAllMakes':'MakesController.getAllMakes',
+   'Get /make/getMakes':'MakesController.getMakes',
+  'Post /make/addMakes':'MakesController.addMakes',
+  'Post /make/getModelsByMake':'MakesController.getModelsByMake',
+  'Post /make/getVersionsByMakeAndModels':'MakesController.getVersionsByMakeAndModels',
+  // CitiesController
+  'Get /city/getAllCities':'CitiesController.getAllCities',
+  'Get /city/getCities':'CitiesController.getCities',
+  'Post /city/addCities':'CitiesController.addCities',
+  'Post /city/getAllCityAreaByCity':'CitiesController.getAllCityAreaByCity',
 
   /***************************************************************************
   *                                                                          *

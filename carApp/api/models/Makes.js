@@ -1,25 +1,15 @@
 module.exports={
 	schema: true,
 	attributes:{
-		phoneNumber:{
-			type: 'string'
-		},
-		date:{
-			type: 'datetime',
-			required: true
-		},
-		city:{
+		make:{
 			type: 'string',
 			required: true
 		},
-		cityArea:{
+		model:{
 			type: 'string',
-		},
-		cid:{
-			type:'string',
 			required: true
 		},
-		uid:{
+		version:{
 			type:'string',
 			required: true
 		}
