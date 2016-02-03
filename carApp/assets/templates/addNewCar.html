@@ -1,0 +1,186 @@
+<div class="container">
+<form>
+  <div class="panel panel-info">
+      <div class="panel-heading" style="text-align:center;color:#223c7a;font-size:22px;font-weight:bold">Add Car -It's Easy...It's Simple</div>
+      <div class="panel-body">
+      <!-- Car Information -->
+      <div class="form-group col-xs-12" >
+      <label  class="col-xs-12">Car Information</label>
+      
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Model Year*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="modelYear">
+                <option value="">Year</option>
+                
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Make*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="make">
+                <option value="">Make</option>
+            
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label >Model*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="model">
+                <option value="">Model</option>
+              
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label >Version*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="version">
+                <option value="">Version</option>
+               
+            </select>
+        </div></div>
+       <div class="form-group col-xs-12" >
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Registration Copy*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="RegistrationCopy">
+                <option value="">City</option>
+               
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Price(RS)*</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Price in Rs" name="price" /><span style="color:red;" ></span>
+            </div>
+      </div></div>
+    <div class="form-group col-xs-12">
+        <div class="col-xs-2"></div>
+                <label class="col-xs-2 control-label">Upload Images</label>
+                <div class="col-xs-8">
+            <input type="file" class="form-control" name="avatar" multiple accept='image/jpeg' />
+        </div>
+    </div>
+    <div class="form-group col-xs-12" > 
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Description*</label></div>
+      <div class="col-xs-8">
+       <textarea class="form-control" rows="5" name="description"></textarea>
+      </div>
+    </div>
+     <!-- Engine Details -->
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Engine Details</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Engine Type*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="engineType">
+                <option value="">Year</option>
+                <option value="SAMSUNG">SAMSUNG</option>
+                <option value="Apple">Apple</option>
+                <option value="LG">LG</option>
+                <option value="Sony">Sony</option>
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Engine Capacity(cc)*</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
+            </div>
+      </div>
+    </div>
+      <div class="form-group col-xs-12" > 
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Transmission*</label></div>
+      <div class="col-xs-8">
+      <div class="radio ">
+            <label>
+              <input type="radio" name="transmission" value="Manual" checked>
+                Manual
+            </label>
+      </div>
+      <div class="radio">
+            <label>
+              <input type="radio" name="transmission"  value="Automatic">
+                Automatic
+            </label>
+      </div>
+
+      </div>
+    </div>
+    <!-- Body Details -->
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Body</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>AD Description*</label></div>
+      <div class="col-xs-8">
+       <textarea class="form-control" rows="5" name="description"></textarea>
+      </div>
+    </div>
+      <!-- Specification -->
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">More Details</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Engine Type*</label></div>
+      <div class="col-xs-3 selectContainer">
+            <select  class="form-control" name="engineType">
+                <option value="">Year</option>
+                <option value="SAMSUNG">SAMSUNG</option>
+                <option value="Apple">Apple</option>
+                <option value="LG">LG</option>
+                <option value="Sony">Sony</option>
+            </select>
+        </div>
+      <div class="col-xs-2">
+      <label>Engine Capacity(cc)*</label></div>
+      <div class="col-xs-3">
+      <div class="input-group">
+                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
+            </div>
+      </div>
+    </div>
+      <div class="form-group col-xs-12" > 
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Transmission*</label></div>
+      <div class="col-xs-8">
+      <div class="radio ">
+            <label>
+              <input type="radio" name="transmission" value="Manual" checked>
+                Manual
+            </label>
+      </div>
+      <div class="radio">
+            <label>
+              <input type="radio" name="transmission"  value="Automatic">
+                Automatic
+            </label>
+      </div>
+
+      </div>
+    </div>
+    <!-- Features -->
+
+
+
+     <!-- End of panels-->
+    </div>
+
+  </div>
+  </div>
+  
