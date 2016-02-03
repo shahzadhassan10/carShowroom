@@ -10,17 +10,14 @@
       <div class="col-xs-2">
       <label >Model Year*</label></div>
       <div class="col-xs-3 selectContainer">
-            <select  class="form-control" name="modelYear">
+            <select  class="form-control" ng-model="modelYear">
                 <option value="">Year</option>
-                <option value="SAMSUNG">SAMSUNG</option>
-                <option value="Apple">Apple</option>
-                <option value="LG">LG</option>
-                <option value="Sony">Sony</option>
+                <option ng-repeat="year in years" value="{{year}}">{{year}}</option>
             </select>
         </div>
       <div class="col-xs-2">
       <label>Make*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-4 selectContainer">
             <select  class="form-control" name="make">
                 <option value="">Make</option>
                 <option value="SAMSUNG">SAMSUNG</option>
@@ -96,7 +93,7 @@
             </div>
       </div></div>
     <div class="form-group col-xs-12" > 
-      <hr noshade>
+      <hr>
       <label class="col-xs-12">Engine Details</label>
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
@@ -114,7 +111,8 @@
       <label>Engine Capacity(cc)*</label></div>
       <div class="col-xs-3">
       <div class="input-group">
-                <input type="number" step="1" min="0" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==46' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
+
+                <input type="number" step="5" min="10" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Engine Capacity" name="capacity" /><span style="color:red;" ></span>
             </div>
       </div>
     </div>
