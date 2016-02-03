@@ -1,7 +1,7 @@
 <div class="container">
 <form>
   <div class="panel panel-info">
-      <div class="panel-heading" style="text-align:center;color:#223c7a;font-size:22px;font-weight:bold">Sell Your Car -It's Easy...It's Simple.. Yes It's FREE</div>
+      <div class="panel-heading" style="background-color:#eee; text-align:center;font-size:22px;font-weight:bold">Sell Your Car -It's Easy...It's Simple.. Yes It's FREE</div>
       <div class="panel-body">
       <div class="form-group col-xs-12" >
       <label  class="col-xs-12">Car Information</label>
@@ -17,13 +17,10 @@
         </div>
       <div class="col-xs-2">
       <label>Make*</label></div>
-      <div class="col-xs-4 selectContainer">
+      <div class="col-xs-3 selectContainer">
             <select  class="form-control" name="make">
                 <option value="">Make</option>
-                <option value="SAMSUNG">SAMSUNG</option>
-                <option value="Apple">Apple</option>
-                <option value="LG">LG</option>
-                <option value="Sony">Sony</option>
+                <option ng-repeat="m in allMakes" value="{{m}}">{{m}}</option>
             </select>
         </div>
     </div>

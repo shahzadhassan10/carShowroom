@@ -1,6 +1,6 @@
 var NewCarCompare = angular.module('NewCarCompare', []);
 
-NewCarCompare.controller('NewCarCompareCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
+NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', function($scope, showRoomService) {
   var _ALL_MAKES = "All Makes";
   var _ALL_MODELS = "All Models";
   var _ALL_VERSIONS = "All Versions";

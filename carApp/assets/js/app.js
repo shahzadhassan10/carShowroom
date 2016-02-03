@@ -1,10 +1,13 @@
 'use strict';
 
-var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd', 'ngRoute', 'ui.bootstrap']);
+var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd','HomePage', 'ngRoute', 'ui.bootstrap']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
     .when('/', {
+      templateUrl: '/templates/homePage.html',
+    })
+    .when('/NewSearch', {
       templateUrl: '/templates/newCarSearch.html',
       controller: 'NewCarCtrl'
     })
