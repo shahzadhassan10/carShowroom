@@ -11,8 +11,8 @@
       <label >Model Year*</label></div>
       <div class="col-xs-3 selectContainer">
             <select  class="form-control" ng-model="modelYear">
-                <option value="">Year</option>
-                <option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+            <option value="" selected="true">Year</option>
+            <option ng-repeat="y in [] | range:yRange" value="{{curYear-$index}}">{{curYear-$index}}</option>
             </select>
         </div>
       <div class="col-xs-2">
