@@ -1,6 +1,6 @@
 'use strict';
 
-var carShowroom = angular.module('carShowroom', ['NewCarCompare', 'ngRoute', 'ui.bootstrap']);
+var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd', 'ngRoute', 'ui.bootstrap']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
@@ -10,13 +10,11 @@ carShowroom.config(['$routeProvider',
     })
     .when('/compare', {
       templateUrl: '/templates/newCarCompare.html',
-      controller: 'NewCarCompareCtrl'
+      controller: 'NewCarCompareCtrl',
+      caseInsensitiveMatch: true
     }).when('/postForSellCar', {
       templateUrl: '/templates/postForSellCar.html',
       controller: 'PostCtrl'
-    }).when('/addNewCar', {
-      templateUrl: '/templates/addNewCar.html',
-      controller: 'newCarCtrl'
     }).otherwise({
       redirectTo: '/',
       caseInsensitiveMatch: true
