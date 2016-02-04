@@ -9,7 +9,7 @@
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label >Model Year*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select  class="form-control" ng-model="modelYear" name="modelYear" required>
               <option value="" selected="true">Year</option>
               <option ng-repeat="y in [] | range:yRange" value="{{curYear-$index}}">{{curYear-$index}}</option>
@@ -18,8 +18,8 @@
         </div>
       <div class="col-xs-2">
       <label>Make*</label></div>
-      <div class="col-xs-3 selectContainer">
-            <select  class="form-control" name="make" ng-model="make" ng-change="makeChanged()" required>
+      <div class="col-xs-3 ">
+            <select  class="form-control" name="make" ng-model="make" ng-change="makeChanged()">
                 <option value="">Make</option>
                 <option ng-repeat="mk in allMakes" value="{{mk}}">{{mk}}</option>
             </select>
@@ -30,7 +30,7 @@
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label >Model*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select  class="form-control" name="model" ng-model="model" ng-change="modelChanged()" required>
                 <option value="">Model</option>
                 <option ng-repeat="md in allModels" value="{{md}}">{{md}}</option>
@@ -39,7 +39,7 @@
         </div>
       <div class="col-xs-2">
       <label >Version*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select  class="form-control" name="version" ng-model="version" required>
                 <option value="">Version</option>
                 <option ng-repeat="vr in allVersions" value="{{vr}}">{{vr}}</option>
@@ -50,7 +50,7 @@
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label>City*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select  ng-model="city" class="form-control" name="city" ng-change="cityChanged()" required>
                 <option value="">City</option>
                 <option ng-repeat="c in allCities" value="{{c}}">{{c}}</option>
@@ -59,7 +59,7 @@
         </div>
       <div class="col-xs-2">
       <label>City Area</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select  ng-model="area" class="form-control" name="area" required>
                 <option value="">City Area</option>
                 <option ng-repeat="a in allAreas" value="{{a}}">{{a}}</option>
@@ -91,21 +91,18 @@
       <div class="col-xs-2"></div>
       <div class="col-xs-2">
       <label>Engine Type*</label></div>
-      <div class="col-xs-3 selectContainer">
+      <div class="col-xs-3 ">
             <select ng-model="engineType" class="form-control" name="engineType" required>
                 <option value="">Engine Type</option>
-                <option value="CNG">CNG</option>
-                <option value="Diesel">Diesel</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Petrol">Petrol</option>
-                <option value="LPG">LPG</option>
+                <option ng-repeat="types in engineTypes" value="{{types}}">{{types}}</option>
               </select><div class="form-error" ng-show="(postAddForm.submitted || postAddForm.engineType.$dirty) && !postAddForm.engineType.$valid">Please select engine type</div>
         </div>
       <div class="col-xs-2">
       <label>Engine Capacity(cc)*</label></div>
       <div class="col-xs-3">
       <div class="input-group">
-                <input ng-model="engineCapacity" name="engineCapacity" type="number" step="1" min="100" max="9999" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Engine Capacity" name="capacity" /><div class="form-error" ng-show="(postAddForm.submitted || postAddForm.engineCapacity.$dirty) && !postAddForm.engineCapacity.$valid">Enter valid engine capacity, e.g. 1800</div>
+                <input ng-model="capacity" name="capacity"  type="number" step="1" min="100" max="9999" class="form-control req" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) ||event.charCode==0' placeholder="Engine Capacity"  />
+                <div class="form-error" ng-show="(postAddForm.submitted || postAddForm.capacity.$dirty) && !postAddForm.capacity.$valid">Enter valid engine capacity, e.g. 1800</div>
             </div>
       </div>
     </div>
@@ -138,8 +135,69 @@
       <label>AD Description*</label></div>
       <div class="col-xs-8">
        <textarea class="form-control" rows="5" name="description"></textarea>
+       <div class="form-error" ng-show="(postAddForm.submitted || postAddForm.description.$dirty) && !postAddForm.description.$valid">Please give description</div>
       </div>
     </div>
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">More Details</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Registration City</label></div>
+      <div class="col-xs-3">
+        <select  class="form-control" ng-model="registrationCity" name="registrationCity">
+                 <option value="">City</option>
+                <option ng-repeat="c in allCities" value="{{c}}">{{c}}</option>
+               
+        </select>
+      </div>
+      <div class="col-xs-2">
+      <label>Exterior Color*</label></div>
+      <div class="col-xs-3">
+        <select  class="form-control" ng-model="exteriorColor" name="exteriorColor">
+                  <option value="">Exterior color</option>
+                  <option ng-repeat="color in colors" value="{{color}}">{{color}}</option>
+               
+        </select>
+        <div class="form-error" ng-show="(postAddForm.submitted || postAddForm.exteriorColor.$dirty) && !postAddForm.exteriorColor.$valid">Please select Color</div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12" > 
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Assembly*</label></div>
+      <div class="col-xs-3">
+        <select  class="form-control" ng-model="assembly" name="assembly">
+              <option value="">Assembly</option>
+              <option value="Local">Local</option>
+              <option value="Imported">Imported</option>        
+        </select>
+        <div class="form-error" ng-show="(postAddForm.submitted || postAddForm.assembly.$dirty) && !postAddForm.assembly.$valid">Please select Color</div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Upload Images</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>AD Description*</label></div>
+      <div class="col-xs-8">
+       <textarea class="form-control" rows="5" name="description"></textarea>
+      </div>
+    </div>
+    <div class="form-group col-xs-12" > 
+      <hr noshade>
+      <label class="col-xs-12">Contact Information</label>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-2">
+      <label>Phone Number</label></div>
+      <div class="col-xs-8">
+      <input type="text" class="form-control"  name="EDGE" />
+      </div>
+    </div>
+      <div class="col-xs-12">
+        <hr noshade>
+       </div> 
         <div class="col-xs-5"></div>
         <div class="col-xs-2">
   <button type="submit" class="btn btn-primary btn-lg" ng-click="postAdd()">Post Add</button>

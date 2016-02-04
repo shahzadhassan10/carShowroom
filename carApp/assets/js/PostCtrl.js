@@ -1,6 +1,6 @@
 var PostAdd = angular.module('PostAdd', []);
 
-NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService', function($scope, showRoomService) {
+NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', function($scope, showRoomService,util) {
    // used with range filter in ng-repeat to populate select values. 
    $scope.yRange = 77;
    $scope.curYear = new Date().getFullYear();
@@ -8,7 +8,14 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService', function($sco
 
    $scope.allMakes = [];
    $scope.make = "";
-
+   $scope.colors=[];
+   $scope.engineTypes=[];
+   util.getAllColors().then(function(response){
+      $scope.colors.push.apply($scope.colors, response);
+   });
+   util.getEngineTypes().then(function(response){
+      $scope.engineTypes.push.apply($scope.engineTypes, response);
+   });
    /* 
    Get all makes from db
    */
@@ -112,7 +119,7 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService', function($sco
    $scope.mileage;
    $scope.price;
 
-   $scope.engineType = "";
+   $scope.engineType="";
    $scope.allEngineTypes = [];
    $scope.getAllEngineTypes = function() {
     showRoomService.getVersionsByMakeAndModels($scope.make, $scope.model).then(function(response) {
@@ -123,12 +130,19 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService', function($sco
     });
    };
 
-   $scope.engineCapacity;
+   $scope.capacity;
    $scope.transmission;
+   $scope.exteriorColor;
+   $scope.assembly;
+   $scope.capacity=0;
+   $scope.transmission="";
+   $scope.exteriorColor="";
+   $scope.assembly="";
 
    $scope.transmissionChanged = function(){
     console.log("changed to : " + $scope.transmission);
-   }
+   };
+
 
    $scope.postAdd = function(){
        if ($scope.postAddForm.$valid) {      
