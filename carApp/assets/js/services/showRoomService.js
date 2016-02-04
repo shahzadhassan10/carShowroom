@@ -2,7 +2,7 @@ carShowroom.service('showRoomService', function($http, $q) {
   return {
     'getAllMakes': function() {
     var defer = $q.defer();
-    $http.get('/car/getAllMakes').success(function(resp){
+    $http.get('/make/getAllMakes').success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {
       defer.reject(err);
@@ -12,7 +12,7 @@ carShowroom.service('showRoomService', function($http, $q) {
 
     'getAllModelsByMake': function(make) {
     var defer = $q.defer();
-    $http.post('/car/getModelsByMake' , {'make' : make}).success(function(resp){
+    $http.post('/make/getModelsByMake' , {'make' : make}).success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {
       defer.reject(err);
@@ -23,7 +23,7 @@ carShowroom.service('showRoomService', function($http, $q) {
     'getVersionsByMakeAndModels': function(make, model) {
     var defer = $q.defer();
 
-    $http.post('/car/getVersionsByMakeAndModels' , {'make' : make, 'model' : model}).success(function(resp){
+    $http.post('/make/getVersionsByMakeAndModels' , {'make' : make, 'model' : model}).success(function(resp){
       defer.resolve(resp);
     }).error( function(err) {
       defer.reject(err);
@@ -50,4 +50,35 @@ carShowroom.service('showRoomService', function($http, $q) {
     });
     return defer.promise;
     },
+
+    'getCities': function() {
+    var defer = $q.defer();  
+    $http.get('/city/getAllCities').success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
+
+    'getAreasByCity': function(city) {
+    var defer = $q.defer();  
+    $http.post('/city/getAllCityAreaByCity', {'city' : city}).success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
+
+    'getEngineTypes': function(city) {
+    var defer = $q.defer();  
+    $http.post('/city/getAllCityAreaByCity', {'city' : city}).success(function(resp){
+      defer.resolve(resp);
+    }).error( function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+    },
+
 }});
