@@ -36,7 +36,7 @@ module.exports = {
   },
    getAllMakes:function(req,res){
       Makes.native(function(err,make){
-        make.distinct('make',{isNew:true}, function(err,makes){
+        make.distinct('make',{}, function(err,makes){
         if(err||!makes){
           res.json({
           success:false,
@@ -54,7 +54,7 @@ module.exports = {
     getModelsByMake:function(req,res){
       Makes.native(function(err,make){
         var params=req.params.all();
-        make.distinct('model',{ make:params.make+'',isNew:true}, function(err,models){
+        make.distinct('model',{ make:params.make+''}, function(err,models){
         if(err||!models){
           res.json({
           success:false,
@@ -73,7 +73,7 @@ module.exports = {
     getVersionsByMakeAndModels:function(req,res){
       Makes.native(function(err,make){
         var params=req.params.all();
-        make.distinct('version',{ make:params.make+'',model:params.model+'',isNew:true}, function(err,versions){
+        make.distinct('version',{ make:params.make+'',model:params.model+''}, function(err,versions){
         if(err||!versions){
           res.json({
           success:false,

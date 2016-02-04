@@ -35,8 +35,8 @@ module.exports = {
     });
   },
    getAllCities:function(req,res){
-     Cites.native(function(err,cities){
-       cities.distinct('city',{isNew:true}, function(err,cities){
+     Cities.native(function(err,citys){
+       citys.distinct('city',{}, function(err,cities){
         if(err||!cities){
           res.json({
           success:false,
@@ -53,7 +53,7 @@ module.exports = {
   },
    getAllCityAreaByCity:function(req,res){
     var params=req.params.all();
-     Cites.native(function(err,cities){
+     Cities.native(function(err,cities){
        cities.distinct('cityArea',{city:params.city}, function(err,cities){
         if(err||!cities){
           res.json({
