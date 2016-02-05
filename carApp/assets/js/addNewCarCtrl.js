@@ -1,6 +1,6 @@
 var PostAdd = angular.module('PostAdd', []);
 
-NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', function($scope, showRoomService,util) {
+NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', function($scope, showRoomService,util) {
    // used with range filter in ng-repeat to populate select values. 
    $scope.yRange = 77;
    $scope.curYear = new Date().getFullYear();
@@ -11,16 +11,44 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
           modelYear:"",
           description:"",
           price:"",
-          mileage:"",
+          registrationCity:"",
+         
           engineType:"",
           capacity:"",
           transmission:"",
+          displacement:"",
+          power:"",
+          torque:"",
+          gear:"",
+          valveMechanism:"",
+          comparationRatio:"",
+          noOfCylinder:"",
+          cylinderConfiguration:"",
+          valvesPerCylinder:"",
+
+          bodyType:"",
           exteriorColor:"",
-          registrationCity:"",
+          length:"",
+          width:"",
+          height:"",
+          kerbWeight:"",
+          seatingCapacity:"",
+          noOfDoors:"",
+          wheelType:"",
+          wheelSize:"",
+          tyres:"",
+
           assembly:"",
-          city:"",
-          cityArea:"",
-          phoneNumber:"",
+          mileage:"",
+          minimumTurningRadius:"",
+          fuelType:"",
+          frontSuspension:"",
+          rearSuspension:"",
+          steeringType:"",
+          powerAssited:"",
+          frontBrakes:"",
+          rareBrakes:"",
+
           Features: {}
    };
    $scope.allMakes = [];
@@ -28,7 +56,15 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
    $scope.engineTypes=[];
    $scope.FeaturesName=[];
    $scope.FeaturesModels=[];
+   $scope.allModels = [];
+   $scope.allVersions = [];
+   $scope.allCities = [];
+   $scope.allEngineTypes = [];
+   $scope.bodyTypes=[];
    // iniatalize Components
+   util.getBodyTypes().then(function(response){
+      $scope.bodyTypes.push.apply($scope.bodyTypes, response);
+   });
    util.getAllColors().then(function(response){
       $scope.colors.push.apply($scope.colors, response);
    });
@@ -68,7 +104,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
     }
    };
 
-   $scope.allModels = [];
    /* 
    Get all models of selected make from db.
    */
@@ -94,7 +129,7 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
     }
    };
 
-   $scope.allVersions = [];
+ 
    $scope.getAllVersions = function() {
     showRoomService.getVersionsByMakeAndModels($scope.Car.make, $scope.Car.model).then(function(response) {
       if(response.success && response.data != null && response.data.length > 0){
@@ -106,7 +141,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
     });
    };
 
-   $scope.allCities = [];
    $scope.getAllCities = function() {
     console.log("getting all cities.");
     showRoomService.getCities().then(function(response) {
@@ -116,27 +150,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
       }
     });
    }();
-
-   $scope.allAreas = [];
-   $scope.cityChanged = function(){
-    if($scope.Car.city == undefined){
-      console.log('city undefined.');
-      $scope.allAreas = [];
-      $scope.Car.cityArea = "";
-    }
-    else {
-      showRoomService.getAreasByCity($scope.Car.city).then(function(response) {
-        if(response.success && response.data != null && response.data.length > 0){
-          $scope.allAreas = response.data;
-          $scope.Car.cityArea = "";
-        } else {
-          $scope.allAreas = [];
-          $scope.Car.cityArea = "";
-        }
-      });
-    }
-   };
-   $scope.allEngineTypes = [];
    $scope.getAllEngineTypes = function() {
     showRoomService.getVersionsByMakeAndModels($scope.Car.make, $scope.Car.model).then(function(response) {
       if(response.success && response.data != null && response.data.length > 0){
@@ -144,10 +157,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
       }
       $scope.Car.engineType = "";
     });
-   };
-
-   $scope.transmissionChanged = function(){
-    console.log("changed to : " + $scope.Car.transmission);
    };
 
    $scope.ch="";
