@@ -1,5 +1,5 @@
 'use strict';
-
+var userLogged;
 var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd','HomePage', 'ngRoute', 'ui.bootstrap']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
@@ -8,10 +8,10 @@ carShowroom.config(['$routeProvider',
       templateUrl: '/templates/homePage.html',
     }).when('/Login', {
       templateUrl: '/templates/Login.html',
-      controller: 'UserCtrl'
+      controller: 'NavCtrl'
     }).when('/SignUP', {
       templateUrl: '/templates/SignUP.html',
-      controller: 'UserCtrl'
+      controller: 'NavCtrl'
     })
     .when('/NewSearch', {
       templateUrl: '/templates/newCarSearch.html',
@@ -118,33 +118,6 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
 
 }]);
 carShowroom.controller('UserCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
-  $scope.user={};
-  $scope.ch="";
-  $scope.userLogged;
-   $scope.userAdd = function(){
-       if ($scope.adduser.$valid) {      
-          //form is valid
-          $scope.adduser.submitted=false;
-          //$scope. 
-          console.log("user+ "+$scope.user);
-        } else {
-            //if form is not valid set $scope.addContact.submitted to true     
-            $scope.adduser.submitted=true;    
-        };
-      console.log("posting Car Form");
-   };
-   $scope.loginUser = function(){
-       if ($scope.loguser.$valid) {      
-          //form is valid
-          $scope.loguser.submitted=false;
-          //$scope. 
-          console.log("user+ "+$scope.user);
-        } else {
-            //if form is not valid set $scope.addContact.submitted to true     
-            $scope.loguser.submitted=true;    
-        };
-      console.log("posting Car Form");
-   }
-
+  
 
   }]);

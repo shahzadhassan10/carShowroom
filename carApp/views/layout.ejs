@@ -50,12 +50,13 @@
           </ul>
         </li>
       <li ng-class="{'active':isActive(2)}"><a ng-click="tabClick(2)" href="/#/compare">Compare</a></li>
-      <li ng-class="{'active':isActive(3)}"><a ng-click="tabClick(3)" href="/#/postForSellCar">Post Add</a></li>
-      <li ng-class="{'active':isActive(4)}"><a ng-click="tabClick(4)" href="/#/addNewCar">Add New Car</a></li>
+      <li ng-if="isUser()" ng-class="{'active':isActive(3)}"><a ng-click="tabClick(3)" href="/#/postForSellCar">Post Add</a></li>
+      <li ng-if="isAdmin()" ng-class="{'active':isActive(4)}"><a ng-click="tabClick(4)" href="/#/addNewCar">Add New Car</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li ng-class="{'active':isActive(5)}" ><a ng-click="tabClick(5)" href="/#/Login">Login</a></li>
-      <li ng-class="{'active':isActive(6)}" ><a ng-click="tabClick(6)" href="/#/SignUP">Sign Up</a></li>
+      <li ng-if="!isUser()" ng-class="{'active':isActive(5)}" ><a ng-click="tabClick(5)" href="/#/Login">Login</a></li>
+      <li ng-if="!isUser()" ng-class="{'active':isActive(6)}" ><a ng-click="tabClick(6)" href="/#/SignUP">Sign Up</a></li>
+      <li ng-if="isUser()" ng-class="{'active':isActive(7)}" ><a ng-click="tabClick(7)" href="/#/Logout">Logout</a></li>
     </ul>
   </div>
 </nav>
