@@ -80,5 +80,15 @@ carShowroom.service('showRoomService', function($http, $q) {
     });
     return defer.promise;
     },
+    'addPost':function(postData){
+      var defer = $q.defer();  
+      $http.post('/post/addPost' , {'postData':postData}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+
 
 }});

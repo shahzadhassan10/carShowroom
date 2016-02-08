@@ -6,10 +6,19 @@ carShowroom.config(['$routeProvider',
     $routeProvider
     .when('/', {
       templateUrl: '/templates/homePage.html',
+    }).when('/Login', {
+      templateUrl: '/templates/Login.html',
+      controller: 'UserCtrl'
+    }).when('/SignUP', {
+      templateUrl: '/templates/SignUP.html',
+      controller: 'UserCtrl'
     })
     .when('/NewSearch', {
       templateUrl: '/templates/newCarSearch.html',
       controller: 'NewCarCtrl'
+    }).when('/UsedSearch', {
+      templateUrl: '/templates/searchUsedCars.html',
+      controller: 'usedCarCtrl'
     })
     .when('/compare', {
       templateUrl: '/templates/newCarCompare.html',
@@ -108,3 +117,34 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
   }
 
 }]);
+carShowroom.controller('UserCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
+  $scope.user={};
+  $scope.ch="";
+  $scope.userLogged;
+   $scope.userAdd = function(){
+       if ($scope.adduser.$valid) {      
+          //form is valid
+          $scope.adduser.submitted=false;
+          //$scope. 
+          console.log("user+ "+$scope.user);
+        } else {
+            //if form is not valid set $scope.addContact.submitted to true     
+            $scope.adduser.submitted=true;    
+        };
+      console.log("posting Car Form");
+   };
+   $scope.loginUser = function(){
+       if ($scope.loguser.$valid) {      
+          //form is valid
+          $scope.loguser.submitted=false;
+          //$scope. 
+          console.log("user+ "+$scope.user);
+        } else {
+            //if form is not valid set $scope.addContact.submitted to true     
+            $scope.loguser.submitted=true;    
+        };
+      console.log("posting Car Form");
+   }
+
+
+  }]);

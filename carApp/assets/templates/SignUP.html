@@ -1,0 +1,36 @@
+<div class="container">
+<form name="adduser" novalidate>
+       <div class="lable">
+            <div class="col_1_of_2 span_1_of_2">  
+              <input type="text" ng-model="user.name" name="name" class="text" placeholder="Name"   id="active" required/>
+              <div class="form-error" ng-show="(adduser.submitted || adduser.name.$dirty) && !adduser.name.$valid">Please enter Name</div>
+            </div>
+                <div class="col_1_of_2 span_1_of_2"><input type="text" ng-model="user.city" name="user.city" class="text" placeholder="city"  />
+
+                </div>
+                <div class="clear"> </div>
+       </div>
+       <div class="lable">
+            <div class="col_1_of_2 span_1_of_2">  <input type="text" ng-model="user.phoneNumber" name="phoneNumber" class="text req" placeholder="PhoneNumber"   id="active" required/><div class="form-error" ng-show="(adduser.submitted || adduser.phoneNumber.$dirty) && !adduser.phoneNumber.$valid">Please enter phoneNumber</div>
+            </div>
+                <div class="col_1_of_2 span_1_of_2"><input type="text" ng-model="user.address" name="address" class="text" placeholder="Address"  required/>
+                  <div class="form-error" ng-show="(adduser.submitted || adduser.address.$dirty) && !adduser.address.$valid">Please enter address</div>
+                </div>
+                <div class="clear"> </div>
+       </div>
+       <div class="lable-2 ">
+            <div class="col-sm-12">
+            <input type="text" ng-model="user.email" name="email" class="text" placeholder="email or username" required/></div>
+            <div class="form-error" ng-show="(adduser.submitted || adduser.email.$dirty) && !adduser.email.$valid">Please enter email</div>
+      </div>
+      <div class="lable-2">
+            <div class="col-sm-12"><input type="password" ng-model="user.password" name="password" placeholder="password" class="text" required/></div>
+            <div class="form-error" ng-show="(adduser.submitted || adduser.password.$dirty) && !adduser.password.$valid">Please enter password</div>
+      </div>
+       <div class="submit">
+        <input type="submit" value="Create account" ng-click='userAdd()'>
+       </div>
+       <div class="col-xs-4 form-error" ng-show="adduser.submitted && !adduser.$valid">{{ch}}Can not submit. Fields marked with * are required.</div>
+       
+    </form>
+  </div>
