@@ -1,6 +1,6 @@
 var HomePage = angular.module('HomePage', []);
 
-HomePage.controller('NavCtrl', ['$scope', function($scope){
+HomePage.controller('NavCtrl', ['$scope','$cookieStore','showRoomService', function($scope,$cookieStore,showRoomService){
 	$scope.selTab = 0;
 	$scope.users;
 	
@@ -12,45 +12,30 @@ HomePage.controller('NavCtrl', ['$scope', function($scope){
 		return $scope.selTab == tab; 
 	}
 	$scope.isUser=function(){
-		if($scope.users&&$scope.users.attr=='user')
+		if($cookieStore.get('user'))
 		{
 			return true;
 		}else
 			return false;
 	};
 	$scope.isAdmin=function(){
-		if($scope.users&&$scope.users.role=='admin')
+		if($cookieStore.get('user')=='Admin')
 		{
 			return true;
 		}else
 			return false;
 	};
-	$scope.user={};
-  	$scope.ch="";
-   	$scope.userAdd = function(){
-       if ($scope.adduser.$valid) {      
-          //form is valid
-          $scope.adduser.submitted=false;
-          //$scope. 
-          console.log("user+ "+$scope.user);
-        } else {
-            //if form is not valid set $scope.addContact.submitted to true     
-            $scope.adduser.submitted=true;    
-        };
-      console.log("posting Car Form");
-   	};
-   	$scope.loginUser = function(){
-       if ($scope.loguser.$valid) {      
-          //form is valid
-          $scope.loguser.submitted=false;
-          $scope.users.attr="user";
-          console.log("user+ "+$scope.user);
-        } else {
-            //if form is not valid set $scope.addContact.submitted to true     
-            $scope.loguser.submitted=true;    
-        };
-    console.log("posting Car Form");
-   }
+	$scope.logout=function(){
+      showRoomService.logout().then(function(res){
+        if(res.success)
+          $cookieStore.remove('user');
+        else
+          alert('logout failed');
+
+      })
+       
+   };
+
 
 
 }]);

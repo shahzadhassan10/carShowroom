@@ -155,8 +155,8 @@ module.exports = {
   getPostByCity:function(req,res){
     var params=req.params.all();
     var srch={};
-    if(params.city){
-      srch.city=params.city+'';
+    if(params.search.city){
+      srch.city=params.search.city+'';
     }
     Post.find(srch).exec(function findCB(err,posts){
       if(err||!posts||posts==''){
@@ -165,13 +165,15 @@ module.exports = {
               errormsg:'No Post obj found '+err
             });
         }else{
-          CarService.searchUsedCars(posts,params,function(resp){
+          CarService.searchUsedCars(posts,params.search,function(resp){
             if(resp.success){
                 var selectedPost=[];
                 for(i=0;i<resp.data.length;i++){
                     for(j=0;j<posts.length;j++){
-                      if(posts[j].cid==resp.data[i].id)
+                      if(posts[j].cid==resp.data[i].id){
                         selectedPost[i]=posts[j];
+                        selectedPost[i].Car=resp.data[i];
+                      }
                     }
                 }
                 res.json({

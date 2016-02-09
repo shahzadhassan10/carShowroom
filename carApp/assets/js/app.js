@@ -1,6 +1,5 @@
 'use strict';
-var userLogged;
-var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd','HomePage', 'ngRoute', 'ui.bootstrap']);
+var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd','HomePage', 'ngRoute', 'ui.bootstrap','ngCookies']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
@@ -8,10 +7,10 @@ carShowroom.config(['$routeProvider',
       templateUrl: '/templates/homePage.html',
     }).when('/Login', {
       templateUrl: '/templates/Login.html',
-      controller: 'NavCtrl'
+      controller: 'UserCtrl'
     }).when('/SignUP', {
       templateUrl: '/templates/SignUP.html',
-      controller: 'NavCtrl'
+      controller: 'UserCtrl'
     })
     .when('/NewSearch', {
       templateUrl: '/templates/newCarSearch.html',
@@ -36,7 +35,7 @@ carShowroom.config(['$routeProvider',
     })
   }]);
 
-carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
+carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope','$cookieStore','showRoomService', function($scope, $rootScope,$cookieStore, showRoomService) {
   $scope.allMakes = ["All Makes"];
   $scope.make = "All Makes";
   
@@ -117,7 +116,54 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope', 'showRoomService',
   }
 
 }]);
-carShowroom.controller('UserCtrl', ['$scope', '$rootScope', 'showRoomService', function($scope, $rootScope, showRoomService) {
+carShowroom.controller('UserCtrl', ['$scope', '$rootScope','$cookieStore','$window', 'showRoomService', function($scope, $rootScope,$cookieStore,$window, showRoomService) {
   
-
+  $scope.user={
+    email:"",
+    password:"",
+    name:"",
+    city:"",
+    address:"",
+    phoneNumber:""
+  };
+    $scope.ch="";
+    $scope.userAdd = function(){
+       if ($scope.adduser.$valid) {      
+          //form is valid
+          $scope.adduser.submitted=false;
+          //$scope. 
+          console.log("user+ "+$scope.user.email);
+          showRoomService.addUser($scope.user).then(function(response) {
+              if(response.success){
+                  $cookieStore.put('user',response.data);
+                  $window.location.href = '/#/';
+              }else{
+                alert(response.errormsg);
+              }
+          });
+        } else {
+            //if form is not valid set $scope.addContact.submitted to true     
+            $scope.adduser.submitted=true;    
+        };
+      console.log("posting User Form");
+    };
+    $scope.loginUser = function(){
+       if ($scope.loguser.$valid) {      
+          //form is valid
+          $scope.loguser.submitted=false;
+          console.log("user "+$scope.user.email);
+          showRoomService.getUser($scope.user).then(function(response) {
+              if(response.success){
+                  $cookieStore.put('user',response.data);
+                  $window.location.href = '/#/';
+              }else{
+                alert(response.errormsg);
+              }
+          });
+        } else {
+            //if form is not valid set $scope.addContact.submitted to true     
+            $scope.loguser.submitted=true;    
+        };
+    console.log("posting User Form");
+   };
   }]);

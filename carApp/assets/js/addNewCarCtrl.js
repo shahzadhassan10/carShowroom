@@ -170,6 +170,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
             $scope.addCarForm.submitted=true;    
         };
       console.log("posting Car Form");
+      console.log($scope.addCarForm .$error.required);
    }
 
 }]);

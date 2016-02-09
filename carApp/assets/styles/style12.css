@@ -1,0 +1,37 @@
+div.search{
+	background-color:#ddd;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
+    border: 2px solid #000000;
+}
+div.space{
+margin-top:10px;
+}
+div a{
+	cursor: pointer;
+}
+div.result{
+	margin-top:15px;
+}
+div.heading{
+	margin-bottom:10px;
+	font-weight: bold;
+	font-size: 16;
+}
+div.contents{
+	margin-bottom:5px;
+}
+a.box {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
+    border: 2px solid #000000;
+    background: #ffffff;
+    padding: 0px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    color:#223c7a;
+}
+a.box:hover{
+	 border-color: #4691e1;
+	 color:#4691e1;
+}
