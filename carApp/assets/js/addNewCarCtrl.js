@@ -94,7 +94,6 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
       console.log('make undefined.');
       $scope.allModels = [];
       $scope.Car.model = "";
-
       $scope.allVersions = [];
       $scope.Car.version = "";
     }
@@ -165,6 +164,13 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
           $scope.addCarForm.submitted=false;
           //$scope. 
           console.log("CAR+ "+$scope.Car.Features);
+          showRoomService.addCar($scope.Car).then(function(res){
+            if(res.success){
+              alert('Added'+res.data);
+            }else{
+              alert('Not Added'+res.errormsg);
+            }
+          });
         } else {
             //if form is not valid set $scope.addContact.submitted to true     
             $scope.addCarForm.submitted=true;    

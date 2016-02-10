@@ -14,7 +14,7 @@ module.exports = {
     	});
   		});
 	},
-	uploadImages:function(req,filename,next){
+	uploadImages:function(req,next){
 		req.file('avatar').upload({
   			dirname:  '../../assets/images',
   			maxBytes: 10485760

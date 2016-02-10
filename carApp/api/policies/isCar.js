@@ -1,14 +1,15 @@
 module.exports = function isCar (req, res, next) {
-	if(!req.param('model')||!req.param('version')||!req.param('make')||!req.param('modelYear')||!req.param('price')||!req.param('mileage')||!req.param('engineType')||!req.param('capacity')||!req.param('transmission')){
-	  	var msg=(req.param('model'))?'':'model, ';
-	  	msg+=(req.param('version'))?'':'version, ';
-	  	msg+=(req.param('make'))?'':'make, ';
-	  	msg+=(req.param('modelYear'))?'':'modelYear, ';
-	  	msg+=(req.param('price'))?'':'price, ';
-	  	msg+=(req.param('mileage'))?'':'mileage, ';
-	  	msg+=(req.param('engineType'))?'':'engineType, ';
-	  	msg+=(req.param('capacity'))?'':'capacity, ';
-	  	msg+=(req.param('transmission'))?'':'transmission';
+	var param=req.params.all();
+	if(!param.carData.model||!param.carData.version||!param.carData.make||!param.carData.modelYear||!param.carData.price||!param.carData.mileage||!param.carData.engineType||!param.carData.capacity||!param.carData.transmission){
+	  	var msg=(param.carData.model)?'':'model, ';
+	  	msg+=(param.carData.version)?'':'version, ';
+	  	msg+=(param.carData.make)?'':'make, ';
+	  	msg+=(param.carData.modelYear)?'':'modelYear, ';
+	  	msg+=(param.carData.price)?'':'price, ';
+	  	msg+=(param.carData.mileage)?'':'mileage, ';
+	  	msg+=(param.carData.engineType)?'':'engineType, ';
+	  	msg+=(param.carData.capacity)?'':'capacity, ';
+	  	msg+=(param.carData.transmission)?'':'transmission';
 	    res.json({
 	      success:false,
 	      errormsg:'Require fields: '+msg

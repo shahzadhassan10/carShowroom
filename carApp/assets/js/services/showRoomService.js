@@ -89,6 +89,16 @@ carShowroom.service('showRoomService', function($http, $q) {
       });
       return defer.promise;
     },
+    'addCar':function(carData){
+      var defer = $q.defer();  
+      $http.post('/car/addCar' , {'carData':carData}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+
     'getUser':function(user){
       console.log("user "+user.password);
       var defer = $q.defer();  
