@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="carShowroom">
 <head>
-  <title>Angular Todo Application</title>
+  <title>CarShowroom</title>
 
   <!-- Viewport mobile tag for sensible mobile support -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!--STYLES-->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="/styles/bootstrap.css">
   <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/style11.css">
+  <link rel="stylesheet" href="/styles/style12.css">
   <!--STYLES END-->
   <style>
   body {
@@ -15,24 +18,47 @@
       background-attachment: fixed;
       background-position: center; 
       color:#31708F;
+       padding-top: 65px; 
   }
   .form-error {
       color:#ff0000;
+  }
+  nav.navbar{
+    background-color:#50545d;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+    
+  }
+  .navbar-default .navbar-nav > li > a{
+    color:#eeeeef;
   }
   </style>
 </head>
 <body ng-controller="NavCtrl" >
 	<nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#"><h1 style="color:red;">Cars.Com</h1></a>
     </div>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-left">
       <li ng-class="{'active':isActive(0)}"><a ng-click="tabClick(0)" href="/#/">Home</a></li>
-      <li ng-class="{'active':isActive(1)}"><a ng-click="tabClick(1)" href="/#/NewSearch">Search</a></li>
+       <li class="dropdown">
+          <a ng-click="tabClick(1)" href="/#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/#/NewSearch">Search New Cars</a></li>
+            <li><a href="/#/UsedSearch">Search used cars</a></li>
+          </ul>
+        </li>
       <li ng-class="{'active':isActive(2)}"><a ng-click="tabClick(2)" href="/#/compare">Compare</a></li>
-      <li ng-class="{'active':isActive(3)}"><a ng-click="tabClick(3)" href="/#/postForSellCar">Post Add</a></li>
-      <li ng-class="{'active':isActive(4)}"><a ng-click="tabClick(4)" href="/#/addNewCar">Add New Car</a></li>
+      <li ng-if="isUser()" ng-class="{'active':isActive(3)}"><a ng-click="tabClick(3)" href="/#/postForSellCar">Post Add</a></li>
+      <li ng-if="isAdmin()" ng-class="{'active':isActive(4)}"><a ng-click="tabClick(4)" href="/#/addNewCar">Add New Car</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li ng-if="!isUser()" ng-class="{'active':isActive(5)}" ><a ng-click="tabClick(5)" href="/#/Login">Login</a></li>
+      <li ng-if="!isUser()" ng-class="{'active':isActive(6)}" ><a ng-click="tabClick(6)" href="/#/SignUP">Sign Up</a></li>
+      <li ng-if="isUser()" ng-class="{'active':isActive(7)}" ><a ng-click="logout()" href="/#/">Logout</a></li>
     </ul>
   </div>
 </nav>
@@ -44,9 +70,9 @@
  <script src="/js/dependencies/sails.io.js"></script>
  <script src="/bower_components/jquery/dist/jquery.js"></script>
  <script src="/bower_components/angular/angular.js"></script>
+ <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
  <script src="/bower_components/angular-route/angular-route.js"></script>
  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
- <script src="/js/CarCtrl.js"></script>
  <script src="/js/HomeCtrl.js"></script>
  <script src="/js/NewCarCompareCtrl.js"></script>
  <script src="/js/PostCtrl.js"></script>
@@ -55,6 +81,8 @@
  <script src="/js/customFilters/rangeFilter.js"></script>
  <script src="/js/services/showRoomService.js"></script>
  <script src="/js/services/util.js"></script>
+ <script src="/js/showCarCtrl.js"></script>
+ <script src="/js/usedCarCtrl.js"></script>
  <script src="/js/util.js"></script>
  <!--SCRIPTS END-->
 </body>

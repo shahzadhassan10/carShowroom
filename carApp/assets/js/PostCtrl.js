@@ -16,11 +16,12 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
           capacity:"",
           transmission:"",
           exteriorColor:"",
-          registrationCity:"",
+          registrationCopy:"",
           assembly:"",
           city:"",
           cityArea:"",
           phoneNumber:"",
+          avatar:null,
           Features: {}
    };
    $scope.allMakes = [];
@@ -39,7 +40,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
     
       $scope.FeaturesName=response.FeaturesName;
       $scope.FeaturesModels=response.FeaturesModels;
-      console.log("Features: "+$scope.FeaturesModels);
    });
    /* 
    Get all makes from db
@@ -112,7 +112,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
     showRoomService.getCities().then(function(response) {
       if(response.success && response.data != null && response.data.length > 0){
         $scope.allCities = response.data;
-        console.log('total :' + $scope.allCities);
       }
     });
    }();
@@ -147,7 +146,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
    };
 
    $scope.transmissionChanged = function(){
-    console.log("changed to : " + $scope.Car.transmission);
    };
 
    $scope.ch="";
@@ -155,6 +153,14 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
        if ($scope.postAddForm.$valid) {      
           //form is valid
           $scope.postAddForm.submitted=false; 
+          console.log("car "+$scope.Car.toString());
+          showRoomService.addPost($scope.Car).then(function(response) {
+            if(response.success){
+              alert("Added "+response.data.toString());
+            }else{
+              alert("Error: "+response.errormsg);
+            }
+          });
           //$scope. 
         } else {
             //if form is not valid set $scope.addContact.submitted to true     

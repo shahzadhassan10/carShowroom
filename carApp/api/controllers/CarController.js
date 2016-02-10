@@ -27,35 +27,36 @@ module.exports = {
 				images:resp.data,
 				EngineDetails:{
 					engineType:params.engineType,
-					capacity:(params.capacity)?parseInt(params.capacity):0,
+					capacity:(params.capacity)?parseInt(params.capacity):null,
 					transmission:params.transmission,
-					displacement:(params.displacement)?parseInt(params.displacement):0,
-					power:(params.power)?parseInt(params.power):0,
-					torque:(params.torque)?parseInt(params.torque):0,
-					gear:(params.gear)?parseInt(params.gear):0,
+					displacement:(params.displacement)?parseInt(params.displacement):null,
+					power:(params.power)?parseInt(params.power):null,
+					torque:(params.torque)?parseInt(params.torque):null,
+					gear:(params.gear)?parseInt(params.gear):null,
 					valveMechanism:params.valveMechanism,
-					comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):0,
-					noOfCylinders:(params.noOfCylinders)?parseInt(params.noOfCylinders):0,
+					comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):null,
+					noOfCylinders:(params.noOfCylinders)?parseInt(params.noOfCylinders):null,
 					cylinderConfiguration:params.cylinderConfiguration,
-					valvesPerCylinder:(params.valvesPerCylinder)?parseInt(params.valvesPerCylinder):0
+					valvesPerCylinder:(params.valvesPerCylinder)?parseInt(params.valvesPerCylinder):null
 				},
 				Body:{
 					bodyType:params.bodyType,
 					exteriorColor:params.exteriorColor,
-					length:(params.length)?parseInt(params.length):0,
-					width:(params.width)?parseInt(params.width):0,
-					height:(params.height)?parseInt(params.height):0,
-					kerbWeight:(params.kerbWeight)?parseInt(params.kerbWeight):0,
-					seatingCapacity:(params.seatingCapacity)?parseInt(params.seatingCapacity):0,
-					noOfDoors:(params.noOfDoors)?parseInt(params.noOfDoors):0,
+					length:(params.length)?parseInt(params.length):null,
+					width:(params.width)?parseInt(params.width):null,
+					
+					height:(params.height)?parseInt(params.height):null,
+					kerbWeight:(params.kerbWeight)?parseInt(params.kerbWeight):null,
+					seatingCapacity:(params.seatingCapacity)?parseInt(params.seatingCapacity):null,
+					noOfDoors:(params.noOfDoors)?parseInt(params.noOfDoors):null,
 					wheelType:params.wheelType,
-					wheelSize:(params.wheelSize)?parseInt(params.wheelSize):0,
-					tyres:(params.tyres)?parseInt(params.tyres):0
+					wheelSize:(params.wheelSize)?parseInt(params.wheelSize):null,
+					tyres:(params.tyres)?parseInt(params.tyres):null
 				},
 				Specification:{
-					mileage:(params.mileage)?parseInt(params.mileage):0,
+					mileage:(params.mileage)?parseInt(params.mileage):null,
 					assembly:params.assembly,
-					minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):0,
+					minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):null,
 					fuelType:params.fuelType,
 					frontSuspension:params.frontSuspension,
 					rearSuspension:params.rearSuspension,
@@ -106,7 +107,7 @@ module.exports = {
 		});
 	},
  	getCar: function (req, res) {
-	  	CarService.getCar(req.get('id'),function(resp){
+	  	CarService.getCar(req.param('id'),function(resp){
 	  		res.json(resp);
 	  	});
   	},

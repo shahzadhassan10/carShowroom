@@ -80,5 +80,62 @@ carShowroom.service('showRoomService', function($http, $q) {
     });
     return defer.promise;
     },
+    'addPost':function(postData){
+      var defer = $q.defer();  
+      $http.post('/post/addPost' , {'postData':postData}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+    'getUser':function(user){
+      console.log("user "+user.password);
+      var defer = $q.defer();  
+      $http.post('/user/loginUser' , {'userData':user}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+    'logout':function(){
+      var defer = $q.defer();  
+      $http.get('/user/logout').success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+    'addUser':function(user){
+      console.log("user "+user.email);
+      var defer = $q.defer();  
+      $http.post('/user/addUser' , {'userInfo':user}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+    'searchUsedCar':function(srchTerm){
+      var defer = $q.defer();  
+      $http.post('/post/getPostByCity' , {'search':srchTerm}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    },
+    'getCarById':function(id1){
+      var defer = $q.defer();  
+      $http.get('/car/getCar',{params: { id:id1 }}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
+    }
+
 
 }});

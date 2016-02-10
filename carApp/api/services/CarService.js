@@ -14,7 +14,7 @@ module.exports = {
     	});
   		});
 	},
-	uploadImages:function(req,next){
+	uploadImages:function(req,filename,next){
 		req.file('avatar').upload({
   			dirname:  '../../assets/images',
   			maxBytes: 10485760
@@ -200,24 +200,6 @@ module.exports = {
 		if(params.bodyColor){
 			srchTerm['Body.exteriorColor']=params.bodyColor+'';
 		}
-		/*if(params.name&&params.gtPrice&&params.ltPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)}};
-		}else if(params.name&&params.gtPrice&&!params.ltPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'>=':parseInt(params.gtPrice)}};
-		}else if(params.name&&params.ltPrice&&!params.gtPrice){
-			srchTerm={id:ids,isNew:false,name:params.name,price:{'<=':parseInt(params.ltPrice)}};
-		}else if(!params.name&&params.gtPrice&&params.ltPrice){
-			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(params.gtPrice),'<=':parseInt(params.ltPrice)}};
-		}else if(params.name&&!params.gtPrice&&!params.ltPrice){
-			srchTerm={id:ids,isNew:false,name:params.name};
-		}else if(!params.name&&params.gtPrice&&!params.ltPrice){
-			srchTerm={id:ids,isNew:false,price:{'<=':parseInt(params.ltPrice)}};
-		}else if(!params.name&&!params.gtPrice&&params.ltPrice){
-			srchTerm={id:ids,isNew:false,price:{'>=':parseInt(params.gtPrice)}};
-		}else{
-			srchTerm={id:ids,isNew:false};
-		}*/
-		//console.log('ids '+JSON.stringify(srchTerm));
 		srchTerm.id=ids;
 		srchTerm.isNew=false;
 		Car.find(srchTerm).exec(function(err,found){
@@ -260,33 +242,33 @@ module.exports = {
 							engineType:(params.engineType)?params.engineType:resp.data.EngineDetails.engineType,
 							capacity:(params.capacity)?parseInt(params.capacity):parseInt(resp.data.EngineDetails.capacity),
 							transmission:(params.transmission)?params.transmission:resp.data.EngineDetails.transmission,
-							displacement:(params.displacement)?parseInt(params.displacement):0,
-							power:(params.power)?parseInt(params.power):0,
-							torque:(params.torque)?parseInt(params.torque):0,
-							gear:(params.gear)?parseInt(params.gear):0,
+							displacement:(params.displacement)?parseInt(params.displacement):null,
+							power:(params.power)?parseInt(params.power):null,
+							torque:(params.torque)?parseInt(params.torque):null,
+							gear:(params.gear)?parseInt(params.gear):null,
 							valveMechanism:params.valveMechanism,
-							comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):0,
-							noOfCylinders:(params.noOfCylinders)?parseInt(params.noOfCylinders):0,
+							comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):null,
+							noOfCylinders:(params.noOfCylinders)?parseInt(params.noOfCylinders):null,
 							cylinderConfiguration:params.cylinderConfiguration,
-							valvesPerCylinder:(params.valvesPerCylinder)?parseInt(params.valvesPerCylinder):0
+							valvesPerCylinder:(params.valvesPerCylinder)?parseInt(params.valvesPerCylinder):null
 						},
 						Body:{
 							bodyType:params.bodyType,
 							exteriorColor:params.exteriorColor,
-							length:(params.length)?parseInt(params.length):0,
-							width:(params.width)?parseInt(params.width):0,
-							height:(params.height)?parseInt(params.height):0,
-							kerbWeight:(params.kerbWeight)?parseInt(params.kerbWeight):0,
-							seatingCapacity:(params.seatingCapacity)?parseInt(params.seatingCapacity):0,
-							noOfDoors:(params.noOfDoors)?parseInt(params.noOfDoors):0,
+							length:(params.length)?parseInt(params.length):null,
+							width:(params.width)?parseInt(params.width):null,
+							height:(params.height)?parseInt(params.height):null,
+							kerbWeight:(params.kerbWeight)?parseInt(params.kerbWeight):null,
+							seatingCapacity:(params.seatingCapacity)?parseInt(params.seatingCapacity):null,
+							noOfDoors:(params.noOfDoors)?parseInt(params.noOfDoors):null,
 							wheelType:params.wheelType,
-							wheelSize:(params.wheelSize)?parseInt(params.wheelSize):0,
-							tyres:(params.tyres)?parseInt(params.tyres):0
+							wheelSize:(params.wheelSize)?parseInt(params.wheelSize):null,
+							tyres:(params.tyres)?parseInt(params.tyres):null
 						},
 						Specification:{
 							mileage:(params.mileage)?parseInt(params.mileage):parseInt(resp.data.Specification.mileage),
 							assembly:params.assembly,
-							minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):0,
+							minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):null,
 							fuelType:(params.fuelType)?params.fuelType:resp.data.fuelType,
 							frontSuspension:(params.frontSuspension)?params.frontSuspension:resp.data.frontSuspension,
 							rearSuspension:(params.rearSuspension)?params.rearSuspension:resp.data.rearSuspension,

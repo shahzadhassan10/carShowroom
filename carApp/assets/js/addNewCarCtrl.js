@@ -8,39 +8,39 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
           make:"",
           model:"",
           version:"",
-          modelYear:"",
+          modelYear:null,
           description:"",
-          price:"",
+          price:null,
           registrationCity:"",
          
           engineType:"",
-          capacity:"",
+          capacity:null,
           transmission:"",
-          displacement:"",
-          power:"",
-          torque:"",
-          gear:"",
+          displacement:null,
+          power:null,
+          torque:null,
+          gear:null,
           valveMechanism:"",
-          comparationRatio:"",
-          noOfCylinder:"",
+          comparationRatio:null,
+          noOfCylinder:null,
           cylinderConfiguration:"",
-          valvesPerCylinder:"",
+          valvesPerCylinder:null,
 
           bodyType:"",
           exteriorColor:"",
-          length:"",
-          width:"",
-          height:"",
-          kerbWeight:"",
-          seatingCapacity:"",
-          noOfDoors:"",
+          length:null,
+          width:null,
+          height:null,
+          kerbWeight:null,
+          seatingCapacity:null,
+          noOfDoors:null,
           wheelType:"",
-          wheelSize:"",
-          tyres:"",
+          wheelSize:null,
+          tyres:null,
 
           assembly:"",
-          mileage:"",
-          minimumTurningRadius:"",
+          mileage:null,
+          minimumTurningRadius:null,
           fuelType:"",
           frontSuspension:"",
           rearSuspension:"",
@@ -75,7 +75,6 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
     
       $scope.FeaturesName=response.FeaturesName;
       $scope.FeaturesModels=response.FeaturesModels;
-      console.log("Features: "+$scope.FeaturesModels);
    });
    /* 
    Get all makes from db
@@ -109,7 +108,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
    */
    $scope.getAllModels = function() {
     showRoomService.getAllModelsByMake($scope.Car.make).then(function(response) {
-      if(response.success && response.data != null && response.data.length > 0){
+      if(response.success && response.data != 0 && response.data.length > 0){
         $scope.allModels = response.data;
       }else{
         $scope.allModels = [];
@@ -132,7 +131,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
  
    $scope.getAllVersions = function() {
     showRoomService.getVersionsByMakeAndModels($scope.Car.make, $scope.Car.model).then(function(response) {
-      if(response.success && response.data != null && response.data.length > 0){
+      if(response.success && response.data != 0 && response.data.length > 0){
         $scope.allVersions = response.data;
       }else{
         $scope.allVersions = [];
@@ -144,7 +143,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
    $scope.getAllCities = function() {
     console.log("getting all cities.");
     showRoomService.getCities().then(function(response) {
-      if(response.success && response.data != null && response.data.length > 0){
+      if(response.success && response.data != 0 && response.data.length > 0){
         $scope.allCities = response.data;
         console.log('total :' + $scope.allCities);
       }
@@ -152,7 +151,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
    }();
    $scope.getAllEngineTypes = function() {
     showRoomService.getVersionsByMakeAndModels($scope.Car.make, $scope.Car.model).then(function(response) {
-      if(response.success && response.data != null && response.data.length > 0){
+      if(response.success && response.data != 0 && response.data.length > 0){
         $scope.allEngineTypes = response.data;
       }
       $scope.Car.engineType = "";
@@ -160,17 +159,18 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
    };
 
    $scope.ch="";
-   $scope.postAdd = function(){
-       if ($scope.postAddForm.$valid) {      
+   $scope.carAdd = function(){
+       if ($scope.addCarForm.$valid) {      
           //form is valid
-          $scope.postAddForm.submitted=false; 
+          $scope.addCarForm.submitted=false;
           //$scope. 
+          console.log("CAR+ "+$scope.Car.Features);
         } else {
             //if form is not valid set $scope.addContact.submitted to true     
-            $scope.postAddForm.submitted=true;
-            $scope.ch=$scope.Car.Features.airConditioner;    
+            $scope.addCarForm.submitted=true;    
         };
-      console.log("posting form");
+      console.log("posting Car Form");
+      console.log($scope.addCarForm .$error.required);
    }
 
 }]);

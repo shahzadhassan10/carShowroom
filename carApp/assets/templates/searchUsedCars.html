@@ -1,0 +1,166 @@
+<div class="container">
+	<div class="col-sm-12 search">
+		
+		<h1>	Search Used Cars in Pakistan</h1><br />
+		<h3>Used Honda, Toyota, Suzuki, Used Japanese Cars & More<h3>
+		<div class="col-sm-12 mainSearch">
+			<hr noshade>
+			<div class="col-sm-3">
+            <select  class="form-control" ng-model="searhTerm.city" name="city" ng-change="cityChanged()" >
+                <option value="">All Cities</option>
+                <option ng-repeat="ct in allCities" value="{{ct}}">{{ct}}</option>
+            </select>
+        	</div>
+			<div class="col-sm-3">
+			<input ng-model="searhTerm.name" type="text" class="form-control"  name="name" placeholder="car name"/>
+
+			</div>
+			<div class="col-sm-3">
+ 			<select  class="form-control" ng-model="searhTerm.gtPrice" name="gtPrice">
+                <option value="">Price From</option>
+                  <option ng-repeat="price in priceRange" value="{{price*basePrice}}">{{price*basePrice | currency:"Rs":0}}</option>
+            </select>
+			</div>
+			<div class="col-sm-3">
+			<select  class="form-control" ng-model="searhTerm.ltPrice" name="ltPrice" >
+                <option value="">Price To</option>
+                  <option ng-repeat="price in priceRange" value="{{price*basePrice}}">{{price*basePrice | currency:"Rs":0}}</option>
+            </select>
+			</div>
+
+		</div>
+		<div ng-if="show" class="col-sm-12 space">
+				<div class="col-sm-3">
+	            <select  class="form-control" ng-model="searhTerm.cityArea" name="cityArea" >
+	                <option value="">All CityAreas</option>
+	                <option ng-repeat="ca in allAreas" value="{{ca}}">{{ca}}</option>
+	            </select>
+	        	</div>
+				<div class="col-sm-3">
+				<input ng-model="searhTerm.name" type="text" class="form-control"  name="name" placeholder="car name"/>
+
+				</div>
+				<div class="col-sm-3">
+	 			<select  class="form-control" ng-model="searhTerm.yearFrom" name="yearFrom">
+	                <option value="">Year From</option>
+              <option ng-repeat="y in [] | range:yRange" value="{{curYear-$index}}">{{curYear-$index}}</option>
+	            </select>
+				</div>
+				<div class="col-sm-3">
+				<select  class="form-control" ng-model="searhTerm.yearTo" name="yearTo" >
+	                <option value="">Year To</option>
+              <option ng-repeat="y in [] | range:yRange" value="{{curYear-$index}}">{{curYear-$index}}</option>
+	            </select>
+				</div>
+				
+		</div>
+		<div ng-if="show" class="col-sm-12 space">
+			<div class="col-sm-4">
+            <select  class="form-control" ng-model="searhTerm.engineType" name="engineType" >
+                <option value="">All Engine Types</option>
+                <option ng-repeat="et in engineTypes" value="{{et}}">{{et}}</option>
+            </select>
+        	</div>
+			<div class="col-sm-2">
+ 			<select  class="form-control" ng-model="searhTerm.capacityFrom" name="capacityFrom">
+                <option value="">Capacity From</option>
+          	<option ng-repeat="c in CapacityRange" value="{{c}}">{{c}} CC</option>
+            </select>
+			</div>
+			<div class="col-sm-2">
+			<select  class="form-control" ng-model="searhTerm.capacityTo" name="capacityTo" >
+            <option value="">Capacity To</option>
+          	<option ng-repeat="c in CapacityRange" value="{{c}}">{{c}} CC</option>
+            </select>
+			</div>
+
+			<div class="col-sm-2">
+ 			<select  class="form-control" ng-model="searhTerm.mileageFrom" name="mileageFrom">
+                <option value="">Mileage From</option>
+          <option ng-repeat="price in priceRange" value="{{(price*basePrice)/100}}">{{(price*basePrice)/100 | currency:"":0}} km</option>
+            </select>
+			</div>
+			<div class="col-sm-2">
+			<select  class="form-control" ng-model="searhTerm.mileageTo" name="mileageTo" >
+                <option value="">Mileage To</option>
+          <option ng-repeat="price in priceRange" value="{{(price*basePrice)/100}}">{{(price*basePrice)/100 | currency:"":0}} km</option>
+            </select>
+			</div>
+			
+		</div>
+
+		<div ng-if="show" class="col-sm-12 space">
+			<div class="col-sm-4">
+            <select  class="form-control" ng-model="searhTerm.bodyType" name="bodyColor" >
+                <option value="">All Body Types</option>
+                <option ng-repeat="ct in bodyTypes" value="{{ct}}">{{ct}}</option>
+            </select>
+        	</div>
+			<div class="col-sm-4">
+ 			<select  class="form-control" ng-model="searhTerm.bodyColor" name="bodyColor" >
+                <option value="">All Body Color</option>
+                <option ng-repeat="ct in colors" value="{{ct}}">{{ct}}</option>
+            </select>
+			</div>
+			<div class="col-sm-4">
+			<select  class="form-control" ng-model="searhTerm.reistrationCopy" name="reistrationCopy" >
+                <option value="">Registerd in Any City</option>
+                <option ng-repeat="ct in allCities" value="{{ct}}">{{ct}}</option>
+            </select>
+			</div>
+
+		</div>
+		<div ng-if="show" class="col-sm-12 space">
+			<div class="col-sm-4">
+            <select  class="form-control" ng-model="searhTerm.assembly" name="assembly" >
+                <option value="">All Assembly Types</option>
+                <option value="Local">Local</option>
+                 <option value="Imported">Imported</option>
+            </select>
+        	</div>
+			<div class="col-sm-4">
+ 			<select  class="form-control" ng-model="searhTerm.transmission" name="transmission" >
+                <option value="">All Transmission Types</option>
+                <option value="Manual">Manual</option>
+                <option value="Automatic">Automatic</option>
+            </select>
+			</div>
+		</div>
+
+
+		<div class="col-sm-12">
+		<hr noshade>
+		<div class="col-sm-9">
+		<a ng-click="showHide()">More Search Options </a>	
+		</div>
+		<div class="col-sm-3" >
+		<button type="submit" class="col-sm-12 btn btn-primary btn-lg" ng-click="searhCar()">Search</button>
+
+		</div>
+		</div>
+	</div>
+	<div class="col-sm-12 result">
+ 		<div  ng-show="resultFound">
+ 			<a class="col-sm-12 box"  ng-repeat="cars in resultData" href="/#/showCar/{{cars.Car.id}}">
+ 				<div class="col-sm-3">
+ 					<img src="/images/97d7ac54-e3ff-4aa5-9387-751f3c6218f2.jpg" />
+ 				</div>
+ 				 <div class="col-sm-9">
+ 				 	<div class="col-sm-12 heading">{{cars.Car.name}}</div>
+ 				 	<div class="col-sm-12 contents">Loc: {{cars.city}}</div>
+ 					<div class="col-sm-3 contents">{{cars.Car.modelYear}}</div>
+ 				 	<div class="col-sm-3 contents">Mileage: {{cars.Car.Specification.mileage}} km</div>
+ 				 	<div class="col-sm-6 contents">Pkr {{cars.Car.price | currency:" ":0}}</div>
+ 				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.engineType}}</div>
+ 				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.capacity}} cc</div>
+ 				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.transmission}}</div>
+ 				 	<div class="col-sm-3 contents">{{cars.phoneNumber}}</div>
+
+ 				 </div>
+ 			</a>
+ 		</div>
+ 		<div class="col-sm-12" ng-show="!resultFound">
+    		<label> Sorry! We could not find any results against your search criteria. </label>
+  		</div>
+	</div>
+</div>

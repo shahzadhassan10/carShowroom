@@ -5,7 +5,7 @@ module.exports = {
    */
   addUser: function (req, res) {
   	var params = req.params.all();
-  	User.create({name:params.name,email:params.email,phoneNumber:params.phoneNumber,password:params.password,city:params.city,address:params.address,role:'user',isActive:true}).exec(function createCB(err,created){
+  	User.create({name:params.userInfo.name,email:params.userInfo.email,phoneNumber:params.userInfo.phoneNumber,password:params.userInfo.password,city:params.userInfo.city,address:params.userInfo.address,role:'user',isActive:true}).exec(function createCB(err,created){
   		if(err||!created){
   			return res.json({success:false,errormsg:err});
   		}else{
@@ -52,7 +52,7 @@ module.exports = {
   },
   loginUser: function (req, res) {
   	var params = req.params.all();
-  	User.findOne({email:params.email,password:params.password}).exec(function createCB(err,found){
+  	User.findOne({email:params.userData.email,password:params.userData.password}).exec(function createCB(err,found){
   		if(err||!found||found==''||!(found.isActive)){
   			return res.json({
           success:false,
@@ -62,7 +62,7 @@ module.exports = {
         req.session.user=found.id;
     	return res.json({
           success:true,
-      		data: 'loginUser with name ' +found.name
+      		data:found.role+''
     	});
     }
   	});
@@ -85,7 +85,7 @@ module.exports = {
   },
    getAllUser:function(req,res){
      User.native(function(err,user){
-        user.find({},{password: false}).toArray(function(err,user1){
+        user.find({},{}).toArray(function(err,user1){
         if(err||!user1){
           res.json({
           success:false,
