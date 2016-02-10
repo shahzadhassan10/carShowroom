@@ -100,7 +100,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
   $scope.queriedOnce = false;
 
   $scope.showInsufData = false;
-
+  $scope.cars={};
   $scope.compareCars = function() {
     if(!valuesChanged){
       return;
@@ -112,17 +112,21 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
     
     if(isValid){
      showRoomService.getCarsByJson($scope.querries[0], $scope.querries[1], $scope.querries[2]).then(function(response) {
+      console.log("obj"+response.data[0].make);
+
       $scope.newCompCars = [];
       $scope.tableHeadings = [];
       $scope.queriedOnce = true;
 
       if(response.success && response.data != null && response.data.length > 0){ 
         $scope.showDetails = true;
+        $scope.cars=response.data;
         var isSecPresent = hasValueAt(response.data, 1);
         var isThirdPresent = hasValueAt(response.data, 2);
         parseHeadings(response.data, isSecPresent, isThirdPresent);
         parseDisplayData(response.data, isSecPresent, isThirdPresent);
       } else{
+        $scope.cars={};
         $scope.showDetails = false;
         console.log('Some error occurred.' + response.data.errormsg);
       }
@@ -172,4 +176,36 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
   $scope.showNotFound = function() {
     return ($scope.queriedOnce && !$scope.showDetails);
   };
+
+$scope.isObject = function(value) {
+        return angular.isObject(value);
+    };
+    $scope.label="More Details";
+    $scope.show=false;
+   $scope.showHide=function(){
+      if($scope.show){
+        $scope.show=false;
+        $scope.label="More Details";
+    }else{
+        $scope.show=true;
+        $scope.label="Less Details";
+    }
+      return $scope.show;
+
+   };
+   $scope.labelF="More Details";
+    $scope.showF=false;
+   $scope.showHideF=function(){
+      if($scope.showF){
+        $scope.showF=false;
+        $scope.labelF="More Details";
+    }else{
+        $scope.showF=true;
+        $scope.labelF="Less Details";
+    }
+      return $scope.showF;
+
+   };
+
+
  }]);

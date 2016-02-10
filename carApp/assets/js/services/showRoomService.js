@@ -126,6 +126,15 @@ carShowroom.service('showRoomService', function($http, $q) {
         defer.reject(err);
       });
       return defer.promise;
+    },
+    'getCarById':function(id1){
+      var defer = $q.defer();  
+      $http.get('/car/getCar',{params: { id:id1 }}).success(function(resp){
+      defer.resolve(resp);
+      }).error( function(err) {
+        defer.reject(err);
+      });
+      return defer.promise;
     }
 
 

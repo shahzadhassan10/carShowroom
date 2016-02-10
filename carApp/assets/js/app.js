@@ -18,6 +18,9 @@ carShowroom.config(['$routeProvider',
     }).when('/UsedSearch', {
       templateUrl: '/templates/searchUsedCars.html',
       controller: 'usedCarCtrl'
+    }).when('/showCar/:cid', {
+      templateUrl: '/templates/showCar.html',
+      controller: 'showCarCtrl'
     })
     .when('/compare', {
       templateUrl: '/templates/newCarCompare.html',

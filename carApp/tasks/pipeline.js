@@ -1,5 +1,6 @@
 var cssFilesToInject = [
 'bower_components/bootswatch/dist/css/bootstrap.css',
+'/bower_components/font-awesome/css/font-awesome.css',
 'styles/**/*.css'
 ];
 var jsFilesToInject = [

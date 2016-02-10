@@ -64,7 +64,7 @@ img{max-width:100%;}
 }
 .lable input[type="text"]:hover,.lable-2 input[type="text"]:hover,input[type="Password"]:hover,#active {
 	color:black;
-	border-left:6px solid#40A46F;
+	border-left:6px solid lightblue;
 }
 .lable-2 input[type="text"],input[type="Password"] { 
 	padding: 14px;
@@ -95,10 +95,10 @@ img{max-width:100%;}
 }
 input[type=submit] {
 	padding: 17px 30px;
-	color: #fff;
+	color: #0000ff;
 	float: right;
 	font-family: 'Oxygen', sans-serif;
-	background: #40A46F;
+	background: lightblue;
 	border: 1px solid #40A46F;
 	cursor: pointer;
 	font-size: 18px;
@@ -112,8 +112,8 @@ input[type=submit] {
 	-webkit-appearance: none;
 }
 .submit input[type=submit]:hover {
-	 background:#07793D;
-	 border:1px solid #07793D;
+	 background:lightblue;
+	 border:1px solid lightblue;
 }
 /**start-copy-right**/
 

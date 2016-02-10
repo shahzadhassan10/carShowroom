@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html ng-app="carShowroom">
 <head>
-  <title>Angular Todo Application</title>
+  <title>CarShowroom</title>
 
   <!-- Viewport mobile tag for sensible mobile support -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!--STYLES-->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="/styles/bootstrap.css">
   <link rel="stylesheet" href="/styles/importer.css">
   <link rel="stylesheet" href="/styles/style11.css">
@@ -39,7 +40,7 @@
 	<nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Cars.Com</a>
+      <a class="navbar-brand" href="#"><h1 style="color:red;">Cars.Com</h1></a>
     </div>
     <ul class="nav navbar-nav navbar-left">
       <li ng-class="{'active':isActive(0)}"><a ng-click="tabClick(0)" href="/#/">Home</a></li>
@@ -80,6 +81,7 @@
  <script src="/js/customFilters/rangeFilter.js"></script>
  <script src="/js/services/showRoomService.js"></script>
  <script src="/js/services/util.js"></script>
+ <script src="/js/showCarCtrl.js"></script>
  <script src="/js/usedCarCtrl.js"></script>
  <script src="/js/util.js"></script>
  <!--SCRIPTS END-->

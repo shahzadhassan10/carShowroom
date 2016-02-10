@@ -46,7 +46,7 @@ module.exports.policies = {
   CarController:{
     addCar:['isPostReq','isAdmin','isCar'],
     updateCar:['isPutReq','isAdmin','isId'],
-    getCar:['isAdmin'],
+   // getCar:['isAdmin'],
     searchCar:['isPostReq'],
     deleteCar:['isDeleteReq','isAdmin','isId',]
 

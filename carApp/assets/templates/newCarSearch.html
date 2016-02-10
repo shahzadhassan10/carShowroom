@@ -1,6 +1,6 @@
 <div class="container">
-    <div >
-        <h1 align="center">Showroom Application Search</h1>
+    <div class="box">
+        <h2 align="center">Showroom Application Search</h2>
         <br>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
@@ -23,10 +23,6 @@
                       <option value="To" selected='true'>To</option>
                       <option ng-repeat="price in priceRange" value="{{price*basePrice}}">{{price*basePrice | currency:"Rs":0}}</option>
                 </select>
-
-                <br>
-                <br>
-                <br>
                <button type="submit" class="btn btn-primary btn-lg" ng-click="searchCars()">Search</button>
             </form>
             </div>
@@ -38,23 +34,21 @@
 
 <div class="container" >
  <div ng-show="resultFound()">
-     <div ng-repeat="car in matchedCars"> 
-      <div class="form-group col-xs-12" style="background-color:#eee;">
-        <div class="form-group col-xs-12">
-        <h2>{{ car.name }} </h2> </div>
-        
-        <div class="form-group col-xs-12">
-          <div class="col-xs-3">
-            <img ng-src="/images/{{car.images[0]}}" width="80px" height="80px" alt="{{car.name}}">
-          </div>
-          <div class="col-xs-9">
-            <label>Price <mark>{{'   ' + car.price | currency:"Rs":0}} </mark></label>
-            <br/>
-            <label>Model Year <mark>{{'   ' + car.modelYear}} </mark></label>
-          </div>
+     <a class="col-sm-12 box" href="/#/showCar/{{car.id}}" ng-repeat="car in matchedCars">
+        <div class="col-sm-3">
+          <img src="/images/97d7ac54-e3ff-4aa5-9387-751f3c6218f2.jpg" />
         </div>
-      </div>
-     </div>
+         <div class="col-sm-9">
+          <div class="col-sm-12 heading">{{car.name}}</div>
+          <div class="col-sm-12 contents">Reg: {{car.registrationCopy}}</div>
+          <div class="col-sm-3 contents">{{car.modelYear}}</div>
+          <div class="col-sm-3 contents">Mileage: {{car.Specification.mileage}} km</div>
+          <div class="col-sm-6 contents">Pkr {{car.price | currency:" ":0}}</div>
+          <div class="col-sm-3 contents">{{car.EngineDetails.engineType}}</div>
+          <div class="col-sm-3 contents">{{car.EngineDetails.capacity}} cc</div>
+          <div class="col-sm-3 contents">{{car.EngineDetails.transmission}}</div>
+         </div>
+      </a>
  </div>
 
   <div ng-show="!resultFound()" style="background-color:lavender;">
