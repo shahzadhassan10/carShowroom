@@ -13,7 +13,7 @@ module.exports = {
       req.session.user=created.id; 
     	return res.json({
           success:true,
-          data: 'Created user with name ' +created.name
+          data:+created.role+""
     	});
       }
   	});
@@ -36,19 +36,6 @@ module.exports = {
         }
       });
     });
-    /*User.find({id:[objId(req.get('id'))]}).exec(function(err,user){
-      if(err||!user||user==''){
-            res.json({
-              success:false,
-              errormsg:'User obj not found '+err
-            });
-        }else{
-          res.json({
-            success:true,
-            data:user[0]
-          });
-        }   
-    });*/
   },
   loginUser: function (req, res) {
   	var params = req.params.all();

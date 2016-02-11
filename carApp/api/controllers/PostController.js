@@ -4,98 +4,97 @@ module.exports = {
    */
   addPost: function (req, res) {
   	var params = req.params.all();
-    console.log("data "+params.postData);
-    CarService.uploadImages(req,params.postData.avatar,function(resp){
+    CarService.uploadImages(req,function(resp){
     if(resp.success){ 
     var carObj={
-      name:params.postData.make+' '+params.postData.model+' '+params.postData.version,
+      name:params.make+' '+params.model+' '+params.version,
       isNew:false,
-      model:params.postData.model,
-      version:params.postData.version,
-      make:params.postData.make,
-      modelYear:params.postData.modelYear,
-      registrationCopy:params.postData.registrationCopy,
-      price:params.postData.price,
-      description:params.postData.description,
+      model:params.model,
+      version:params.version,
+      make:params.make,
+      modelYear:params.modelYear,
+      registrationCopy:params.registrationCopy,
+      price:params.price,
+      description:params.description,
       images:resp.data,
       EngineDetails:{
-          engineType:params.postData.engineType,
-          capacity:(params.postData.capacity)?parseInt(params.postData.capacity):null,
-          transmission:params.postData.transmission,
-          displacement:(params.postData.displacement)?parseInt(params.postData.displacement):null,
-          power:(params.postData.power)?parseInt(params.postData.power):null,
-          torque:(params.postData.torque)?parseInt(params.postData.torque):null,
-          gear:(params.postData.gear)?parseInt(params.postData.gear):null,
-          valveMechanism:params.postData.valveMechanism,
-          comparationRatio:(params.postData.comparationRatio)?parseFloat(params.postData.comparationRatio):null,
-          noOfCylinders:(params.postData.noOfCylinders)?parseInt(params.postData.noOfCylinders):null,
-          cylinderConfiguration:params.postData.cylinderConfiguration,
-          valvesPerCylinder:(params.postData.valvesPerCylinder)?parseInt(params.postData.valvesPerCylinder):null
+          engineType:params.engineType,
+          capacity:(params.capacity)?parseInt(params.capacity):null,
+          transmission:params.transmission,
+          displacement:(params.displacement)?parseInt(params.displacement):null,
+          power:(params.power)?parseInt(params.power):null,
+          torque:(params.torque)?parseInt(params.torque):null,
+          gear:(params.gear)?parseInt(params.gear):null,
+          valveMechanism:params.valveMechanism,
+          comparationRatio:(params.comparationRatio)?parseFloat(params.comparationRatio):null,
+          noOfCylinders:(params.noOfCylinders)?parseInt(params.noOfCylinders):null,
+          cylinderConfiguration:params.cylinderConfiguration,
+          valvesPerCylinder:(params.valvesPerCylinder)?parseInt(params.valvesPerCylinder):null
       },
       Body:{
-          bodyType:params.postData.bodyType,
-          exteriorColor:params.postData.exteriorColor,
-          length:(params.postData.length)?parseInt(params.postData.length):null,
-          width:(params.postData.width)?parseInt(params.postData.width):null,
-          height:(params.postData.height)?parseInt(params.postData.height):null,
-          kerbWeight:(params.postData.kerbWeight)?parseInt(params.postData.kerbWeight):null,
-          seatingCapacity:(params.postData.seatingCapacity)?parseInt(params.postData.seatingCapacity):null,
-          noOfDoors:(params.postData.noOfDoors)?parseInt(params.postData.noOfDoors):null,
-          wheelType:params.postData.wheelType,
-          wheelSize:(params.postData.wheelSize)?parseInt(params.postData.wheelSize):null,
-          tyres:(params.postData.tyres)?parseInt(params.postData.tyres):null
+          bodyType:params.bodyType,
+          exteriorColor:params.exteriorColor,
+          length:(params.length)?parseInt(params.length):null,
+          width:(params.width)?parseInt(params.width):null,
+          height:(params.height)?parseInt(params.height):null,
+          kerbWeight:(params.kerbWeight)?parseInt(params.kerbWeight):null,
+          seatingCapacity:(params.seatingCapacity)?parseInt(params.seatingCapacity):null,
+          noOfDoors:(params.noOfDoors)?parseInt(params.noOfDoors):null,
+          wheelType:params.wheelType,
+          wheelSize:(params.wheelSize)?parseInt(params.wheelSize):null,
+          tyres:(params.tyres)?parseInt(params.tyres):null
       },
       Specification:{
-        mileage:(params.postData.mileage)?parseInt(params.postData.mileage):null,
-        assembly:params.postData.assembly,
-        minimumTurningRadius:(params.postData.minimumTurningRadius)?parseInt(params.postData.minimumTurningRadius):null,
-        fuelType:params.postData.fuelType,
-        frontSuspension:params.postData.frontSuspension,
-        rearSuspension:params.postData.rearSuspension,
-        steeringType:params.postData.steeringType,
-        powerAssited:params.postData.powerAssited,
-        frontBrakes:params.postData.frontBrakes,
-        rareBrakes:params.postData.rareBrakes
+        mileage:(params.mileage)?parseInt(params.mileage):null,
+        assembly:params.assembly,
+        minimumTurningRadius:(params.minimumTurningRadius)?parseInt(params.minimumTurningRadius):null,
+        fuelType:params.fuelType,
+        frontSuspension:params.frontSuspension,
+        rearSuspension:params.rearSuspension,
+        steeringType:params.steeringType,
+        powerAssited:params.powerAssited,
+        frontBrakes:params.frontBrakes,
+        rareBrakes:params.rareBrakes
       },
       Features:{
-        airConditioner:(params.postData.Features.airConditioner)?true:false,       
-        powerWindows:(params.postData.Features.powerWindows)?true:false,       
-        powerSteering:(params.postData.Features.powerSteering)?true:false,       
-        antiLockBrakingSystem:(params.postData.Features.antiLockBrakingSystem)?true:false,       
-        airBags:(params.postData.Features.airBags)?true:false, 
-        leatherSeats:(params.postData.Features.leatherSeats)?true:false,       
-        cruiseControl:(params.postData.Features.cruiseControl)?true:false,       
-        keylessEntry:(params.postData.Features.keylessEntry)?true:false,       
-        cdPlayer:(params.postData.Features.cdPlayer)?true:false,       
-        powerDoorLocks:(params.postData.Features.powerDoorLocks)?true:false,       
-        tractionControl:(params.postData.Features.tractionControl)?true:false,       
-        immobilizer:(params.postData.Features.immobilizer)?true:false,       
-        cupHolders:(params.postData.Features.cupHolders)?true:false,       
-        foldingRearSeat:(params.postData.Features.foldingRearSeat)?true:false,       
-        rearWashWiper:(params.postData.Features.rearWashWiper)?true:false,       
-        alloyWheels:(params.postData.Features.alloyWheels)?true:false,       
-        tubelessTyres:(params.postData.Features.tubelessTyres)?true:false,       
-        centralLocking:(params.postData.Features.centralLocking)?true:false,       
-        remoteBootFuelLid:(params.postData.Features.remoteBootFuelLid)?true:false,       
-        steeringAdjustment:(params.postData.Features.steeringAdjustment)?true:false,     
-        tachometer:(params.postData.Features.tachometer)?true:false,       
-        frontFogLights:(params.postData.Features.frontFogLights)?true:false,       
-        rearDefroster:(params.postData.Features.rearDefroster)?true:false,       
-        defogger:(params.postData.Features.defogger)?true:false,       
-        powerSeats:(params.postData.Features.powerSeats)?true:false,       
-        AMFMRadio:(params.postData.Features.AMFMRadio)?true:false,       
-        cassettePlayer:(params.postData.Features.cassettePlayer)?true:false,       
-        sunRoof:(params.postData.Features.sunRoof)?true:false,       
-        coolBox:(params.postData.Features.coolBox)?true:false,       
-        DVDPlayer:(params.postData.Features.DVDPlayer)?true:false
+        airConditioner:(params.airConditioner)?true:false,       
+        powerWindows:(params.powerWindows)?true:false,       
+        powerSteering:(params.powerSteering)?true:false,       
+        antiLockBrakingSystem:(params.antiLockBrakingSystem)?true:false,       
+        airBags:(params.airBags)?true:false, 
+        leatherSeats:(params.leatherSeats)?true:false,       
+        cruiseControl:(params.cruiseControl)?true:false,       
+        keylessEntry:(params.keylessEntry)?true:false,       
+        cdPlayer:(params.cdPlayer)?true:false,       
+        powerDoorLocks:(params.powerDoorLocks)?true:false,       
+        tractionControl:(params.tractionControl)?true:false,       
+        immobilizer:(params.immobilizer)?true:false,       
+        cupHolders:(params.cupHolders)?true:false,       
+        foldingRearSeat:(params.foldingRearSeat)?true:false,       
+        rearWashWiper:(params.rearWashWiper)?true:false,       
+        alloyWheels:(params.alloyWheels)?true:false,       
+        tubelessTyres:(params.tubelessTyres)?true:false,       
+        centralLocking:(params.centralLocking)?true:false,       
+        remoteBootFuelLid:(params.remoteBootFuelLid)?true:false,       
+        steeringAdjustment:(params.steeringAdjustment)?true:false,     
+        tachometer:(params.tachometer)?true:false,       
+        frontFogLights:(params.frontFogLights)?true:false,       
+        rearDefroster:(params.rearDefroster)?true:false,       
+        defogger:(params.defogger)?true:false,       
+        powerSeats:(params.powerSeats)?true:false,       
+        AMFMRadio:(params.AMFMRadio)?true:false,       
+        cassettePlayer:(params.cassettePlayer)?true:false,       
+        sunRoof:(params.sunRoof)?true:false,       
+        coolBox:(params.coolBox)?true:false,       
+        DVDPlayer:(params.DVDPlayer)?true:false
       }
       };
       CarService.addCar(carObj,function(resp){
         if(resp.success){
           var carId=resp.data.id;
-          var userId="56aa97a3572fc6940e080786";//req.session.user;
+          var userId=req.session.user;
           var d = new Date();
-          Post.create({date:d,phoneNumber:params.postData.phoneNumber,city:params.postData.city,cityArea:params.postData.cityArea,cid:carId,uid:userId}).exec(function createCB(err,created){
+          Post.create({date:d,phoneNumber:params.phoneNumber,city:params.city,cityArea:params.cityArea,cid:carId,uid:userId}).exec(function createCB(err,created){
           if(err||!created){
               CarService.deleteCar(carId,function(resp){
                 console.log(resp.success);
@@ -157,6 +156,9 @@ module.exports = {
     var srch={};
     if(params.search.city){
       srch.city=params.search.city+'';
+    }
+    if(params.search.cityArea){
+      srch.cityArea=params.search.cityArea+'';
     }
     Post.find(srch).exec(function findCB(err,posts){
       if(err||!posts||posts==''){

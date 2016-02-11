@@ -1,3 +1,18 @@
+carShowroom.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
 carShowroom.service('showRoomService', function($http, $q) {
   return {
     'getAllMakes': function() {
@@ -80,18 +95,47 @@ carShowroom.service('showRoomService', function($http, $q) {
     });
     return defer.promise;
     },
-    'addPost':function(postData){
-      var defer = $q.defer();  
-      $http.post('/post/addPost' , {'postData':postData}).success(function(resp){
+    'addPost':function(postData,file){
+      var defer = $q.defer();
+      var fd = new FormData();
+      for (key in postData ) {
+        if(angular.isObject(postData[key])){
+          for(key2 in postData[key]){
+            fd.append(key2, postData[key][key2]);
+          }
+        }else{
+            fd.append(key, postData[key]);
+        }
+      }
+      fd.append('file', file);
+      $http.post('/post/addPost' , fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+      }).success(function(resp){
       defer.resolve(resp);
       }).error( function(err) {
         defer.reject(err);
       });
       return defer.promise;
     },
-    'addCar':function(carData){
-      var defer = $q.defer();  
-      $http.post('/car/addCar' , {'carData':carData}).success(function(resp){
+    'addCar':function(carData,file){
+      var defer = $q.defer(); 
+      var fd = new FormData();
+      for (key in carData ) {
+        if(angular.isObject(carData[key])){
+          for(key2 in carData[key]){
+            console.log(" "+key2);
+            fd.append(key2, carData[key][key2]);
+          }
+        }else{
+            fd.append(key, carData[key]);
+        }
+      }
+      fd.append('file', file);
+      $http.post('/car/addCar', fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function(resp){
       defer.resolve(resp);
       }).error( function(err) {
         defer.reject(err);

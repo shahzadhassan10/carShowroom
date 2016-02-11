@@ -52,7 +52,7 @@ module.exports.policies = {
 
   },
   PostController:{
-    //addPost:['isPostReq','isLogin','isCar','isPost'],
+    addPost:['isPostReq','isLogin','isCar','isPost'],
     deletePost:['isDeleteReq','isLogin','isId']
   }
 	// RabbitController: {

@@ -14,7 +14,13 @@
  					</table>
  				</div>
  				</div>
- 				<div class="col-sm-5"><img src="/images/97d7ac54-e3ff-4aa5-9387-751f3c6218f2.jpg" /></div>
+ 				<div class="col-sm-5" ng-init="i=0">
+ 					<img ng-if="!car.images||car.images.length==0" alt="default" src="/images/home-banner-new.jpg" />
+ 					<img class="col-sm-12" ng-if="car.images.length>0" alt="uploaded" src="/images/{{images[i]}}" />
+ 					<div class="col-sm-4" style="color:blue;font-size:20px;font-weight:bold" ng-click="i=(i!=0)?i-1:images.length-1"><</div>
+ 					<div class="col-sm-4"></div>
+ 					<div class="col-sm-4" ng-click="i=(i+1)%(images.length)" style="color:blue;font-size:20px;font-weight:bold">></div>
+ 				</div>
  			</div>
  			<div class="col-sm-7">
  				<div class="table-responsive">

@@ -12,6 +12,7 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
           description:"",
           price:null,
           registrationCity:"",
+          avatar:null,
          
           engineType:"",
           capacity:null,
@@ -163,8 +164,8 @@ NewCarCompare.controller('addNewCarCtrl', ['$scope', 'showRoomService','util', f
           //form is valid
           $scope.addCarForm.submitted=false;
           //$scope. 
-          console.log("CAR+ "+$scope.Car.Features);
-          showRoomService.addCar($scope.Car).then(function(res){
+          console.log("CAR+ "+$scope.fileToUpload);
+          showRoomService.addCar($scope.Car,$scope.fileToUpload).then(function(res){
             if(res.success){
               alert('Added'+res.data);
             }else{

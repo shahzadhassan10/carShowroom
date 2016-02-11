@@ -21,7 +21,6 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
           city:"",
           cityArea:"",
           phoneNumber:"",
-          avatar:null,
           Features: {}
    };
    $scope.allMakes = [];
@@ -154,7 +153,7 @@ NewCarCompare.controller('PostCtrl', ['$scope', 'showRoomService','util', functi
           //form is valid
           $scope.postAddForm.submitted=false; 
           console.log("car "+$scope.Car.toString());
-          showRoomService.addPost($scope.Car).then(function(response) {
+          showRoomService.addPost($scope.Car,$scope.fileToUpload).then(function(response) {
             if(response.success){
               alert("Added "+response.data.toString());
             }else{

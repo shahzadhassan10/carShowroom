@@ -36,7 +36,8 @@
  <div ng-show="resultFound()">
      <a class="col-sm-12 box" href="/#/showCar/{{car.id}}" ng-repeat="car in matchedCars">
         <div class="col-sm-3">
-          <img src="/images/97d7ac54-e3ff-4aa5-9387-751f3c6218f2.jpg" />
+          <img ng-if="car.images.length>0" src="/images/{{(car.images[0])}}" />
+          <img ng-if="!car.images||car.images.length==0" src="/images/home-banner-new.jpg" />
         </div>
          <div class="col-sm-9">
           <div class="col-sm-12 heading">{{car.name}}</div>

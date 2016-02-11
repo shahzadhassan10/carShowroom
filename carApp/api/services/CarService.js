@@ -7,15 +7,16 @@ module.exports = {
   				success:false,
   				errormsg:"Car obj Not created"
   			});
-  		}
-    	next({
-    		success:true,
-      		data:created
-    	});
+  		}else{
+    		next({
+    			success:true,
+      			data:created
+    		});
+    	}
   		});
 	},
 	uploadImages:function(req,next){
-		req.file('avatar').upload({
+		req.file('file').upload({
   			dirname:  '../../assets/images',
   			maxBytes: 10485760
 			},function (err, uploadedFiles) {
