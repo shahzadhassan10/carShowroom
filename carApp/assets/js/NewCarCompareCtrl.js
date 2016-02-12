@@ -103,6 +103,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
   $scope.cars={};
   $scope.compareCars = function() {
     if(!valuesChanged){
+       $scope.showDetails = false;
       return;
     }
     valuesChanged = false;
@@ -117,7 +118,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
       $scope.newCompCars = [];
       $scope.tableHeadings = [];
       $scope.queriedOnce = true;
-
+      $scope.valid=false;
       if(response.success && response.data != null && response.data.length > 0){ 
         $scope.showDetails = true;
         $scope.cars=response.data;
@@ -131,6 +132,10 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
         console.log('Some error occurred.' + response.data.errormsg);
       }
      });
+    }else{
+        $scope.valid=true;
+        $scope.cars={};
+        $scope.showDetails = false;
     }
   };
   var hasValueAt = function(data, index){

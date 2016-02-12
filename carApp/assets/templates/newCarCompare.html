@@ -21,7 +21,7 @@
                     </td>
                 </tr>
                </table>
-               <label ng-show="!cars" style="background-color:lavender;"> Select atleast two cars for comparison. {{cars}}</label>  </div>
+               <label ng-show="valid" style="background-color:lavender;"> Select atleast two cars for comparison. {{cars}}</label>  </div>
                <div class="col-sm-3">
                <button type="submit" class="btn btn-primary btn-lg" ng-click="compareCars()">Compare</button>  </div>
             </form>
@@ -32,11 +32,22 @@
 </div>
 
 <div class="container" >
- <div ng-show="cars.length>0">
+ <div ng-show="showDetails&&cars.length>0">
   <div class="col-sm-12"><div class="heading"> Compare Specs:-</div>
 
     <div class="col-sm-12">
         <div class="table-responsive">
+          <div class="col-sm-12">
+          <div class="col-sm-3 subheading">________</div>
+          <div class="col-sm-3 ">
+            <img ng-show="cars[0]" src="/images/{{(cars[0].images.length>0)?cars[0].images[0]:'df.jpg'}}"/>
+          </div>
+          <div class="col-sm-3 ">
+              <img ng-show="cars[1]" src="/images/{{(cars[1].images.length>0)?cars[1].images[0]:'df.jpg'}}"/>
+          </div>
+          <div class="col-sm-3">
+            <img ng-show="cars[2]" src="/images/{{(cars[2].images.length>0)?cars[2].images[0]:'df.jpg'}}"/>
+          </div></div>
           <div class="col-sm-3 subheading">________</div>
           <div class="col-sm-3 subheading">{{cars[0].name}}</div>
           <div class="col-sm-3 subheading">{{cars[1].name}}</div>
@@ -58,8 +69,8 @@
             <tr ng-repeat="(key, value)  in cars[0].EngineDetails">
               <td class="col-sm-3">{{key | capitalize}}</td>
               <td class="col-sm-3">{{cars[0].EngineDetails[key]}}</td>
-              <td class="col-sm-3">{{cars[1].EngineDetails[key]}}</td>
-              <td class="col-sm-3">{{cars[2].EngineDetails[key]}}</td>
+              <td class="col-sm-3">{{(cars[1])?cars[1].EngineDetails[key]:"---"}}</td>
+              <td class="col-sm-3">{{(cars[2])?cars[2].EngineDetails[key]:"---"}}</td>
             </tr>
           </table>
         </div>
@@ -69,8 +80,8 @@
             <tr ng-repeat="(key, value)  in cars[1].Body">
               <td class="col-sm-3">{{key | capitalize}}</td>
               <td class="col-sm-3">{{cars[0].Body[key]}}</td>
-              <td class="col-sm-3">{{cars[1].Body[key]}}</td>
-              <td class="col-sm-3">{{cars[2].Body[key]}}</td>
+              <td class="col-sm-3">{{(cars[1])?cars[1].Body[key]:"---"}}</td>
+              <td class="col-sm-3">{{(cars[2])?cars[2].Body[key]:"---"}}</td>
             </tr>
           </table>
         </div>
@@ -80,8 +91,8 @@
             <tr ng-repeat="(key, value)  in cars[0].Specification" >
               <td class="col-sm-3">{{key | capitalize}}</td>
               <td class="col-sm-3">{{cars[0].Specification[key]}}</td>
-              <td class="col-sm-3">{{cars[1].Specification[key]}}</td>
-              <td class="col-sm-3">{{cars[2].Specification[key]}}</td>
+              <td class="col-sm-3">{{(cars[1])?cars[1].Specification[key]:"---"}}</td>
+              <td class="col-sm-3">{{(cars[2])?cars[2].Specification[key]:"---"}}</td>
             </tr>
           </table>
         </div>
@@ -96,15 +107,18 @@
           <table class="table  table-striped table-bordered"> 
             <tr ng-repeat="(key, value)  in cars[0].Features" ng-show="($index<12)?true:showF">
               <td class="col-sm-3">{{key | capitalize}}</td>
-              <td ng-show="!cars[0].Features[key]" class="col-sm-3" align="center"><i class="fa fa-times"></i></td>
-              <td ng-show="cars[0].Features[key]" class="col-sm-3" 
-              align="center"><i class="fa fa-check"></i></td>
-              <td ng-show="!cars[1].Features[key]" class="col-sm-3" align="center"><i class="fa fa-times"></i></td>
-              <td ng-show="cars[1].Features[key]" class="col-sm-3" 
-              align="center"><i class="fa fa-check"></i></td>
-              <td ng-show="!cars[2].Features[key]" class="col-sm-3" align="center"><i class="fa fa-times"></i></td>
-              <td ng-show="cars[2].Features[key]" class="col-sm-3" 
-              align="center"><i class="fa fa-check"></i></td>
+              <td class="col-sm-3" align="center">
+                <i class="fa fa-times" ng-show="!cars[0].Features[key]"></i>
+                <i class="fa fa-check" ng-show="cars[0].Features[key]"></i>
+              </td>
+              <td class="col-sm-3" align="center">
+                <i class="fa fa-times" ng-show="cars[1]&&!cars[1].Features[key]"></i>
+                <i class="fa fa-check" ng-show="cars[1]&&cars[1].Features[key]"></i>
+              </td>
+              <td  class="col-sm-3" align="center">
+                <i class="fa fa-times" ng-show="cars[2]&&!cars[2].Features[key]"></i>
+                <i class="fa fa-check" ng-show="cars[2]&&cars[2].Features[key]"></i>
+              </td>
             </tr>
           </table>
     </div>
@@ -112,7 +126,7 @@
       <a ng-click="showHideF()" class="subheading">{{labelF}}------- </a>
       <hr noshade>
  </div>
- <div ng-show="showNotFound()" style="background-color:lavender;">
+ <div ng-show="!showDetails" style="background-color:lavender;">
     <h3> No result found! </h3>
     <label> We could not find any results against your search criteria. Try with different values. </label>
  </div>
