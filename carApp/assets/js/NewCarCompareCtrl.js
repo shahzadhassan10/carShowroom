@@ -1,5 +1,5 @@
+// Define module and controller for new Car Comparision
 var NewCarCompare = angular.module('NewCarCompare', []);
-
 NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', function($scope, showRoomService) {
   var _ALL_MAKES = "All Makes";
   var _ALL_MODELS = "All Models";
@@ -103,7 +103,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
   $scope.cars={};
   $scope.compareCars = function() {
     if(!valuesChanged){
-       $scope.showDetails = false;
+       //$scope.showDetails = false;
       return;
     }
     valuesChanged = false;
@@ -113,7 +113,7 @@ NewCarCompare.controller('NewCarCompareCtrl', ['$scope', 'showRoomService', func
     
     if(isValid){
      showRoomService.getCarsByJson($scope.querries[0], $scope.querries[1], $scope.querries[2]).then(function(response) {
-      console.log("obj"+response.data[0].make);
+      //console.log("obj"+response.data[0].make);
 
       $scope.newCompCars = [];
       $scope.tableHeadings = [];

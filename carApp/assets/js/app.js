@@ -1,4 +1,6 @@
 'use strict';
+// Create app module and config routes. At the end Define Two controller
+// named NewCarCtrl and UserCtrl
 var carShowroom = angular.module('carShowroom', ['NewCarCompare','PostAdd','HomePage', 'ngRoute', 'ui.bootstrap','ngCookies']);
 carShowroom.config(['$routeProvider',
   function($routeProvider) {
@@ -37,7 +39,7 @@ carShowroom.config(['$routeProvider',
       caseInsensitiveMatch: true
     })
   }]);
-
+/////////  Define NewCarCtrl for searching new Cars.
 carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope','$cookieStore','showRoomService', function($scope, $rootScope,$cookieStore, showRoomService) {
   $scope.allMakes = ["All Makes"];
   $scope.make = "All Makes";
@@ -94,7 +96,7 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope','$cookieStore','sho
       queryFrom = queryTo;
       queryTo = temp;
     }
-
+    // call to service function to get All Cars matched criteria
     showRoomService.getAllCarsByMakeModel(queryMake, queryModel, queryFrom, queryTo).then(function(response) {
       if(response.success){ 
         $scope.matchedCars = response.data;
@@ -119,6 +121,7 @@ carShowroom.controller('NewCarCtrl', ['$scope', '$rootScope','$cookieStore','sho
   }
 
 }]);
+// Define UserCtel that handles user related functionality like sign up and login
 carShowroom.controller('UserCtrl', ['$scope', '$rootScope','$cookieStore','$window', 'showRoomService', function($scope, $rootScope,$cookieStore,$window, showRoomService) {
   
   $scope.user={

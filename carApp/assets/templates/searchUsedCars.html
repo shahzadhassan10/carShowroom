@@ -151,11 +151,17 @@
  				 	<div class="col-sm-12 contents">Loc: {{cars.city}}</div>
  					<div class="col-sm-3 contents">{{cars.Car.modelYear}}</div>
  				 	<div class="col-sm-3 contents">Mileage: {{cars.Car.Specification.mileage}} km</div>
- 				 	<div class="col-sm-6 contents">Pkr {{cars.Car.price | currency:" ":0}}</div>
+ 				 	<div class="col-sm-3 contents">Pkr {{cars.Car.price | currency:" ":0}}</div>
+ 				 	<div class="col-sm-3 contents">Contact</div>
  				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.engineType}}</div>
  				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.capacity}} cc</div>
  				 	<div class="col-sm-3 contents">{{cars.Car.EngineDetails.transmission}}</div>
- 				 	<div class="col-sm-3 contents">{{cars.phoneNumber}}</div>
+ 				 	<div class="col-sm-3 contents">{{(cars.phoneNumber)?cars.phoneNumber:"No contact"}}</div>
+ 				 	<div class="col-sm-12">Features:</div>
+ 				 	<div class="col-sm-4" ng-repeat="(key,val) in cars.Car.Features" ng-show="val">
+ 				 		<i class="fa fa-check"></i><label >{{key}}</label>
+ 				 	</div>
+ 				 	
 
  				 </div>
  			</a>

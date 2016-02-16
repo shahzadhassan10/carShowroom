@@ -1,3 +1,4 @@
+// Custom directive for file upload
 carShowroom.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -13,6 +14,7 @@ carShowroom.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+// CarServices contains function about CarModels and Posts
 carShowroom.service('showRoomService', function($http, $q) {
   return {
     'getAllMakes': function() {
